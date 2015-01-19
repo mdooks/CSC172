@@ -35,39 +35,38 @@ public class lab01 {
 	}
 	//part one Object method
 	/*public static void printarray (Object[] objArray){
-		for(int i=0; i< objArray.length; i++){
-			System.out.println(objArray[i]);
-		}*/
-
+		for(Object o : objArray){
+			System.out.println(o);
+		}
+	}*/
 		//Part 2, overloading
 		/*
 		public static void printarray(Integer[] intArray){
-			for (int i=0; i < intArray.length; i++){
-				System.out.println(intArray[i]);
+			for (Integer i : intArray){
+				System.out.println(i);
 			}
 		}
 		public static void printarray(Double[] doubArray){
-			for (int i=0; i < doubArray.length; i++){
-				System.out.println(doubArray[i]);
+			for (Double d : doubArray){
+				System.out.println(d);
 			}
 		}
 		public static void printarray(Character[] charArray){
-			for (int i=0; i < charArray.length; i++){
-				System.out.println(charArray[i]);
+			for (Character c : charArray){
+				System.out.println(c);
 			}
 		}
 		public static void printarray(String[] strArray){
-			for (int i=0; i < strArray.length; i++){
-				System.out.println(strArray[i]);
+			for (String s : strArray){
+				System.out.println(s);
 			}
 		}
 		*/
 
 		//part 3, generics
 		public static <T> void printarray(T[] inArray){
-			//for (T t: inArray)
-			for (int i=0; i<inArray.length; i++){
-				System.out.println(inArray[i]);
+			for (T t: inArray){
+				System.out.println(t);
 			}
 		}
 
@@ -78,11 +77,11 @@ public class lab01 {
 			Note: lab01.java uses unchecked or unsafe operations.
 			Note: Recompile with -Xlint:unchecked for details.
 			*/
-			/*
+/*
 			Comparable m = a[0];
-			for(int i=0; i<a.length; i++){
-				if (a[i].compareTo(m) > 0){
-					m=a[i];
+			for(Comparable i : a){
+				if (i.compareTo(m) > 0){
+					m=i;
 				}
 			}
 			return m;
@@ -90,9 +89,9 @@ public class lab01 {
 		*/
 		public static <T extends Comparable<? super T>> T getMax(T[] inArray){
 			T m = inArray[0];
-			for(int i=0; i<inArray.length; i++){
-				if (inArray[i].compareTo(m) == 1){
-					m=inArray[i];
+			for(T i : inArray){
+				if (i.compareTo(m) == 1){
+					m=i;
 				}
 			}
 			return m;
