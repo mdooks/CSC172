@@ -34,40 +34,46 @@ public class lab01 {
 		System.out.println("max String is " + getMax(strArray));
 	}
 	//part one Object method
-	/*public static void printarray (Object[] objArray){
+/*	public static void printarray (Object[] objArray){
 		for(Object o : objArray){
-			System.out.println(o);
+			System.out.printf(o + ", ");
 		}
+		System.out.println();
 	}*/
 		//Part 2, overloading
-		/*
+/*
 		public static void printarray(Integer[] intArray){
 			for (Integer i : intArray){
-				System.out.println(i);
+				System.out.printf(i + ", ");
 			}
+			System.out.println();
 		}
 		public static void printarray(Double[] doubArray){
 			for (Double d : doubArray){
-				System.out.println(d);
+				System.out.printf(d + ", ");
 			}
+			System.out.println();
 		}
 		public static void printarray(Character[] charArray){
 			for (Character c : charArray){
-				System.out.println(c);
+				System.out.printf(c + ", ");
 			}
+			System.out.println();
 		}
 		public static void printarray(String[] strArray){
 			for (String s : strArray){
-				System.out.println(s);
+				System.out.printf(s + ", ");
 			}
+			System.out.println();
 		}
 		*/
 
 		//part 3, generics
 		public static <T> void printarray(T[] inArray){
 			for (T t: inArray){
-				System.out.println(t);
+				System.out.printf(t + ", ");
 			}
+			System.out.println();
 		}
 
 		//part 4, get max non-generic
