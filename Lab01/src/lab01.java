@@ -1,7 +1,7 @@
 /*
  * Lab1
  *
- * Lab 1 version 1
+ * Lab 1
  *
  * Copyright 2015
  *
@@ -11,9 +11,9 @@
  *
  * Author: Nicholas Graham
  *
- * Lab Session:
+ * Lab Session: Wednesday 6:15 - 7:30
  *
- * Lab TA:
+ * Lab TA: Kate Zeng Zhiming
  *
  * Last Revised: January 19, 2014.
  */
