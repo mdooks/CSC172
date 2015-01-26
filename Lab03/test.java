@@ -20,15 +20,16 @@
 
 public class test {
   public static void main(String[] args){
-    MyDoublyLinkedList t = new MyDoublyLinkedList();
+    MyDoublyLinkedList t = new MyDoublyLinkedList(); //set up linked list
 
-    if(t.isEmpty()){
+    if(t.isEmpty()){ //check if the list is empty
       System.out.println("The list is empty");
     }
     else{
       System.out.println("The list is not empty");
     }
 
+    //test the insert function
     t.insert("h");
     t.insert("c");
     t.insert("n");
@@ -39,27 +40,31 @@ public class test {
     t.insert("2");
     t.insert("3");
 
+    //the following will not insert because they are already in the list
     t.insert("u");
     t.insert("a");
     t.insert("l");
     t.insert("1");
 
+    //print the list, and then print the list in reverse
     t.printList();
     t.printListRev();
 
+    //test the lookup function
     if(t.lookup("h")){
       System.out.println("There is an h in the list");
     }
     else{
       System.out.println("There is no h in the list");
     }
-    if(t.lookup("12")){
+    if(t.lookup("12")){ //1 & 2 are in the list, but 12 is not
       System.out.println("There is an 12 in the list");
     }
     else{
       System.out.println("There is no 12 in the list");
     }
 
+    //test the delete function, printing the list after each delete
     t.delete("2");
     t.printList();
     t.delete("3");
@@ -70,6 +75,11 @@ public class test {
     t.printList();
     t.printListRev();
 
-    System.out.println(t.isEmpty());
+    if(t.isEmpty()){ //check again if the list is empty
+      System.out.println("The list is empty");
+    }
+    else{
+      System.out.println("The list is not empty");
+    }
   }
 }

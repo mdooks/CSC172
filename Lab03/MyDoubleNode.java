@@ -18,7 +18,7 @@
 * Last Revised: January 26, 2014.
 */
 public class MyDoubleNode<AnyType> {
-  public AnyType data;
-  public MyDoubleNode<AnyType> next;
-  public MyDoubleNode<AnyType> prev;
+  public AnyType data; //stores data for this Node in a list
+  public MyDoubleNode<AnyType> next; //points to the next element in the list
+  public MyDoubleNode<AnyType> prev; //points to the previous element in the list
 }
