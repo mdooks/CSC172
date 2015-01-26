@@ -20,7 +20,7 @@
  public interface SimpleLinkedList<AnyType> {
   public void insert(AnyType x);
   public void delete(AnyType x);
-  public AnyType lookup(AnyType x);
+  public boolean lookup(AnyType x);
   public boolean isEmpty();
   public void printlist();
 }

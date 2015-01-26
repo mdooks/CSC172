@@ -26,27 +26,40 @@ public class lab02<AnyType> implements SimpleLinkedList<AnyType> {
   }
 
   public void insert(AnyType x){
-    MyNode e = start.next;
+    if (lookup(x)){
+      return;
+    }
+    MyNode e = start;
     MyNode in = new MyNode();
     in.data = x;
-    do {
-    //while (e.next != null){
-      if (e.data != null){
-        e = e.next;
-      }
-      else {
-        e = in;
-        e = e.next;
-      }
-    }while (e != null);
+    while (e.next != null){
+      e = e.next;
+    }
+    e.next = in;
   }
 
   public void delete(AnyType x){
-
+    if (lookup(x)){
+      MyNode e = start;
+      while (e.next != null){
+        if (e.next.data == x){
+          e.next = e.next.next;
+          return;
+        }
+        e = e.next;
+      }
+    }
   }
 
-  public AnyType lookup(AnyType x){
-    return x;
+  public boolean lookup(AnyType x){
+    MyNode e = start;
+    while (e.next !=null){
+      if (e.next.data == x){
+        return true;
+      }
+      e = e.next;
+    }
+    return false;
   }
 
   public boolean isEmpty(){
