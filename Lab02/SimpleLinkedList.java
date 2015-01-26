@@ -20,7 +20,7 @@
  public interface SimpleLinkedList<AnyType> {
   public void insert(AnyType x);
   public void delete(AnyType x);
-  public boolean lookup(AnyType x);
+  public boolean lookup(AnyType x); //originally returned AnyType, not bool, TA informed me to change to boolean to make it work with later requirements.
   public boolean isEmpty();
   public void printlist();
 }

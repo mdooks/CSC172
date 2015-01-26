@@ -18,6 +18,6 @@
 * Last Revised: January 25, 2014.
 */
 public class MyNode<AnyType> {
-  public AnyType data;
-  public MyNode<AnyType> next;
+  public AnyType data; //stores the item for the list
+  public MyNode<AnyType> next; //points to the next item in the list
 }
