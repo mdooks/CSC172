@@ -19,6 +19,12 @@
  */
 
 public class lab02<AnyType> implements SimpleLinkedList<AnyType> {
+  private MyNode start;
+
+  public lab02 (){
+    start = null;
+  }
+
   public void insert(AnyType x){
 
   }
