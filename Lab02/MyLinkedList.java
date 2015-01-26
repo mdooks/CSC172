@@ -68,6 +68,7 @@ public class MyLinkedList<AnyType> implements SimpleLinkedList<AnyType> {
     return false; //return false if not found
   }
 
+  //clean up this meathod!
   public boolean isEmpty(){ //check if the list is empty
     if (start.next == null){ //if the next element after the starting one is null the list is empty
       return true;
@@ -77,7 +78,7 @@ public class MyLinkedList<AnyType> implements SimpleLinkedList<AnyType> {
     }
   }
 
-  public void printlist(){ //prints out the elements of the list
+  public void printList(){ //prints out the elements of the list
     MyNode e = start;
     while (e.next != null){ //if the next item isn't empty (runs through the list)
       System.out.printf(e.next.data + ", "); //print out the data for the next item

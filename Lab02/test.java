@@ -15,7 +15,7 @@ public class test {
     t.insert("1");
     t.insert("2");
     t.insert("3");
-    t.printlist();
+    t.printList();
 
     //Test the lookup function
     if(t.lookup("r")){
@@ -33,28 +33,28 @@ public class test {
 
     //test the delete function
     t.delete("l");
-    t.printlist();
+    t.printList();
     System.out.println();
 
     t.delete("0"); //will do nothing because the is no 0
-    t.printlist();
+    t.printList();
     System.out.println();
 
     t.delete("o");
-    t.printlist();
+    t.printList();
 
     t.insert("pop"); //insert something in the list
     System.out.println();
 
-    t.printlist();
+    t.printList();
     System.out.println();
 
     t.delete("h"); //continue deleting
-    t.printlist();
+    t.printList();
     System.out.println();
 
     t.delete("e");
-    t.printlist();
+    t.printList();
     System.out.println();
   }
 }
