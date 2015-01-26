@@ -5,6 +5,9 @@ public class test {
     if(t.isEmpty()){
       System.out.println("The list is empty");
     }
+    else{
+      System.out.println("The list is not empty");
+    }
 
     //Add Items to the list
     t.insert("h");

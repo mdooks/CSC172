@@ -68,14 +68,8 @@ public class MyLinkedList<AnyType> implements SimpleLinkedList<AnyType> {
     return false; //return false if not found
   }
 
-  //clean up this meathod!
   public boolean isEmpty(){ //check if the list is empty
-    if (start.next == null){ //if the next element after the starting one is null the list is empty
-      return true;
-    }
-    else {
-      return false;
-    }
+    return (start.next == null); //if the next element after the starting one is null the list is empty
   }
 
   public void printList(){ //prints out the elements of the list
