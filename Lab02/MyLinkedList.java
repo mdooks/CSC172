@@ -19,10 +19,10 @@
 */
 
 public class MyLinkedList<AnyType> implements SimpleLinkedList<AnyType> {
-  private MyNode start;
+  private MyNode<AnyType> start;
 
   public MyLinkedList(){
-    start = new MyNode(); //set up the starting Node
+    start = new MyNode<AnyType>(); //set up the starting Node
   }
 
   public void insert(AnyType x){ //insert item at the end of the list
@@ -35,8 +35,8 @@ public class MyLinkedList<AnyType> implements SimpleLinkedList<AnyType> {
     if (lookup(x)){ // O(n) lloks up if the item is already in the list, if it is, does nothing
       return;
     }
-    MyNode e = start;
-    MyNode in = new MyNode(); //sets up new Node to add to list
+    MyNode<AnyType> e = start;
+    MyNode<AnyType> in = new MyNode<AnyType>(); //sets up new Node to add to list
     in.data = x;
     while (e.next != null){ //O(n) finds the end of the list
       e = e.next;
@@ -46,7 +46,7 @@ public class MyLinkedList<AnyType> implements SimpleLinkedList<AnyType> {
 
   public void delete(AnyType x){ //remove an item from the list
     if (lookup(x)){ //find if its in the list
-      MyNode e = start;
+      MyNode<AnyType> e = start;
       while (e.next != null){ //run through the list
         if (e.next.data == x){ //once it is found
           e.next = e.next.next; //remove the item by making the previus element point to the element after the removed element
@@ -58,7 +58,7 @@ public class MyLinkedList<AnyType> implements SimpleLinkedList<AnyType> {
   }
 
   public boolean lookup(AnyType x){ //originaly returned AnyType, not bool.
-    MyNode e = start;
+    MyNode<AnyType> e = start;
     while (e.next !=null){ //run through the list
       if (e.next.data == x){ //it the data is found return true
         return true;
@@ -73,7 +73,7 @@ public class MyLinkedList<AnyType> implements SimpleLinkedList<AnyType> {
   }
 
   public void printList(){ //prints out the elements of the list
-    MyNode e = start;
+    MyNode<AnyType> e = start;
     while (e.next != null){ //if the next item isn't empty (runs through the list)
       System.out.printf(e.next.data + ", "); //print out the data for the next item
       e = e.next;

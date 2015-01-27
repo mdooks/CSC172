@@ -7,10 +7,14 @@ To compile: javac *.java
 to run: java test
 
 Output:
-The list is empty
+The String list is empty
+The Int list is empty
 h, e, l, o, 1, 2, 3,
-There is no 'r' in the list
-There is an 'o' in the list
+1, 2, 3, 4, 5, 6, 7, 8,
+There is no 'r' in the String list
+There is an 'o' in the String list
+There is an '2' in the Int list
+There is no '13' in the Int list
 h, e, o, 1, 2, 3,
 
 h, e, o, 1, 2, 3,
@@ -22,3 +26,9 @@ h, e, 1, 2, 3, pop,
 e, 1, 2, 3, pop,
 
 1, 2, 3, pop,
+
+2, 3, 4, 5, 6, 7, 8,
+
+2, 4, 5, 6, 7, 8,
+
+2, 4, 6, 7, 8,
