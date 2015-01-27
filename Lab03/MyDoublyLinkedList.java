@@ -19,12 +19,12 @@
 */
 
 public class MyDoublyLinkedList<AnyType> implements DoublyLinkedList<AnyType> {
-  private MyDoubleNode start;
-  private MyDoubleNode end;
+  private MyDoubleNode<AnyType> start;
+  private MyDoubleNode<AnyType> end;
 
   public MyDoublyLinkedList(){ //initalize the start and end node and have them point to each other
-    start = new MyDoubleNode();
-    end = new MyDoubleNode();
+    start = new MyDoubleNode<AnyType>();
+    end = new MyDoubleNode<AnyType>();
     start.next = end;
     end.prev = start;
   }
@@ -32,13 +32,15 @@ public class MyDoublyLinkedList<AnyType> implements DoublyLinkedList<AnyType> {
     /*
     * Since the lookup function has O(n) that is factored in, and the return is just
     * a constant, so that part is O(n). the next few lines are constants so the end
-    * result is just O(n)
+    * result is just O(n), unless we are suppose to ignore the lookup() part of this
+    * in our calculations, in which case, it is a constant time function.
     */
     if (lookup(x)){ //has O(n)
       return;
     }
-    MyDoubleNode e = end;
-    MyDoubleNode in = new MyDoubleNode();
+    //rest is all constant
+    MyDoubleNode<AnyType> e = end;
+    MyDoubleNode<AnyType> in = new MyDoubleNode<AnyType>();
     in.data = x;
     in.prev = e.prev;
     in.next = e;
@@ -47,7 +49,7 @@ public class MyDoublyLinkedList<AnyType> implements DoublyLinkedList<AnyType> {
   }
   public void delete(AnyType x){
     if (lookup(x)){ //check to see the element is in there
-      MyDoubleNode e = start;
+      MyDoubleNode<AnyType> e = start;
       while(e.next.next != null){ //run through the elements
         if (e.next.data == x){ //ounce found remove it
           e.next.next.prev = e;
@@ -59,7 +61,7 @@ public class MyDoublyLinkedList<AnyType> implements DoublyLinkedList<AnyType> {
     }
   }
   public boolean lookup(AnyType x){
-    MyDoubleNode e = start;
+    MyDoubleNode<AnyType> e = start;
     while (e.next != null){ //run through the elements and check the data
       if (e.next.data == x){
         return true;
@@ -72,7 +74,7 @@ public class MyDoublyLinkedList<AnyType> implements DoublyLinkedList<AnyType> {
     return (start.next.next == null);
   }
   public void printList(){
-    MyDoubleNode e = start;
+    MyDoubleNode<AnyType> e = start;
     while (e.next.next != null){ //run through the elements and print each one
       System.out.printf(e.next.data + ", ");
       e = e.next;
@@ -80,7 +82,7 @@ public class MyDoublyLinkedList<AnyType> implements DoublyLinkedList<AnyType> {
     System.out.println();
   }
   public void printListRev(){
-    MyDoubleNode e = end;
+    MyDoubleNode<AnyType> e = end;
     while (e.prev.prev != null){ //run through the elements backwards printing each one
       System.out.printf(e.prev.data + ", ");
       e = e.prev;

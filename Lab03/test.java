@@ -20,7 +20,8 @@
 
 public class test {
   public static void main(String[] args){
-    MyDoublyLinkedList t = new MyDoublyLinkedList(); //set up linked list
+    //sets up the linked list, uses string to test, but any class can be substituted.
+    MyDoublyLinkedList<String> t = new MyDoublyLinkedList<String>();
 
     if(t.isEmpty()){ //check if the list is empty
       System.out.println("The list is empty");
