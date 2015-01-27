@@ -1,0 +1,24 @@
+Nicholas Graham
+ngraham@u.rochester.edu
+CSC 172
+Lab 02
+
+To compile: javac *.java
+to run: java test
+
+Output:
+The list is empty
+h, e, l, o, 1, 2, 3,
+There is no 'r' in the list
+There is an 'o' in the list
+h, e, o, 1, 2, 3,
+
+h, e, o, 1, 2, 3,
+
+h, e, 1, 2, 3,
+
+h, e, 1, 2, 3, pop,
+
+e, 1, 2, 3, pop,
+
+1, 2, 3, pop,
