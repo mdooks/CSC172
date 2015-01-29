@@ -11,11 +11,13 @@
 *
 * Author: Nicholas Graham
 *
+* Email: ngraham@u.rochester.edu
+*
 * Lab Session: Wednesday 6:15 - 7:30
 *
 * Lab TA: Kate Zeng Zhiming
 *
-* Last Revised: January 26, 2014.
+* Last Revised: January 29, 2014.
 */
 public class MyDoubleNode<AnyType> {
   public AnyType data; //stores data for this Node in a list
