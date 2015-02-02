@@ -1,49 +1,55 @@
+import java.math.BigInteger;
 public class lab04{
   public static void main (String[] args){
-    int colors = 4;
-    int houses = 3;
+    BigInteger colors = new BigInteger("4");
+    BigInteger houses = new BigInteger ("3");
     System.out.println("How many ways can we paint three houses in any of four colors? " + assignments(colors, houses));
 
-    int characters = 26 + 26 + 10;
-    int passwordLength = 8;
+    BigInteger characters = new BigInteger("62");
+    BigInteger passwordLength = new BigInteger("8");
     System.out.println("Suppose a computer password consists of eight to ten letters and/or digits. How many different passwords are there? " + assignments(characters, passwordLength));
 
-    System.out.println("If we have 9 players for a baseball team, how many possible batting orders are there? " + permutations(9));
+    System.out.println("If we have 9 players for a baseball team, how many possible batting orders are there? " + permutations(new BigInteger("9")));
 
-    System.out.println("In a class of 200 students, we wish to elect a President, Vice President, Secretary and Treasurer. In haw many ways can these four officers be selected? " + orderedSelection(200, 4));
+    System.out.println("In a class of 200 students, we wish to elect a President, Vice President, Secretary and Treasurer. In haw many ways can these four officers be selected? " + orderedSelection(new BigInteger("200"), new BigInteger("4")));
 
-    System.out.println("How many ways are there to form a sequence of m letters out of the 26 letters, if no letter is allowed to appera more than once for m=3? " + orderedSelection(26, 3));
+    System.out.println("How many ways are there to form a sequence of m letters out of the 26 letters, if no letter is allowed to appear more than once for m=3? " + orderedSelection(new BigInteger("26"), new BigInteger("3")));
 
-System.out.println("How many ways are there to form a sequence of m letters out of the 26 letters, if no letter is allowed to appera more than once for m=5? " + orderedSelection(26, 5));
+System.out.println("How many ways are there to form a sequence of m letters out of the 26 letters, if no letter is allowed to appera more than once for m=5? " + orderedSelection(new BigInteger("26"), new BigInteger("5")));
 
-    System.out.println("In poker, each player is dealt five cards from a 52 card deck. How many different possible hands are there?  " + unorderedSelection(25, 5));
+    System.out.println("In poker, each player is dealt five cards from a 52 card deck. How many different possible hands are there?  " + unorderedSelection(new BigInteger("25"), new BigInteger ("5")));
   }
 
-  private static double assignments(double k, double n){
-    return Math.pow(k,n);
+  private static BigInteger assignments(BigInteger k, BigInteger n){
+    BigInteger out = new BigInteger("1");
+    System.out.println(n.intValue());
+    for (int i = 0; i < n.intValue(); i++){
+      out = out.multiply(k);
+    }
+    return out;
   }
 
-  private static double permutations (int n){
-    if (n == 1)
-      return 1;
+  private static BigInteger permutations (BigInteger n){
+    if (n.intValue() == 1)
+      return BigInteger.ONE;
     else
-      return (n * permutations(n-1));
+      return (n.multiply(permutations(n.subtract(BigInteger.ONE))));
   }
 
-  private static double orderedSelection (int n, int m){
-    int product = 1;
-    for (int i = n; i > n-m; i--){
-      product*=i;
+  private static BigInteger orderedSelection (BigInteger n, BigInteger m){
+    BigInteger product = BigInteger.ONE;
+    for (BigInteger i = n; i.intValue() > (n.subtract(m)).intValue(); i = i.subtract(BigInteger.ONE)){
+      product = product.multiply(i);
     }
     return (product);
   }
 
-  private static double unorderedSelection (int n, int m){
-    if (m == 0)
-      return 1;
-    else if(n == m)
-      return 1;
+  private static BigInteger unorderedSelection (BigInteger n, BigInteger m){
+    if (m.intValue() == 0)
+      return BigInteger.ONE;
+    else if(n.equals(m))
+      return BigInteger.ONE;
     else
-      return unorderedSelection(n-1, m) + unorderedSelection(n-1, m-1);
+      return unorderedSelection(n.subtract(BigInteger.ONE), m).add( unorderedSelection(n.subtract(BigInteger.ONE), m.subtract(BigInteger.ONE)));
   }
 }
