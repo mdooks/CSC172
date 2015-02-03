@@ -1,6 +1,7 @@
 public class lab05{
   public static void main (String[] args){
     System.out.println(identicalOrder("error"));
+    System.out.println (5, [1,3,1]);
     System.out.println(bins(6,4));
     System.out.println(bins(4,6));
   }
@@ -26,9 +27,19 @@ public class lab05{
     return top/denom;
   }
 
+  public static double newIdenticalOrder (int n, int[] d){
+    double num = permutations (n);
+    double denom = 1;
+    for (int i : d){
+      denom *= permutations (i);
+    }
+    return (num/denom);
+  }
+
   public static double bins (int items, int bins){
     return (permutations(items+bins-1))/(permutations(items));
   }
+
   private static double permutations (int n){
     if (n == 1)
       return 1;
