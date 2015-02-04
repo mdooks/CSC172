@@ -2,8 +2,10 @@ import java.math.BigInteger;
 public class lab05{
   public static void main (String[] args){
     //System.out.println(identicalOrder("error"));
-    System.out.println(newIdenticalOrder("error"));
-    System.out.println(newIdenticalOrder("little"));
+    System.out.println("There are " + newIdenticalOrder("error") + " anagrams of 'error'");
+    System.out.println("There are " + newIdenticalOrder("street") + " anagrams of 'street'");
+    System.out.println("There are " + newIdenticalOrder("allele") + " anagrams of 'allele'");
+    System.out.println("There are " + newIdenticalOrder("Mississippi") + " anagrams of 'Mississippi'");
     //System.out.println(bins(new BigInteger("6"), new BigInteger("4")));
     //System.out.println(bins(new BigInteger("4"), new BigInteger("6")));
   }
@@ -19,7 +21,6 @@ public class lab05{
         char e = inChar[j];
         if (c == e){
           tot++;
-          System.out.println(c+" "+ e);
         }
       }
       denom *= tot;
