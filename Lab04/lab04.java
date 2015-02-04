@@ -18,11 +18,6 @@ public class lab04{
     System.out.println("How many ways are there to form a sequence of m letters out of the 26 letters, if no letter is allowed to appear more than once for m=5? " + orderedSelection(new BigInteger("26"), new BigInteger("5")));
 
     System.out.println("In poker, each player is dealt five cards from a 52 card deck. How many different possible hands are there?  " + unorderedSelection(new BigInteger("52"), new BigInteger ("5")));
-    //BigInteger n = new BigInteger("52");
-    //BigInteger m = new BigInteger("5");
-    //System.out.println(n.subtract(m).subtract(BigInteger.ONE));
-    //System.out.println(unorderedSelection(new BigInteger("52"), new BigInteger("5")));
-      //unorderedSelection(((n.subtract(m)).subtract(BigInteger.ONE)), BigInteger.ONE));
   }
 
   private static BigInteger assignments(BigInteger k, BigInteger n){
