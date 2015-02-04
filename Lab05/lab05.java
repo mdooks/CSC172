@@ -1,15 +1,17 @@
+import java.math.BigInteger;
 public class lab05{
   public static void main (String[] args){
-    System.out.println(identicalOrder("error"));
-    System.out.println (5, [1,3,1]);
-    System.out.println(bins(6,4));
-    System.out.println(bins(4,6));
+    //System.out.println(identicalOrder("error"));
+    System.out.println(newIdenticalOrder("error"));
+    System.out.println(newIdenticalOrder("little"));
+    //System.out.println(bins(new BigInteger("6"), new BigInteger("4")));
+    //System.out.println(bins(new BigInteger("4"), new BigInteger("6")));
   }
 
-  public static double identicalOrder (String in){
-    double top = permutations(in.length());
-    double denom = 1;
-    char[] inChar = in.toCharArray();
+  public static BigInteger newIdenticalOrder (String input){
+    long top = permutations(input.length());
+    long denom = 1;
+    char[] inChar = input.toCharArray();
     for (int i=0; i < inChar.length; i++){
       char c= inChar[i];
       int tot = 1;
@@ -20,27 +22,22 @@ public class lab05{
           System.out.println(c+" "+ e);
         }
       }
-      //System.out.println(tot);
-      denom *= permutations(tot);
-      System.out.println(denom);
+      denom *= tot;
     }
-    return top/denom;
+    return BigInteger.valueOf(top/denom);
   }
 
-  public static double newIdenticalOrder (int n, int[] d){
-    double num = permutations (n);
-    double denom = 1;
-    for (int i : d){
-      denom *= permutations (i);
+  public static BigInteger bins (BigInteger items, BigInteger bins){
+    if (items.intValue() == 0 || bins.equals(items)){
+      return BigInteger.ONE;
     }
-    return (num/denom);
+    else{
+      return (bins(items.subtract(BigInteger.ONE), bins.subtract(BigInteger.ONE)).add(bins(items.subtract(BigInteger.ONE), bins)));
+    }
+    //return (permutations(items+bins-1))/(permutations(items));
   }
 
-  public static double bins (int items, int bins){
-    return (permutations(items+bins-1))/(permutations(items));
-  }
-
-  private static double permutations (int n){
+  private static long permutations (int n){
     if (n == 1)
       return 1;
     else if (n==0)
