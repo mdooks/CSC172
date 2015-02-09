@@ -1,0 +1,17 @@
+Nicholas Graham
+ngraham@u.rochester.edu
+CSC 172
+Lab 04
+Lab TA: Kate Zeng Zhiming
+Lab Session: Wednesday 6:15 - 7:30
+
+To compile: javac *.java
+to run: java lab04
+
+How many ways can we paint three houses in any of four colors? 64
+Suppose a computer password consists of eight to ten letters and/or digits. How many different passwords are there? 218340105584896
+If we have 9 players for a baseball team, how many possible batting orders are there? 362880
+In a class of 200 students, we wish to elect a President, Vice President, Secretary and Treasurer. In haw many ways can these four officers be selected? 1552438800
+How many ways are there to form a sequence of m letters out of the 26 letters, if no letter is allowed to appear more than once for m=3? 15600
+How many ways are there to form a sequence of m letters out of the 26 letters, if no letter is allowed to appear more than once for m=5? 7893600
+In poker, each player is dealt five cards from a 52 card deck. How many different possible hands are there?  2598960

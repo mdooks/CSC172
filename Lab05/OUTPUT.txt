@@ -1,0 +1,19 @@
+Nicholas Graham
+ngraham@u.rochester.edu
+CSC 172
+Lab 05
+Lab TA: Kate Zeng Zhiming
+Lab Session: Wednesday 6:15 - 7:30
+
+To compile: javac *.java
+to run: java lab05
+
+There are 120 anagrams of 'error'
+There are 720 anagrams of 'street'
+There are 720 anagrams of 'allele'
+There are 39916800 anagrams of 'Mississippi'
+How many ways can we distribute six apples to four children? 84
+How many ways can we distribute four apples to six children? 126
+
+How many ways can we distribute  six apples and three pears to five children? 60060
+How many ways can we distribute  two apples, five pears and six bananas to three children 4620
