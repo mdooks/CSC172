@@ -25,17 +25,18 @@ public class MasterMind implements mm {
   * can't move over again, return it. Then increase the counter so
   * that it is [0,1] and again return it, but now we are out of options,
   * so go up a level and change the first one to a 1, so we have [1,x]
-  * and then move over a possistion. So I started with loops, but that
+  * and then move right a possistion. So I started with loops, but that
   * would recuire me to know how many options, so I switched to recursion.
   */
-  public void guessGenerator (int[] colors, int position){
-    for(int i = 0; i< colors.length; i++){
-      colors[position] = i;
-      if (position == colors.length - 1){
+  public void guessGenerator (int[] options, int position){
+    //takes the list of piece options, and the positions that will be manipulated
+    for(int i = 0; i< options.length; i++){ //for all the options
+      options[position] = i; //set the current position to that option
+      if (position == options.length - 1){ //check to see if out of positions
         //add the guess to a list(?)
       }
-      else{
-        guessGenerator(colors, ++index);
+      else{ //if you aren't go deeper down the list
+        guessGenerator(options, ++position);
       }
     }
 
