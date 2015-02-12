@@ -1,16 +1,15 @@
 public class MasterMind implements mm {
   PossibleCodes codeList;
   int spaces;
+  String[] colors;
   public MasterMind (String[] tokencolors, int positions){
+    colors = tokencolors;
     codeList = new PossibleCodes();
     spaces = positions;
-    int[] v = {1,0,1};
+    int[] v = {3,3,1};
     int[] tokens = new int[spaces];
-    for (int i = 0; i<tokens.length; i++){
-      tokens[i] = i;
-    }
     codeGenerator(tokens, 0);
-    codeList.printList();
+    //codeList.printList();
     System.out.println(codeList.lookup(v));
   }
   public void printList (){
@@ -22,6 +21,8 @@ public class MasterMind implements mm {
   public void newGame() {
 
   }
+
+
   public String [] nextMove() {
     String[] x = {"s", "d"};
     return x;
@@ -44,15 +45,15 @@ public class MasterMind implements mm {
   */
   public void codeGenerator (int[] options, int position){
     //takes the list of piece options, and the positions that will be manipulated
-    for(int i = 0; i< options.length; i++){ //for all the options
+    for(int i = 0; i< colors.length; i++){ //for all the options
       options[position] = i; //set the current position to that option
-      System.out.println(options[position] + ", " + position);
+      //System.out.println(options[position] + ", " + position);
 
       if (position == spaces - 1){ //check to see if out of positions
         for (int j =0; j<options.length; j++){
-          System.out.print(options[j] + ",");
+          //System.out.print(options[j] + ",");
         }
-        System.out.println();
+        //System.out.println();
         codeList.insert(options);
       }
       else{ //if you aren't go deeper down the list
