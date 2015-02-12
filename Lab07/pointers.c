@@ -1,3 +1,22 @@
+/*
+ * Lab7
+ *
+ * Lab 7
+ *
+ * Copyright 2015
+ *
+ * Course: CSC 172 Spring 2015
+ *
+ * Assignment: Lab 7
+ *
+ * Author: Nicholas Graham
+ *
+ * Lab Session: Wednesday 6:15 - 7:30
+ *
+ * Lab TA: Kate Zeng Zhiming
+ *
+ * Last Revised: Febuary 12, 2014.
+ */
 #include <stdio.h>
 void mystrcat(char *dest, char *source);
 void mystrcpy(char *s, char *t);
@@ -8,6 +27,7 @@ int main(int argc, char *argv[]) {
   mystrcpy(msg, "Hello, ");
   for (int len = 0; len < argc; len++){
     if (mystrcmp(argv[len], "Nick") == 0){
+      
       mystrcat(msg, argv[len]);
       printf("%s\n", msg);
     }

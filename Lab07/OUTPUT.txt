@@ -1,0 +1,19 @@
+Nicholas Graham
+ngraham@u.rochester.edu
+CSC 172
+Lab 06
+Lab TA: Kate Zeng Zhiming
+Lab Session: Wednesday 6:15 - 7:30
+
+Compile: gcc pointers.c
+run: ./a.out h r t Nick nick HG 12
+
+./a.out
+h
+r
+t
+Hello, Nick
+nick
+HG
+12
+0, 1, 4, 9, 16, 25, 36, 49, 64, 81,
