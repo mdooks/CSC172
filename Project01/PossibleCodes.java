@@ -18,11 +18,18 @@ public class PossibleCodes {
     e.prevCode.nextCode = in;
     e.prevCode = in;
   }
-
-  public void delete(Code x){
+  public boolean arrayEqual(int[] a, int[] b){
+    for(int i = 0; i<a.length; i++){
+      if (a[i] != b[i]){
+        return false;
+      }
+    }
+    return true;
+  }
+  public void delete(int[] x){
     Code e = first;
-    while(e.nextCode.nextCode != null){ //run through the elements
-      if (e.nextCode == x){ //ounce found remove it
+    while(e.nextCode != last){ //run through the elements
+      if (arrayEqual(x, e.nextCode.code)){
         e.nextCode.nextCode.prevCode = e;
         e.nextCode = e.nextCode.nextCode;
         return;
@@ -72,10 +79,15 @@ public class PossibleCodes {
           b++;
         }
       }
-      if (b != blackPegs){
-        delete(e.nextCode);
+      if(e.nextCode == last || e.nextCode == null){
+        return;
       }
-      e = e.nextCode;
+      if (b != blackPegs){
+        delete(e.nextCode.code);
+      }
+      else{
+        e = e.nextCode;
+      }
     }
   }
   public void checkWhite (Code guess, int whitePegs, int blackPegs){
@@ -90,9 +102,11 @@ public class PossibleCodes {
         }
       }
       if (whitePegs != w-blackPegs){
-        delete(e.nextCode);
+        delete(e.nextCode.code);
       }
-      e = e.nextCode;
+      else{
+        e = e.nextCode;
+      }
     }
   }
 }

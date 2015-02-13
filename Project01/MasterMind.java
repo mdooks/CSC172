@@ -2,7 +2,10 @@ public class MasterMind implements mm {
   PossibleCodes codeList;
   int spaces;
   String[] colors;
+  boolean won;
+  Code currentGuess;
   public MasterMind (String[] tokencolors, int positions){
+    won = false;
     colors = tokencolors;
     codeList = new PossibleCodes();
     spaces = positions;
@@ -16,15 +19,25 @@ public class MasterMind implements mm {
     codeList.printList();
   }
   public void response(int colorsRightPositionWrong, int positionsAndColorRight) {
-
+    if (positionsAndColorRight == spaces){
+      won = true;
+      return;
+    }
+    else {
+      codeList.checkBlack(currentGuess, positionsAndColorRight);
+      codeList.checkWhite(currentGuess, colorsRightPositionWrong, positionsAndColorRight);
+    }
   }
+
   public void newGame() {
 
   }
 
 
-  public String [] nextMove() {
-    String[] x = {"s", "d"};
+  public int [] nextMove() { //should be strings, need to change back
+    int[] x = {1, 2, 0};
+    currentGuess = new Code();
+    currentGuess.code=x;
     return x;
   }
   //so this uses ints, guess I should make it strings, but...
