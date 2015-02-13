@@ -90,6 +90,11 @@ public class PossibleCodes {
         return;
       }
       if (b != blackPegs){
+        printCode(e.nextCode);
+        System.out.print(" ");
+        printCode(guess);
+        System.out.print(" black");
+        System.out.println(" ");
         delete(e.nextCode.code);
       }
       else{
@@ -97,7 +102,7 @@ public class PossibleCodes {
       }
     }
   }
-  public void checkWhite (Code guess, int whitePegs, int blackPegs){ //not working
+  public void checkWhite (Code guess, int whitePegs, int blackPegs){ //still not working
     Code e = first;
     while (e.nextCode != last){
       int w = 0;
@@ -110,11 +115,21 @@ public class PossibleCodes {
         }
       }
       if (whitePegs != w-blackPegs){
+        printCode(e.nextCode);
+        System.out.print(" ");
+        printCode(guess);
+        System.out.println(" ");
         delete(e.nextCode.code);
       }
       else{
         e = e.nextCode;
       }
+    }
+  }
+
+  public void printCode(Code x){
+    for (int c : x.code){
+      System.out.print(c);
     }
   }
 }
