@@ -35,10 +35,15 @@ public class MasterMind implements mm {
 
 
   public int [] nextMove() { //should be strings, need to change back
-    int[] x = {1, 2, 0};
+    Code e = codeList.first;
+    for (int i = 0; i < codeList.size()/2; i++){
+      e = e.nextCode;
+    }
+    return e.nextCode.code;
+    /*int[] x = {1, 2, 0};
     currentGuess = new Code();
     currentGuess.code=x;
-    return x;
+    return x;*/
   }
   //so this uses ints, guess I should make it strings, but...
   /*

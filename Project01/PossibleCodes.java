@@ -97,7 +97,8 @@ public class PossibleCodes {
       for (int i = 0; i<guess.code.length; i++){
         for(int j = 0; j<e.nextCode.code.length; j++){
           if(guess.code[i] == e.nextCode.code[j]){
-            w++;
+            if(i != j)
+              w++;
           }
         }
       }
