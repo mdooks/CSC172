@@ -108,13 +108,13 @@ public class PossibleCodes {
       int w = 0;
       for (int i = 0; i<guess.code.length; i++){
         for(int j = 0; j<e.nextCode.code.length; j++){
-          if(guess.code[i] == e.nextCode.code[j]){
-            if(i != j)
+          if(guess.code[i] == e.nextCode.code[j] && guess.code[j] != e.nextCode.code[j]){
               w++;
           }
         }
       }
-      if (whitePegs != w-blackPegs){
+      if (whitePegs != w){
+        System.out.println(whitePegs + " " + (w));
         printCode(e.nextCode);
         System.out.print(" ");
         printCode(guess);

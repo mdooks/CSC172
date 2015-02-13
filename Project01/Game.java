@@ -3,8 +3,8 @@ import java.util.Scanner;
 public class Game {
   public static void main(String[] args){
     Scanner input = new Scanner(System.in);
-    int y = input.nextInt();
-    String[] colors = {"red", "blue", "green", "yellow"};
+    //int y = input.nextInt();
+    String[] colors = {"red", "blue"};
     int x = 3;
     MasterMind m = new MasterMind(colors, x);
     //m.printList();
