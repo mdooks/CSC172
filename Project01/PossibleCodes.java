@@ -90,7 +90,7 @@ public class PossibleCodes {
       }
     }
   }
-  public void checkWhite (Code guess, int whitePegs, int blackPegs){
+  public void checkWhite (Code guess, int whitePegs, int blackPegs){ //not working
     Code e = first;
     while (e.nextCode != last){
       int w = 0;
