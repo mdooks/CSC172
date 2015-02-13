@@ -1,14 +1,20 @@
 public class PossibleCodes {
   Code first;
   Code last;
+  int size;
   public PossibleCodes(){
     first = new Code();
     last = new Code();
     first.nextCode = last;
     last.prevCode = first;
+    size = 0;
   }
 
+  public int size(){
+    return size;
+  }
   public void insert(int[] x){
+    size++;
     Code e = last;
     Code in = new Code();
     int[] y = x.clone();
@@ -27,6 +33,7 @@ public class PossibleCodes {
     return true;
   }
   public void delete(int[] x){
+    size--;
     Code e = first;
     while(e.nextCode != last){ //run through the elements
       if (arrayEqual(x, e.nextCode.code)){
