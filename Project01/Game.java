@@ -4,8 +4,8 @@ public class Game {
   public static void main(String[] args){
     Scanner input = new Scanner(System.in);
     //int y = input.nextInt();
-    String[] colors = {"red", "blue"};
-    int x = 3;
+    String[] colors = {"red", "blue", "green", "yellow"};
+    int x = 4;
     MasterMind m = new MasterMind(colors, x);
     //m.printList();
     Code g = new Code();
@@ -20,31 +20,19 @@ public class Game {
       System.out.println();
       System.out.print("How may are in the right spot? ");
       int b = input.nextInt();
-      System.out.println("How many are the right color, wrong spot? ");
+      System.out.print("How many are the right color, wrong spot? ");
       int w = input.nextInt();
       m.response(w,b);
-      m.printList();
+      //m.printList();
+      if (m.won){
+        System.out.print("Do you want to play again (y/n)? ");
+        String newgame = input.next();
+        if (newgame.charAt(0) == 'y'){
+          System.out.println("Yay!");
+          m.newGame();
+          //m.printList();
+        }
+      }
     }
-    System.out.println();
-
-    int[] d = {0,0,1};
-    g.code = m.nextMove();
-    for(int i : g.code){
-      System.out.print(i);
-    }
-    System.out.println();
-    System.out.println();
-    m.currentGuess = g;
-    m.response(1, 1);
-    //m.codeList.delete(g.code);
-    m.printList();
-    System.out.println();
-    System.out.println();
-    g.code = m.nextMove();
-    for(int i : g.code){
-      System.out.print(i);
-    }
-    System.out.println();
-    System.out.println();
   }
 }

@@ -9,7 +9,11 @@ public class PossibleCodes {
     last.prevCode = first;
     size = 0;
   }
-
+  public void clear(){
+    first.nextCode = last;
+    last.prevCode = first;
+    size = 0;
+  }
   public int size(){
     return size;
   }
@@ -108,7 +112,7 @@ public class PossibleCodes {
       int w = 0;
       for (int i = 0; i<guess.code.length; i++){
         for(int j = 0; j<e.nextCode.code.length; j++){
-          if(guess.code[i] == e.nextCode.code[j] && guess.code[j] != e.nextCode.code[j]){
+          if(guess.code[i] == e.nextCode.code[j] && guess.code[j] != e.nextCode.code[j] && guess.code[i] != e.nextCode.code[i]){
               w++;
           }
         }

@@ -30,7 +30,11 @@ public class MasterMind implements mm {
   }
 
   public void newGame() {
-
+    codeList.clear();
+    int[] tokens = new int[spaces];
+    codeGenerator(tokens, 0);
+    won = false;
+    printList();
   }
 
 
