@@ -25,7 +25,8 @@ public class MasterMind implements mm {
     }
     else {
       codeList.checkBlack(currentGuess, positionsAndColorRight);
-      codeList.checkWhite(currentGuess, colorsRightPositionWrong, positionsAndColorRight);
+      //codeList.checkWhite(currentGuess, colorsRightPositionWrong, positionsAndColorRight);
+      codeList.newCheckWhite(currentGuess, colorsRightPositionWrong, colors);
     }
   }
 
