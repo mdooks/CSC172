@@ -94,11 +94,11 @@ public class PossibleCodes {
         return;
       }
       if (b != blackPegs){
-        printCode(e.nextCode);
-        System.out.print(" ");
-        printCode(guess);
-        System.out.print(" black");
-        System.out.println(" ");
+        //printCode(e.nextCode);
+        //System.out.print(" ");
+        //printCode(guess);
+        //System.out.print(" black");
+        //System.out.println(" ");
         delete(e.nextCode.code);
       }
       else{
@@ -127,13 +127,13 @@ public class PossibleCodes {
         for(int l : guess.code){
           //System.out.println(" " + l);
           if (k == l){
-            System.out.print(k+"+"+l + ": ");
+            //System.out.print(k+"+"+l + ": ");
             c++;
-            System.out.println(c);
+            //System.out.println(c);
           }
         }
       }
-      //System.out.println(w + "/" + c + "=" + w/c);
+      System.out.println(w + "/" + c + "=" + w/c);
       w_tot += w/c;
       if (whitePegs != w_tot){
         System.out.println(whitePegs + " " + (w_tot));
@@ -155,11 +155,18 @@ public class PossibleCodes {
     int[] w_res = new int[colors.length];
 
     for (int h = 0; h < copies.length; h++){
-      copies[0] = 0;
-      w_vals[0] = 0;
+      copies[h] = 0;
+      w_vals[h] = 0;
+    }
+    for (int v : guess.code){
+      copies[v]++;
     }
 
     while (e.nextCode != last){
+      for (int h = 0; h < copies.length; h++){
+        w_res[h] = 0;
+        w_vals[h] = 0;
+      }
       for (int i = 0; i<guess.code.length; i++){
         for(int j = 0; j<e.nextCode.code.length; j++){
           if(guess.code[i] == e.nextCode.code[j] && guess.code[j] != e.nextCode.code[j] && guess.code[i] != e.nextCode.code[i]){
@@ -168,12 +175,12 @@ public class PossibleCodes {
         }
       }
 
-      for (int v : guess.code){
-        copies[v]++;
-      }
+
       for (int h = 0; h < w_res.length; h++){
-        if(copies[h] != 0)
+        if(copies[h] != 0){
+          System.out.println(w_vals[h]+ "/" + copies[h]);
           w_res[h] = w_vals[h]/copies[h];
+        }
       }
       int w = 0;
       for (int y : w_res){
@@ -181,21 +188,17 @@ public class PossibleCodes {
       }
 
       if (whitePegs != w){
-        System.out.println(whitePegs + " " + (w));
-        printCode(e.nextCode);
-        System.out.print(" ");
-        printCode(guess);
-        System.out.println(" ");
+        //System.out.println(whitePegs + " " + (w));
+        //printCode(e.nextCode);
+        //System.out.print(" ");
+        //printCode(guess);
+        //System.out.println(" ");
         delete(e.nextCode.code);
       }
       else{
         e = e.nextCode;
       }
     }
-
-
-
-
   }
   public void printCode(Code x){
     for (int c : x.code){
