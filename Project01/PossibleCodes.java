@@ -151,11 +151,13 @@ public class PossibleCodes {
   public void newCheckWhite(Code guess, int whitePegs, String[] colors){
     Code e = first;
     int[] copies = new int[colors.length];
+    int[] test_copies = new int[colors.length];
     int[] w_vals = new int[colors.length];
     int[] w_res = new int[colors.length];
 
     for (int h = 0; h < copies.length; h++){
       copies[h] = 0;
+      test_copies[h] = 0;
       w_vals[h] = 0;
     }
     for (int v : guess.code){
@@ -164,8 +166,12 @@ public class PossibleCodes {
 
     while (e.nextCode != last){
       for (int h = 0; h < copies.length; h++){
+        test_copies[h] = 0;
         w_res[h] = 0;
         w_vals[h] = 0;
+      }
+      for (int v : e.nextCode.code){
+        test_copies[v]++;
       }
       for (int i = 0; i<guess.code.length; i++){
         for(int j = 0; j<e.nextCode.code.length; j++){
@@ -177,9 +183,13 @@ public class PossibleCodes {
 
 
       for (int h = 0; h < w_res.length; h++){
-        if(copies[h] != 0){
-          System.out.println(w_vals[h]+ "/" + copies[h]);
+        if(copies[h] != 0 && copies[h] > test_copies[h]){
+          //System.out.println(w_vals[h]+ "/" + copies[h]);
           w_res[h] = w_vals[h]/copies[h];
+        }
+        else if(test_copies[h] != 0 && test_copies[h] >= copies[h]){
+          //System.out.println(w_vals[h]+ "/" + copies[h]);
+          w_res[h] = w_vals[h]/test_copies[h];
         }
       }
       int w = 0;
