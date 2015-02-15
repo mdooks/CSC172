@@ -36,12 +36,20 @@ public class MasterMind implements mm {
   }
 
 
-  public int [] nextMove() { //should be strings, need to change back
+  public String [] nextMove() { //should be strings, need to change back
     Code e = codeList.first;
+    String[] g = new String[e.nextCode.code.length];
+    Code nm = new Code();
     for (int i = 0; i < codeList.size()/2; i++){
       e = e.nextCode;
     }
-    return e.nextCode.code;
+
+    for (int i = 0; i < g.length; i++){
+      g[i] = colors[e.nextCode.code[i]];
+    }
+    nm.code = e.nextCode.code;
+    currentGuess = nm;
+    return g;
     /*int[] x = {1, 2, 0};
     currentGuess = new Code();
     currentGuess.code=x;

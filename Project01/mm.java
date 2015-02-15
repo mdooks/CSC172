@@ -12,6 +12,6 @@ public interface mm {
     //over is determined by the array
   public void response(int colorsRightPositionWrong, int positionsAndColorRight);
   public void newGame(); // Reset the game
-  public int [] nextMove(); // return the next guess 
+  public String [] nextMove(); // return the next guess 
   //NEED TO CHANGE BACK TO STRING
   }
