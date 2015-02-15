@@ -9,11 +9,8 @@ public class MasterMind implements mm {
     colors = tokencolors;
     codeList = new PossibleCodes();
     spaces = positions;
-    int[] v = {3,3,1};
     int[] tokens = new int[spaces];
     codeGenerator(tokens, 0);
-    //codeList.printList();
-    System.out.println(codeList.lookup(v));
   }
   public void printList (){
     codeList.printList();
@@ -27,7 +24,6 @@ public class MasterMind implements mm {
       codeList.checkBlack(currentGuess, positionsAndColorRight);
       //codeList.checkWhite(currentGuess, colorsRightPositionWrong, positionsAndColorRight);
       codeList.newCheckWhite(currentGuess, colorsRightPositionWrong, colors);
-      codeList.printList();
     }
   }
 

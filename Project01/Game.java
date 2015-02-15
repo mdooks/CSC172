@@ -4,8 +4,8 @@ public class Game {
   public static void main(String[] args){
     Scanner input = new Scanner(System.in);
     //int y = input.nextInt();
-    String[] colors = {"red", "blue", "green", "yellow"};
-    int x = 4;
+    String[] colors = {"red", "blue", "green", "yellow", "orange", "purple", "i", "o", "a", "p"};
+    int x = 3;
     MasterMind m = new MasterMind(colors, x);
     //m.printList();
     Code g = new Code();
@@ -18,7 +18,7 @@ public class Game {
         System.out.print(c);
       }
       System.out.println();
-      System.out.print("How may are in the right spot? ");
+      System.out.print("How many are in the right spot? ");
       int b = input.nextInt();
       System.out.print("How many are the right color, wrong spot? ");
       int w = input.nextInt();

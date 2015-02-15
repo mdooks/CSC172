@@ -133,14 +133,14 @@ public class PossibleCodes {
           }
         }
       }
-      System.out.println(w + "/" + c + "=" + w/c);
+      //System.out.println(w + "/" + c + "=" + w/c);
       w_tot += w/c;
       if (whitePegs != w_tot){
-        System.out.println(whitePegs + " " + (w_tot));
+        //System.out.println(whitePegs + " " + (w_tot));
         printCode(e.nextCode);
-        System.out.print(" ");
+        //System.out.print(" ");
         printCode(guess);
-        System.out.println(" ");
+        //System.out.println(" ");
         delete(e.nextCode.code);
       }
       else{
@@ -181,13 +181,13 @@ public class PossibleCodes {
         }
       }
       for(int kl : copies){
-        System.out.print(kl);
+        //System.out.print(kl);
       }
-      System.out.println();
+      //System.out.println();
       for(int kl : test_copies){
-        System.out.print(kl);
+        //System.out.print(kl);
       }
-      System.out.println();
+      //System.out.println();
       for (int i = 0; i<guess.code.length; i++){
         for(int j = 0; j<e.nextCode.code.length; j++){
           if(guess.code[i] == e.nextCode.code[j] && guess.code[j] != e.nextCode.code[j] && guess.code[i] != e.nextCode.code[i]){
@@ -199,27 +199,27 @@ public class PossibleCodes {
 
       for (int h = 0; h < w_res.length; h++){
         if(copies[h] != 0 && (copies[h] > test_copies[h])){
-          System.out.println(w_vals[h]+ "/" + copies[h]);
+          //System.out.println(w_vals[h]+ "/" + copies[h]);
           w_res[h] = w_vals[h]/copies[h];
         }
         else if(test_copies[h] != 0 && (test_copies[h] >= copies[h])){
-          System.out.println(w_vals[h]+ "/" + copies[h]);
+          //System.out.println(w_vals[h]+ "/" + copies[h]);
           w_res[h] = w_vals[h]/test_copies[h];
         }
       }
       int w = 0;
       for (int y : w_res){
-        System.out.print(y + " ");
+        //System.out.print(y + " ");
         w += y;
       }
-      System.out.println(w);
+      //System.out.println(w);
 
       if (whitePegs != w){
         //System.out.println(whitePegs + " " + (w));
-        printCode(e.nextCode);
+        //printCode(e.nextCode);
         //System.out.print(" ");
         //printCode(guess);
-        System.out.println(" " + w);
+        //System.out.println(" " + w);
         delete(e.nextCode.code);
       }
       else{
