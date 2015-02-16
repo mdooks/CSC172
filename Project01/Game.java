@@ -4,10 +4,13 @@ public class Game {
   public static void main(String[] args){
     Scanner input = new Scanner(System.in);
     //int y = input.nextInt();
-    String[] colors = {"red", "blue", "green", "yellow", "orange", "purple"};
-    int x = 3;
-    MasterMind m = new MasterMind(colors, x);
+    System.out.print("Enter the tokens seperated by a space: ");
+    String color_s = input.nextLine();
+    String[] colors = color_s.split(" ");
     //m.printList();
+    System.out.print("Enter the number of tokens in the code: ");
+    int x = input.nextInt();
+    MasterMind m = new MasterMind(colors, x);
     Code g = new Code();
     String[] move;
     while (!m.won){
