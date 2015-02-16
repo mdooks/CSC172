@@ -4,24 +4,29 @@ public class Game {
   public static void main(String[] args){
     Scanner input = new Scanner(System.in);
     //int y = input.nextInt();
-    String[] colors = {"red", "blue", "green", "yellow", "orange", "purple", "i", "o", "a", "p"};
-    int x = 3;
-    MasterMind m = new MasterMind(colors, x);
+    System.out.print("Enter the tokens seperated by a space: ");
+    String color_s = input.nextLine();
+    String[] colors = color_s.split(" ");
     //m.printList();
+    System.out.print("Enter the number of tokens in the code: ");
+    int x = input.nextInt();
+    MasterMind m = new MasterMind(colors, x);
     Code g = new Code();
+    String[] move;
     while (!m.won){
-      g.code = m.nextMove();
-      m.currentGuess = g;
+      move = m.nextMove();
+      //m.currentGuess = g;
       //m.printList();
       System.out.print("My guess is: ");
-      for (int c : g.code){
-        System.out.print(c);
+      for (String c : move){
+        System.out.print(c +", ");
       }
       System.out.println();
       System.out.print("How many are in the right spot? ");
       int b = input.nextInt();
       System.out.print("How many are the right color, wrong spot? ");
       int w = input.nextInt();
+      System.out.println();
       m.response(w,b);
       //m.printList();
       if (m.won){
