@@ -4,6 +4,8 @@ public class MasterMind implements mm {
   String[] colors;
   boolean won;
   Code currentGuess;
+  int colorCorrect;
+  int positionsCorrect;
   public MasterMind (String[] tokencolors, int positions){
     won = false;
     colors = tokencolors;
@@ -11,11 +13,14 @@ public class MasterMind implements mm {
     spaces = positions;
     int[] tokens = new int[spaces];
     codeGenerator(tokens, 0);
+    colorCorrect = -1;
   }
   public void printList (){
     codeList.printList();
   }
   public void response(int colorsRightPositionWrong, int positionsAndColorRight) {
+    colorCorrect = colorsRightPositionWrong;
+    positionsCorrect = positionsAndColorRight;
     if (positionsAndColorRight == spaces){
       won = true;
       return;
@@ -32,28 +37,44 @@ public class MasterMind implements mm {
     int[] tokens = new int[spaces];
     codeGenerator(tokens, 0);
     won = false;
-    printList();
+    colorCorrect = -1;
   }
 
 
   public String [] nextMove() { //should be strings, need to change back
-    Code e = codeList.first;
-    String[] g = new String[e.nextCode.code.length];
-    Code nm = new Code();
-    for (int i = 0; i < codeList.size()/2; i++){
-      e = e.nextCode;
+    Code e = codeList.first.nextCode;
+    if (colorCorrect == -1){
+      System.out.println("first try");
+      String[] g = new String[e.nextCode.code.length];
+      Code nm = new Code();
+      for (int i = 0; i < codeList.size()/2; i++){
+        e = e.nextCode;
+      }
+
+      for (int i = 0; i < g.length; i++){
+        g[i] = colors[e.nextCode.code[i]];
+      }
+      nm.code = e.nextCode.code;
+      currentGuess = nm;
+      return g;
     }
 
-    for (int i = 0; i < g.length; i++){
-      g[i] = colors[e.nextCode.code[i]];
+    int max = 0;
+    Code next = new Code();
+    while(e.code != null){
+      int tot = codeList.checkBlackInt(e, colorCorrect) + codeList.newCheckWhiteInt(e, positionsCorrect, colors);
+      if (tot >= max){
+        max = tot;
+        next.code = e.code;
+      }
+      e = e.nextCode;
     }
-    nm.code = e.nextCode.code;
-    currentGuess = nm;
+    currentGuess = next;
+    String[] g = new String[spaces];
+    for (int i = 0; i < g.length; i++){
+      g[i] = colors[next.code[i]];
+    }
     return g;
-    /*int[] x = {1, 2, 0};
-    currentGuess = new Code();
-    currentGuess.code=x;
-    return x;*/
   }
   //so this uses ints, guess I should make it strings, but...
   /*
