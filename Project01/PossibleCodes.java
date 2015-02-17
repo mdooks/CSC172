@@ -227,6 +227,100 @@ public class PossibleCodes {
       }
     }
   }
+  public int checkBlackInt(Code guess, int blackPegs){
+    Code e = first;
+    int removed = 0;
+    while (e.nextCode != last){
+      int b = 0;
+      for(int i =0; i<guess.code.length; i++){
+        if (e.nextCode.code[i] == guess.code[i]){
+          b++;
+        }
+      }
+      if(e.nextCode == last || e.nextCode == null){
+        return removed;
+      }
+      if (b != blackPegs){
+        removed++;
+      }
+      e = e.nextCode;
+    }
+    return removed;
+  }
+
+  public int newCheckWhiteInt(Code guess, int whitePegs, String[] colors){
+    Code e = first;
+    int removed = 0;
+    int[] copies = new int[colors.length];
+    int[] test_copies = new int[colors.length];
+    int[] w_vals = new int[colors.length];
+    int[] w_res = new int[colors.length];
+
+    for (int h = 0; h < copies.length; h++){
+      copies[h] = 0;
+      test_copies[h] = 0;
+      w_vals[h] = 0;
+    }
+    for (int v : guess.code){
+      copies[v]++;
+    }
+
+    while (e.nextCode != last){
+      for (int h = 0; h < copies.length; h++){
+        test_copies[h] = 0;
+        copies[h] = 0;
+        w_res[h] = 0;
+        w_vals[h] = 0;
+      }
+      for (int v = 0; v < guess.code.length; v++){
+        if(guess.code[v] != e.nextCode.code[v])
+          copies[guess.code[v]]++;
+      }
+      for (int v = 0; v < e.nextCode.code.length; v++){
+        if(guess.code[v] != e.nextCode.code[v]){
+          test_copies[e.nextCode.code[v]]++;
+        }
+      }
+      for(int kl : copies){
+        //System.out.print(kl);
+      }
+      //System.out.println();
+      for(int kl : test_copies){
+        //System.out.print(kl);
+      }
+      //System.out.println();
+      for (int i = 0; i<guess.code.length; i++){
+        for(int j = 0; j<e.nextCode.code.length; j++){
+          if(guess.code[i] == e.nextCode.code[j] && guess.code[j] != e.nextCode.code[j] && guess.code[i] != e.nextCode.code[i]){
+            w_vals[guess.code[i]]++;
+          }
+        }
+      }
+      for (int h = 0; h < w_res.length; h++){
+        if(copies[h] != 0 && (copies[h] > test_copies[h])){
+          //System.out.println(w_vals[h]+ "/" + copies[h]);
+          w_res[h] = w_vals[h]/copies[h];
+        }
+        else if(test_copies[h] != 0 && (test_copies[h] >= copies[h])){
+          //System.out.println(w_vals[h]+ "/" + copies[h]);
+          w_res[h] = w_vals[h]/test_copies[h];
+        }
+      }
+      int w = 0;
+      for (int y : w_res){
+        //System.out.print(y + " ");
+        w += y;
+      }
+      //System.out.println(w);
+
+      if (whitePegs != w){
+        removed++;
+      }
+      e = e.nextCode;
+    }
+    return removed;
+  }
+
   public void printCode(Code x){
     for (int c : x.code){
       System.out.print(c);
