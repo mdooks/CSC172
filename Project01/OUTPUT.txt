@@ -9,3 +9,70 @@ Compile: javac *.java
 Run: java Game
 
 Output:
+Welcome to MasterMind. The Computer will try to guess the code you have chosen, and you provide feedback based on the positions of the tokens. Have fun!
+
+Enter the tokens seperated by a space: 0 1 2 3 4 5 6
+Enter the number of tokens in the code: 7
+Finding move, please wait.
+first try
+My guess is: 3, 3, 3, 3, 3, 3, 4,
+How many are in the right spot? 1
+How many are the right color, wrong spot? 1
+
+Updating list, hold on.
+Still updating list, please wait.
+Finding move, please wait.
+My guess is: 6, 5, 4, 3, 2, 1, 0,
+How many are in the right spot? 1
+How many are the right color, wrong spot? 6
+
+Updating list, hold on.
+Still updating list, please wait.
+Finding move, please wait.
+My guess is: 6, 4, 5, 2, 3, 0, 1,
+How many are in the right spot? 0
+How many are the right color, wrong spot? 7
+
+Updating list, hold on.
+Still updating list, please wait.
+Finding move, please wait.
+My guess is: 5, 6, 4, 1, 0, 3, 2,
+How many are in the right spot? 0
+How many are the right color, wrong spot? 7
+
+Updating list, hold on.
+Still updating list, please wait.
+Finding move, please wait.
+My guess is: 4, 5, 3, 0, 1, 2, 6,
+How many are in the right spot? 1
+How many are the right color, wrong spot? 6
+
+Updating list, hold on.
+Still updating list, please wait.
+Finding move, please wait.
+My guess is: 3, 2, 6, 5, 1, 4, 0,
+How many are in the right spot? 0
+How many are the right color, wrong spot? 7
+
+Updating list, hold on.
+Still updating list, please wait.
+Finding move, please wait.
+My guess is: 2, 3, 0, 4, 5, 1, 6,
+How many are in the right spot? 1
+How many are the right color, wrong spot? 6
+
+Updating list, hold on.
+Still updating list, please wait.
+Finding move, please wait.
+My guess is: 1, 0, 3, 4, 2, 6, 5,
+How many are in the right spot? 0
+How many are the right color, wrong spot? 7
+
+Updating list, hold on.
+Still updating list, please wait.
+Finding move, please wait.
+My guess is: 0, 1, 2, 3, 4, 5, 6,
+How many are in the right spot? 7
+How many are the right color, wrong spot? 0
+
+Do you want to play again (y/n)? n
