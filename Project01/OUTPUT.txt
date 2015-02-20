@@ -1,0 +1,11 @@
+Nicholas Graham
+ngraham@u.rochester.edu
+CSC 172
+Project 1
+Lab TA: Kate Zeng Zhiming
+Lab Session: Wednesday 6:15 - 7:30
+
+Compile: javac *.java
+Run: java Game
+
+Output:

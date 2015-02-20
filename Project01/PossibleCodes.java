@@ -51,9 +51,8 @@ public class PossibleCodes {
   public void printList(){
     Code e = first;
     while (e.nextCode != last){ //run through the elements and print each one
-      for(int i = 0; i < e.nextCode.code.length; i++){
-        //System.out.println(i);
-        System.out.print(e.nextCode.code[i]);
+      for(int s : e.nextCode.code){
+        System.out.print(s);
       }
       System.out.println();
       e = e.nextCode;
@@ -81,7 +80,8 @@ public class PossibleCodes {
     }
     return res;
   }
-  public void checkBlack(Code guess, int blackPegs){ //move to PossibleCodes
+  public void rightColorRightSpot(Code guess, int blackPegs){ //move to PossibleCodes
+    System.out.println("Updating list, hold on.");
     Code e = first;
     while (e.nextCode != last){
       int b = 0;
@@ -94,11 +94,6 @@ public class PossibleCodes {
         return;
       }
       if (b != blackPegs){
-        //printCode(e.nextCode);
-        //System.out.print(" ");
-        //printCode(guess);
-        //System.out.println(" black");
-        //System.out.println(" ");
         delete(e.nextCode.code);
       }
       else{
@@ -106,49 +101,9 @@ public class PossibleCodes {
       }
     }
   }
-  public void checkWhite (Code guess, int whitePegs, int blackPegs){ //still not working
-    Code e = first;
-    while (e.nextCode != last){
-      int w_tot = 0;
-      int c = 0;
-      int w = 0;
-      for (int i = 0; i<guess.code.length; i++){
-        w = 0;
-        for(int j = 0; j<e.nextCode.code.length; j++){
-          if(guess.code[i] == e.nextCode.code[j] && guess.code[j] != e.nextCode.code[j] && guess.code[i] != e.nextCode.code[i]){
-              w++;
-              j = e.nextCode.code.length;
-          }
-        }
 
-      }
-      for (int k : guess.code){
-        //System.out.print(k);
-        for(int l : guess.code){
-          //System.out.println(" " + l);
-          if (k == l){
-            //System.out.print(k+"+"+l + ": ");
-            c++;
-            //System.out.println(c);
-          }
-        }
-      }
-      //System.out.println(w + "/" + c + "=" + w/c);
-      w_tot += w/c;
-      if (whitePegs != w_tot){
-        //System.out.println(whitePegs + " " + (w_tot));
-        printCode(e.nextCode);
-        //System.out.print(" ");
-        printCode(guess);
-        //System.out.println(" ");
-        delete(e.nextCode.code);
-      }
-      else{
-        e = e.nextCode;
-      }
-    }
-  }
-  public void newCheckWhite(Code guess, int whitePegs, String[] colors){
+  public void rightColorWrongSpot(Code guess, int whitePegs, String[] colors){
+    System.out.println("Still updating list, please wait.");
     Code e = first;
     int[] copies = new int[colors.length];
     int[] test_copies = new int[colors.length];
@@ -180,14 +135,7 @@ public class PossibleCodes {
           test_copies[e.nextCode.code[v]]++;
         }
       }
-      for(int kl : copies){
-        //System.out.print(kl);
-      }
-      //System.out.println();
-      for(int kl : test_copies){
-        //System.out.print(kl);
-      }
-      //System.out.println();
+
       for (int i = 0; i<guess.code.length; i++){
         for(int j = 0; j<e.nextCode.code.length; j++){
           if(guess.code[i] == e.nextCode.code[j] && guess.code[j] != e.nextCode.code[j] && guess.code[i] != e.nextCode.code[i]){
@@ -199,27 +147,18 @@ public class PossibleCodes {
 
       for (int h = 0; h < w_res.length; h++){
         if(copies[h] != 0 && (copies[h] > test_copies[h])){
-          //System.out.println(w_vals[h]+ "/" + copies[h]);
           w_res[h] = w_vals[h]/copies[h];
         }
         else if(test_copies[h] != 0 && (test_copies[h] >= copies[h])){
-          //System.out.println(w_vals[h]+ "/" + copies[h]);
           w_res[h] = w_vals[h]/test_copies[h];
         }
       }
       int w = 0;
       for (int y : w_res){
-        //System.out.print(y + " ");
         w += y;
       }
-      //System.out.println(w);
 
       if (whitePegs != w){
-        //System.out.println(whitePegs + " " + (w));
-        //printCode(e.nextCode);
-        //System.out.print(" ");
-        //printCode(guess);
-        //System.out.println(" " + w);
         delete(e.nextCode.code);
       }
       else{
@@ -227,7 +166,8 @@ public class PossibleCodes {
       }
     }
   }
-  public int checkBlackInt(Code guess, int blackPegs){
+  public int rightColorRightSpotCount(Code guess, int blackPegs){
+    //System.out.println("Finding the next guess.");
     Code e = first;
     int removed = 0;
     while (e.nextCode != last){
@@ -248,7 +188,8 @@ public class PossibleCodes {
     return removed;
   }
 
-  public int newCheckWhiteInt(Code guess, int whitePegs, String[] colors){
+  public int rightColorWrongSpotCount(Code guess, int whitePegs, String[] colors){
+    //System.out.println("Almost done finding the next guess, please wait.");
     Code e = first;
     int removed = 0;
     int[] copies = new int[colors.length];
@@ -281,14 +222,7 @@ public class PossibleCodes {
           test_copies[e.nextCode.code[v]]++;
         }
       }
-      for(int kl : copies){
-        //System.out.print(kl);
-      }
-      //System.out.println();
-      for(int kl : test_copies){
-        //System.out.print(kl);
-      }
-      //System.out.println();
+
       for (int i = 0; i<guess.code.length; i++){
         for(int j = 0; j<e.nextCode.code.length; j++){
           if(guess.code[i] == e.nextCode.code[j] && guess.code[j] != e.nextCode.code[j] && guess.code[i] != e.nextCode.code[i]){
@@ -298,20 +232,16 @@ public class PossibleCodes {
       }
       for (int h = 0; h < w_res.length; h++){
         if(copies[h] != 0 && (copies[h] > test_copies[h])){
-          //System.out.println(w_vals[h]+ "/" + copies[h]);
           w_res[h] = w_vals[h]/copies[h];
         }
         else if(test_copies[h] != 0 && (test_copies[h] >= copies[h])){
-          //System.out.println(w_vals[h]+ "/" + copies[h]);
           w_res[h] = w_vals[h]/test_copies[h];
         }
       }
       int w = 0;
       for (int y : w_res){
-        //System.out.print(y + " ");
         w += y;
       }
-      //System.out.println(w);
 
       if (whitePegs != w){
         removed++;
