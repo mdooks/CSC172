@@ -128,7 +128,7 @@ public class PossibleCodes {
       }
       for (int v = 0; v < guess.code.length; v++){
         if(guess.code[v] != e.nextCode.code[v])
-          copies[guess.code[v]]++;
+        copies[guess.code[v]]++;
       }
       for (int v = 0; v < e.nextCode.code.length; v++){
         if(guess.code[v] != e.nextCode.code[v]){
@@ -215,7 +215,7 @@ public class PossibleCodes {
       }
       for (int v = 0; v < guess.code.length; v++){
         if(guess.code[v] != e.nextCode.code[v])
-          copies[guess.code[v]]++;
+        copies[guess.code[v]]++;
       }
       for (int v = 0; v < e.nextCode.code.length; v++){
         if(guess.code[v] != e.nextCode.code[v]){

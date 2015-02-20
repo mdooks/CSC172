@@ -89,11 +89,11 @@ public class MasterMind implements mm {
   //so this uses ints, guess I should make it strings, but...
   //the following method uses theorys obtained by discussing the game theory with other students, and by the information given to us in class.
 
-  public void codeGenerator (int[] options, int positions){
-    int next = positions + 1;
+  public void codeGenerator (int[] options, int position){
+    int next = position + 1;
     for (int codeVal = 0; codeVal < colors.length; codeVal++){
-      if (positions != spaces){
-        options[positions] = codeVal;
+      if (position != spaces){
+        options[position] = codeVal;
         codeGenerator(options, next);
       }
       else{
