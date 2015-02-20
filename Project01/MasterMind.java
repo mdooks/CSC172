@@ -87,31 +87,16 @@ public class MasterMind implements mm {
     return g;
   }
   //so this uses ints, guess I should make it strings, but...
-  /*
-  * Ok so I need all the possible guesses right. I was thinking
-  * trees, but the TA alluded to a Linked list, so I worked with
-  * that. It took me a while, because I focused on using strings,
-  * but if it was ints, I could treat it like setting up a truth
-  * table. Start with all zeros then add one to the end until you
-  * run out of options, then move to the left one possition.
-  * So if its 2 colors two spots, set the first one to 0, then
-  * move over one. set that one to 0, [0,0], but, becuase you
-  * can't move over again, return it. Then increase the counter so
-  * that it is [0,1] and again return it, but now we are out of options,
-  * so go up a level and change the first one to a 1, so we have [1,x]
-  * and then move right a position. So I started with for loops, but that
-  * would recuire me to know how many options, so I switched to recursion.
-  */
-  public void codeGenerator (int[] options, int position){ //create the initial list of codes
-    int stop = spaces - 1;
-    int next = position + 1;
-    //takes the list of piece options, and the positions that will be manipulated
-    for(int codeVal = 0; codeVal < colors.length; codeVal++){ //for all the options
-      options[position] = codeVal; //set the current position to that option
-      if (position != stop){ //check to see if out of positions
+  //the following method uses theorys obtained by discussing the game theory with other students, and by the information given to us in class.
+
+  public void codeGenerator (int[] options, int positions){
+    int next = positions + 1;
+    for (int codeVal = 0; codeVal < colors.length; codeVal++){
+      if (positions != spaces){
+        options[positions] = codeVal;
         codeGenerator(options, next);
       }
-      else{ //if you are push the array into the linked list
+      else{
         codeList.insert(options);
       }
     }

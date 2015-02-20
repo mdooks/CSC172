@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 public class Game {
   public static void main(String[] args){
+    System.out.println("Welcome to MasterMind. The Computer will try to guess the code you have chosen, and you provide feedback based on the positions of the tokens. Have fun!\n");
     Scanner input = new Scanner(System.in);
     System.out.print("Enter the tokens seperated by a space: ");
     String color_s = input.nextLine();
