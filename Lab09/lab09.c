@@ -28,10 +28,10 @@ int main(int argc, char *argv[]){
   printf("\n");
 }
 
-int rand_seed=10;
+int rand_seed=24;
 int myrand(){
-  rand_seed = rand_seed * 1103515245 + 12345;
-  return (rand_seed / 65536) % 32768;
+  rand_seed = rand_seed * 1653597243 + 12309;
+  return (rand_seed / 65436) % 32731;
 }
 
 void bubble_sort(int m, int a[], int (*comp)(int, int)){

@@ -22,6 +22,7 @@ int main(int argc, char *charv[]){
   for (int i = 0; i < 20; i++)
     printf("%d %s FOUND\n",i,((lookup(i,myLinkedList) == TRUE) ? "": "NOT"));
 
+  printList(myLinkedList);
   for (int i = 0; i < 20; i += 3)
    delete(i,&myLinkedList);
 
@@ -60,7 +61,9 @@ BOOLEAN lookup(int x, struct Node * L){
 void delete(int x, struct Node **pL){
   while (*pL != 0){
     if (((*pL)->value) == x){
-      *pL = (*pL)->next;
+      struct Node *temp = (*pL)->next; // get address of next node
+      free(*pL); // Free the memory
+      (*pL) = temp; // and remove the pointer to the node being deleted
     }
     (pL) = &((*pL)->next);
   }
