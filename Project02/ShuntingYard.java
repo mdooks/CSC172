@@ -12,9 +12,9 @@ public class ShuntingYard {
     expressionStack = new Stack<String>();
     expressionQueue = new Queue<String>();
     try{
-      in = new BufferedReader(new FileReader( new File("./equations.txt")));
+      in = new BufferedReader(new FileReader( new File("equations.txt")));
     }catch(FileNotFoundException e){
-
+      System.out.println(e);
     }
   }
 
@@ -22,11 +22,29 @@ public class ShuntingYard {
     try {
       while(in.ready()){
         String line = in.readLine();
-        String[] tokens = line.split(" ");
-        if
+        String[] tokens = line.split("\\s");
+        for(String t : tokens){
+          System.out.println(t);
+          if(t.equals("")){ //remove the null things added into the list
+
+          }
+          else if (operator(t))
+            expressionStack.push(t);
+          else
+            expressionQueue.enqueue(t);
+        }
       }
     }catch(IOException e) {
-
+      System.out.println(e);
     }
+  }
+
+  public boolean operator(String t){
+    String[] op = {"+", "-", "*", "/", "(", ")", "<", ">", "=", "&", "|", "!"};
+    for (String o : op){
+      if (o.equals(t))
+        return true;
+    }
+    return false;
   }
 }
