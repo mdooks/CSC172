@@ -1,0 +1,52 @@
+Nicholas Graham
+ngraham@u.rochester.edu
+CSC 172
+Lab 10
+Lab TA: Kate Zeng Zhiming
+Lab Session: Wednesday 6:15 - 7:30
+
+To compile run: javac *.java
+to run: java MyBinarySearchTree
+
+Output:
+p
+c
+e
+f
+j
+m
+n
+o
+q
+r
+y
+
+c
+e
+f
+j
+m
+n
+o
+p
+q
+r
+y
+
+c
+e
+f
+j
+m
+n
+o
+q
+r
+y
+p
+true
+e
+y
+
+y
+e
