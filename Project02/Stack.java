@@ -6,6 +6,10 @@ public class Stack<AnyType> {
     start = new Node<AnyType>();
   }
 
+  public void clear(){
+    start.next = null;
+  }
+
   public void insert(AnyType x){ //insert item at the end of the list
 
    if (lookup(x)){ // looks up if the item is already in the list, if it is, does nothing
