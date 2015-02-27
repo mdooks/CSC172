@@ -1,21 +1,29 @@
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.PrintWriter;
 import java.io.IOException;
 import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
 public class ShuntingYard {
   public Stack<String> expressionStack;
   public Queue<String> expressionQueue;
   public BufferedReader in;
+  public PrintWriter writer;
 
-  public ShuntingYard (){
+  public ShuntingYard (String inFile, String outFile){
     expressionStack = new Stack<String>();
     expressionQueue = new Queue<String>();
     try{
-      in = new BufferedReader(new FileReader( new File("equations.txt")));
+      writer = new PrintWriter(outFile, "UTF-8");
+      in = new BufferedReader(new FileReader( new File(inFile)));
     }catch(FileNotFoundException e){
       System.out.println(e);
+    }catch(UnsupportedEncodingException e){
+      System.out.println(e);
     }
+
+
   }
 
   public void postfix (){
@@ -78,13 +86,14 @@ public class ShuntingYard {
         }
         //pass the queue on to do the actual math here.
         //expressionQueue.printList();
-        System.out.println(calc());
+        writer.printf("%.2f\n", calc());
         //System.out.println();
         expressionQueue.clear();
       }
     }catch(IOException e) {
       System.out.println(e);
     }
+    writer.close();
   }
 
   public boolean operator(String t){
