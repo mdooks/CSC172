@@ -19,21 +19,67 @@ public class ShuntingYard {
   }
 
   public void postfix (){
+    //System.out.println(operator("!"));
+    //System.out.println(operator("("));
     try {
       while(in.ready()){
         String line = in.readLine();
         //String[] tokens = line.split("\\s");
-        String[] tokens = tokenize(line);
+        String[] tokens = tokenize2(line);
+
         for(String t : tokens){
-          System.out.println(t);
-          if(t == (null)){ //remove the null things added into the list
+          //System.out.print(t);
+          //System.out.println(t);
+          if(t == (null) || t.equals("")){ //remove the null things added into the list
             //I should work on finding a way that doesn't result in nulls in the array but it works for now so...
           }
-          else if (operator(t))
-            expressionStack.push(t);
-          else
+          else if (operator(t)){
+            //System.out.print("OPERATOR:");
+            //expressionStack.printList();
+            //expressionQueue.printList();
+            if(t.equals(")")){
+              //System.out.print("PAREN:");
+              while (!expressionStack.isEmpty() && true){
+                String temp = expressionStack.pop();
+                //System.out.println("TEMP: " + temp);
+                if (temp.equals("(")){
+                  break;
+                }
+                expressionQueue.enqueue(temp);
+              }
+            }
+            else if (t.equals("(")){
+              //System.out.print("PARENPPUSH:");
+              expressionStack.push(t);
+            }
+            else if (!expressionStack.isEmpty()){
+              //System.out.print("PRES:");
+              //System.out.println(expressionStack.peek());
+              //System.out.println(presidence(t, expressionStack.peek()));
+              while(!expressionStack.isEmpty() && presidence(t, expressionStack.peek())){
+                expressionQueue.enqueue(expressionStack.pop());
+                //expressionQueue.printList();
+              }
+              //expressionQueue.enqueue(expressionStack.pop());
+              expressionStack.push(t);
+            }
+            else{
+              //System.out.print("PUSH:");
+              expressionStack.push(t);
+            }
+          }
+          //
+          else{
             expressionQueue.enqueue(t);
+          }
         }
+        while (!expressionStack.isEmpty()){
+          expressionQueue.enqueue(expressionStack.pop());
+        }
+        //pass the queue on to do the actual math here.
+        expressionQueue.printList();
+        System.out.println();
+        expressionQueue.clear();
       }
     }catch(IOException e) {
       System.out.println(e);
@@ -44,11 +90,83 @@ public class ShuntingYard {
     String[] op = {"+", "-", "*", "/", "(", ")", "<", ">", "=", "&", "|", "!"};
     for (String o : op){
       if (o.equals(t))
-        return true;
+      return true;
     }
     return false;
   }
 
+  public boolean presidence(String a, String b){
+    int presA = 0;
+    int presB = 0;
+    String top[] = {"^"}; //will have top presidence, in this case 8
+    String mul[] = {"*", "/"}; //will have presidence 7
+    String add[] = {"+", "-"}; //presidence 6
+    String not[] = {"!"}; //presidence 5
+    String com[] = {"<", ">"}; //presidence 4
+    String equ[] = {"="}; //presidence 3
+    String and[] = {"&"}; //presidence 2
+    String or[] = {"|"}; //presidence 1
+    String paren[] = {"(", ")"};
+    for (String o : top){
+      if (a.equals(o))
+        presA = 8;
+      if (b.equals(o))
+        presB = 8;
+    }
+    for (String o : mul){
+      if (a.equals(o))
+        presA = 7;
+      if (b.equals(o))
+        presB = 7;
+    }
+    for (String o : add){
+      if (a.equals(o))
+        presA = 6;
+      if (b.equals(o))
+        presB = 6;
+    }
+    for (String o : not){
+      if (a.equals(o))
+        presA = 5;
+      if (b.equals(o))
+        presB = 5;
+    }
+    for (String o : com){
+      if (a.equals(o))
+        presA = 4;
+      if (b.equals(o))
+        presB = 4;
+    }
+    for (String o : equ){
+      if (a.equals(o))
+        presA = 10;
+      if (b.equals(o))
+        presB = 10;
+    }
+    for (String o : and){
+      if (a.equals(o))
+        presA = 2;
+      if (b.equals(o))
+        presB = 2;
+    }
+    for (String o : or){
+      if (a.equals(o))
+        presA = 1;
+      if (b.equals(o))
+        presB = 1;
+    }
+    //System.out.println("A:" + presA + " B:" + presB);
+    for (String o : paren){
+      if (a.equals(o))
+        return false;
+      if (b.equals(o))
+        return false;
+    }
+    if (presA > presB)
+      return true;
+    else
+      return false;
+  }
   public String[] tokenize(String t){
     String[] res = new String[t.length()];
     int pos = 0;
@@ -63,8 +181,13 @@ public class ShuntingYard {
       else if(t.charAt(i) == ' '){
         //do nothing
       }
-      else if (t.charAt(i+1) == '.' || t.charAt(i) == '.'){
+      else if( !(operator(String.valueOf(t.charAt(i+1)))) && !(operator(String.valueOf(t.charAt(i))))){
         temp = temp + t.charAt(i);
+      }
+      else if (operator(String.valueOf(t.charAt(i+1)))){
+        res[pos] = temp;
+        temp = "";
+        pos++;
       }
       else{
         temp = temp + t.charAt(i);
@@ -75,4 +198,44 @@ public class ShuntingYard {
     }
     return res;
   }
+
+  public String[] tokenize2(String t){
+    String[] res = new String[t.length()];
+    int pos = 0;
+    String temp = "";
+    for (int i = 0; i<t.length(); i++){
+      if(i == (t.length()-1)){ //test to see what is in here!
+        if (operator(String.valueOf(t.charAt(i)))){
+          res[pos] = temp;
+          temp ="";
+          pos++;
+        }
+        temp = temp+t.charAt(i);
+        res[pos] = temp;
+        temp = "";
+        pos++;
+      }
+      else if(t.charAt(i) == ' '){
+        res[pos] = temp;
+        temp ="";
+        pos++;
+      }
+      else if (operator(String.valueOf(t.charAt(i)))){
+        if (!(temp.equals(""))){
+          res[pos] = temp;
+          temp ="";
+          pos++;
+        }
+
+        res[pos] = String.valueOf(t.charAt(i));
+        temp = "";
+        pos++;
+      }
+      else{
+        temp = temp+t.charAt(i);
+      }
+    }
+    return res;
+  }
+
 }

@@ -9,6 +9,11 @@ public class Queue<AnyType>{
     start.next = end;
     end.prev = start;
   }
+
+  public void clear(){
+    start.next = end;
+    end.prev = start;
+  }
   public void insert(AnyType x){
 
     if (lookup(x)){ //has O(n)
