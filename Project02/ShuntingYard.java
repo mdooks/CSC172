@@ -22,11 +22,12 @@ public class ShuntingYard {
     try {
       while(in.ready()){
         String line = in.readLine();
-        String[] tokens = line.split("\\s");
+        //String[] tokens = line.split("\\s");
+        String[] tokens = tokenize(line);
         for(String t : tokens){
           System.out.println(t);
-          if(t.equals("")){ //remove the null things added into the list
-
+          if(t == (null)){ //remove the null things added into the list
+            //I should work on finding a way that doesn't result in nulls in the array but it works for now so...
           }
           else if (operator(t))
             expressionStack.push(t);
@@ -46,5 +47,32 @@ public class ShuntingYard {
         return true;
     }
     return false;
+  }
+
+  public String[] tokenize(String t){
+    String[] res = new String[t.length()];
+    int pos = 0;
+    String temp = "";
+    for (int i = 0; i<t.length(); i++){
+      if(i == (t.length()-1)){
+        temp = temp+t.charAt(i);
+        res[pos] = temp;
+        temp = "";
+        pos++;
+      }
+      else if(t.charAt(i) == ' '){
+        //do nothing
+      }
+      else if (t.charAt(i+1) == '.' || t.charAt(i) == '.'){
+        temp = temp + t.charAt(i);
+      }
+      else{
+        temp = temp + t.charAt(i);
+        res[pos] = temp;
+        temp = "";
+        pos++;
+      }
+    }
+    return res;
   }
 }
