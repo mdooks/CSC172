@@ -10,13 +10,13 @@ public class test{
   public static BufferedReader in;
   public static PrintWriter writer;
   public static void main(String[] args){
-    if (args.length < 2){
+    if (args.length < 2){ //if they don't give two files, complain
       System.out.println("I'm sorry there aren't enough arguments. Please enter the source file and destination file when you run the program.");
     }
-    else{
+    else{ //if they do
 
-      ShuntingYard sy = new ShuntingYard();
-      try{
+      ShuntingYard sy = new ShuntingYard(); //create an object to handle the conversions
+      try{ //try to open and set up the files
         writer = new PrintWriter(args[1], "UTF-8");
         in = new BufferedReader(new FileReader( new File(args[0])));
       }catch(FileNotFoundException e){
@@ -24,18 +24,23 @@ public class test{
       }catch(UnsupportedEncodingException e){
         System.out.println(e);
       }
-      try{
+      try{ //then try to read in each line
         while(in.ready()){
           String t = in.readLine();
-          //System.out.println(t);
-          Double ans = Calc.calc(sy.postfix(t));
-          writer.printf("%.2f\n", ans);
+          Queue<String> post = sy.postfix(t);
+          Double ans = Calc.calc(post); //get the postfix, then send it to the calc
+          writer.printf("%.2f\n", ans); //print the answer to the output file
         }
       }catch(IOException e){
         System.out.println(e);
       }
       //ShuntingYard sy = new ShuntingYard();
-      writer.close();
+      writer.close(); //close the output file
+      try{
+        in.close();
+      }catch(IOException e){
+        System.out.println(e);
+      }
     }
   }
 }
