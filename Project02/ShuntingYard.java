@@ -11,98 +11,50 @@ public class ShuntingYard {
   public BufferedReader in;
   public PrintWriter writer;
 
-  public ShuntingYard (String inFile, String outFile){
+  public ShuntingYard (){
     expressionStack = new Stack<String>();
     expressionQueue = new Queue<String>();
-    try{
-      writer = new PrintWriter(outFile, "UTF-8");
-      in = new BufferedReader(new FileReader( new File(inFile)));
-    }catch(FileNotFoundException e){
-      System.out.println(e);
-    }catch(UnsupportedEncodingException e){
-      System.out.println(e);
-    }
-
-
   }
 
-  public void postfix (){
-    //System.out.println(operator("!"));
-    //System.out.println(operator("("));
-    try {
-      while(in.ready()){
-        String line = in.readLine();
-        //String[] tokens = line.split("\\s");
-        String[] tokens = tokenize2(line);
+  public Queue postfix (String eq){
+    expressionQueue.clear();
+    String[] tokens = tokenize2(eq);
 
-        for(String t : tokens){
-          //System.out.print(t);
-          //System.out.println(t);
-          if(t == (null) || t.equals("")){ //remove the null things added into the list
-            //I should work on finding a way that doesn't result in nulls in the array but it works for now so...
-          }
-          else if (operator(t)){
-            //System.out.print("OPERATOR:");
-            //expressionStack.printList();
-            //expressionQueue.printList();
-            if(t.equals(")")){
-              //System.out.print("PAREN:");
-              while (!expressionStack.isEmpty() && true){
-                String temp = expressionStack.pop();
-                //System.out.println("TEMP: " + temp);
-                if (temp.equals("(")){
-                  break;
-                }
-                expressionQueue.enqueue(temp);
-              }
-            }
-            else if (t.equals("(")){
-              //System.out.print("PARENPPUSH:");
-              expressionStack.push(t);
-            }
-            else if (!expressionStack.isEmpty()){
-              //System.out.print("PRES:");
-              //System.out.println(expressionStack.peek());
-              //System.out.println(presidence(t, expressionStack.peek()));
-              while(!expressionStack.isEmpty() && presidence(t, expressionStack.peek())){
-                expressionQueue.enqueue(expressionStack.pop());
-                //expressionQueue.printList();
-              }
-              //expressionQueue.enqueue(expressionStack.pop());
-              expressionStack.push(t);
-            }
-            else{
-              //System.out.print("PUSH:");
-              expressionStack.push(t);
-            }
-          }
-          //
-          else{
-            expressionQueue.enqueue(t);
-          }
-        }
-        while (!expressionStack.isEmpty()){
-          expressionQueue.enqueue(expressionStack.pop());
-        }
-        //pass the queue on to do the actual math here.
-        //expressionQueue.printList();
-        writer.printf("%.2f\n", calc());
-        //System.out.println();
-        expressionQueue.clear();
+    for(String t : tokens){
+      if(t == (null) || t.equals("")){ //remove the null things added into the list
+        //I should work on finding a way that doesn't result in nulls in the array but it works for now so...
       }
-    }catch(IOException e) {
-      System.out.println(e);
+      else if (Calc.operator(t)){
+        if(t.equals(")")){
+          while (!expressionStack.isEmpty() && true){
+            String temp = expressionStack.pop();
+            if (temp.equals("(")){
+              break;
+            }
+            expressionQueue.enqueue(temp);
+          }
+        }
+        else if (t.equals("(")){
+          expressionStack.push(t);
+        }
+        else if (!expressionStack.isEmpty()){
+          while(!expressionStack.isEmpty() && presidence(t, expressionStack.peek())){
+            expressionQueue.enqueue(expressionStack.pop());
+          }
+          expressionStack.push(t);
+        }
+        else{
+          expressionStack.push(t);
+        }
+      }
+      else{
+        expressionQueue.enqueue(t);
+      }
     }
-    writer.close();
-  }
-
-  public boolean operator(String t){
-    String[] op = {"+", "-", "*", "/", "(", ")", "<", ">", "=", "&", "|", "!"};
-    for (String o : op){
-      if (o.equals(t))
-      return true;
+    while (!expressionStack.isEmpty()){
+      expressionQueue.enqueue(expressionStack.pop());
     }
-    return false;
+    return expressionQueue;
   }
 
   public boolean presidence(String a, String b){
@@ -119,63 +71,63 @@ public class ShuntingYard {
     String paren[] = {"(", ")"};
     for (String o : top){
       if (a.equals(o))
-        presA = 8;
+      presA = 8;
       if (b.equals(o))
-        presB = 8;
+      presB = 8;
     }
     for (String o : mul){
       if (a.equals(o))
-        presA = 7;
+      presA = 7;
       if (b.equals(o))
-        presB = 7;
+      presB = 7;
     }
     for (String o : add){
       if (a.equals(o))
-        presA = 6;
+      presA = 6;
       if (b.equals(o))
-        presB = 6;
+      presB = 6;
     }
     for (String o : not){
       if (a.equals(o))
-        presA = 5;
+      presA = 5;
       if (b.equals(o))
-        presB = 5;
+      presB = 5;
     }
     for (String o : com){
       if (a.equals(o))
-        presA = 4;
+      presA = 4;
       if (b.equals(o))
-        presB = 4;
+      presB = 4;
     }
     for (String o : equ){
       if (a.equals(o))
-        presA = 10;
+      presA = 10;
       if (b.equals(o))
-        presB = 10;
+      presB = 10;
     }
     for (String o : and){
       if (a.equals(o))
-        presA = 2;
+      presA = 2;
       if (b.equals(o))
-        presB = 2;
+      presB = 2;
     }
     for (String o : or){
       if (a.equals(o))
-        presA = 1;
+      presA = 1;
       if (b.equals(o))
-        presB = 1;
+      presB = 1;
     }
     //System.out.println("A:" + presA + " B:" + presB);
     for (String o : paren){
       if (a.equals(o))
-        return false;
+      return false;
       if (b.equals(o))
-        return false;
+      return false;
     }
     if (presA > presB)
-      return true;
+    return true;
     else
-      return false;
+    return false;
   }
   public String[] tokenize(String t){
     String[] res = new String[t.length()];
@@ -191,10 +143,10 @@ public class ShuntingYard {
       else if(t.charAt(i) == ' '){
         //do nothing
       }
-      else if( !(operator(String.valueOf(t.charAt(i+1)))) && !(operator(String.valueOf(t.charAt(i))))){
+      else if( !(Calc.operator(String.valueOf(t.charAt(i+1)))) && !(Calc.operator(String.valueOf(t.charAt(i))))){
         temp = temp + t.charAt(i);
       }
-      else if (operator(String.valueOf(t.charAt(i+1)))){
+      else if (Calc.operator(String.valueOf(t.charAt(i+1)))){
         res[pos] = temp;
         temp = "";
         pos++;
@@ -215,7 +167,7 @@ public class ShuntingYard {
     String temp = "";
     for (int i = 0; i<t.length(); i++){
       if(i == (t.length()-1)){ //test to see what is in here!
-        if (operator(String.valueOf(t.charAt(i)))){
+        if (Calc.operator(String.valueOf(t.charAt(i)))){
           res[pos] = temp;
           temp ="";
           pos++;
@@ -230,7 +182,7 @@ public class ShuntingYard {
         temp ="";
         pos++;
       }
-      else if (operator(String.valueOf(t.charAt(i)))){
+      else if (Calc.operator(String.valueOf(t.charAt(i)))){
         if (!(temp.equals(""))){
           res[pos] = temp;
           temp ="";
@@ -247,72 +199,5 @@ public class ShuntingYard {
     }
     return res;
   }
-  public Double calc(){
-    expressionStack.clear();
-    while (!expressionQueue.isEmpty()){
-      if (operator(expressionQueue.peek())){
-        String ex = expressionQueue.dequeue();
-        String a;
-        String b;
-        if(ex.equals("!")){
-          a = expressionStack.pop();
-          b = "";
-        }
-        else{
-          a = expressionStack.pop();
-          b = expressionStack.pop();
-        }
-        expressionStack.push(math(a,b,ex));
-      }
-      else{
-        expressionStack.push(expressionQueue.dequeue());
-      }
-    }
-    return (new Double(expressionStack.pop()));
-  }
-  public String math(String a, String b, String ex){
-    if (ex.equals("!")){
-      if(a.equals("1"))
-        return("0");
-      return ("1");
-    }
-    Double newA = new Double(a);
-    Double newB = new Double(b);
-    if (ex.equals("=")){
-      if(newA.equals(newB))
-        return("1");
-      return ("0");
-    }
-    if (ex.equals("<")){
-      if(newB < newA)
-        return("1");
-      return ("0");
-    }
-    if (ex.equals(">")){
-      if(newB > newA)
-        return("1");
-      return ("0");
-    }
-    if (ex.equals("&")){
-      if(!a.equals("0") && !b.equals("0"))
-        return("1");
-      return ("0");
-    }
-    if (ex.equals("|")){
-      if(!a.equals("0") || !b.equals("0"))
-        return("1");
-      return ("0");
-    }
-    else if (ex.equals("+")){
-      return ("" + (newA + newB));
-    }
-    else if (ex.equals("-"))
-      return("" + (newB - newA));
-    else if (ex.equals("*"))
-      return("" + (newB * newA));
-    else if (ex.equals("/"))
-      return("" + (newB / newA));
-    else
-      return "";
-  }
+
 }
