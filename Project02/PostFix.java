@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 
-public class test{
+public class PostFix{
   public static BufferedReader in;
   public static PrintWriter writer;
   public static void main(String[] args){
@@ -28,7 +28,9 @@ public class test{
         while(in.ready()){
           String t = in.readLine();
           Queue<String> post = sy.postfix(t);
+          //post.printList();
           Double ans = Calc.calc(post); //get the postfix, then send it to the calc
+          //System.out.println(ans);
           writer.printf("%.2f\n", ans); //print the answer to the output file
         }
       }catch(IOException e){
