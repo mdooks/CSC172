@@ -10,4 +10,5 @@ For this project we had to build a postfix calculator that read in infix express
 The program worked for the test file, and for all the test I created.
 
 To compile this project run: javac *.java
-To run the game enter: java PostFix equations.txt output.txt
+To run the program enter: java InfixCalculator equations.txt output2.txt
+To run the program enter: java InfixCalculator infix_expr_short.txt output.txt

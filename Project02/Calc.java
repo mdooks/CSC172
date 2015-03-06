@@ -24,7 +24,7 @@ public class Calc {
   }
 
   public static boolean operator(String t){ //check to see if something is an operator
-    String[] op = {"+", "-", "*", "/", "(", ")", "<", ">", "=", "&", "|", "!"};
+    String[] op = {"+", "-", "*", "/", "(", ")", "<", ">", "=", "&", "|", "!", "%", "^"};
     for (String o : op){ //if its in the list it is
       if (o.equals(t))
       return true;
@@ -65,6 +65,14 @@ public class Calc {
         return("1");
       return ("0");
     }
+    else if (ex.equals("^")){
+      double ans = 1;
+      for (int i = 0; i < newA; i++){
+        ans *= newB;
+
+      }
+      return "" + ans;
+    }
     else if (ex.equals("+")){ //plus
       return ("" + (newA + newB));
     }
@@ -74,6 +82,8 @@ public class Calc {
       return("" + (newB * newA));
     else if (ex.equals("/")) //divide
       return("" + (newB / newA));
+    else if (ex.equals("%")) //divide
+      return("" + (newB % newA));
     else
       return ""; //if it ever hits here, something went very, very wrong....
   }
