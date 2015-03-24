@@ -1,0 +1,41 @@
+(define x 3)
+(define y 5)
+(display x) (newline)
+(display y) (newline)
+(+ x y)
+
+(define foo (list + x y))
+(define bar (list + 'x 'y))
+(display foo) (newline)
+(display bar) (newline)
+
+(set! x 123)
+(set! y 456)
+
+(eval foo)
+(eval bar)
+
+(define (sum-ints a b)
+  (if (> a b)
+      0
+      (+ a (sum-ints (+ a 1) b))))
+(sum-ints 1 3)
+(sum-ints 1 10)
+
+(define (square x) (* x x))
+(define (cube x) (* x x x))
+
+(square 3)
+(cube 3)
+
+(define (sum-sqrs a b)
+  (if (> a b)
+      0
+      (+ (square a) (sum-sqrs (+ a 1) b))))
+
+(sum-sqrs 1 5)
+
+(define (sum-cubes a b)
+  (if (> a b)
+      0
+      (+ (cube a) (sum-cubes (+ a 1) b))))
