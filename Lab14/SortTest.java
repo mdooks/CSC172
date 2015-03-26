@@ -68,7 +68,7 @@ public class SortTest {
 
   }
   public static <AnyType extends Comparable<? super AnyType>>
-  void bubblesort(AnyType[] a) {
+  void bubblesort(AnyType[] a) { //Runtime of O(n^2)
     for (int i = 0; i < a.length; i++) {
       for (int j = 0; j < a.length - 1; j++) {
         if (a[j].compareTo(a[j + 1]) > 0) {
@@ -82,7 +82,7 @@ public class SortTest {
       }
     }
   }
-  public static <AnyType extends Comparable<? super AnyType>> void insertionSort(AnyType[] a){
+  public static <AnyType extends Comparable<? super AnyType>> void insertionSort(AnyType[] a){ //big O(n^2)
     for(int i = 1; i < a.length; i++){
       int j = i;
       while (j > 0 && (a[j-1].compareTo(a[j]) > 0)){
@@ -96,6 +96,8 @@ public class SortTest {
     }
   }
   public static <AnyType extends Comparable<? super AnyType>> void shellSort(AnyType[] a){ //based off of code from the textbook
+    //O(n^3/2)
+    //as apposed to the standard O(n^2) of shell sort
     int j;
     for(int x = (int) Math.log(a.length) + 1; x > 0; x--){
       int gap = (int) Math.pow(2,x) - 1;

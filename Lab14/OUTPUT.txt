@@ -1,0 +1,13 @@
+Nicholas Graham
+Lab 14
+
+Output java SortTest 500
+
+bubblesort took 190533 moves to sort 500 items
+	 in : 9 millesec
+Insertion Sort took 127022 moves to sort 500 items
+	 in : 7 millesec
+Shell Sort took 5672 moves to sort 500 items
+	 in : 0 millesec
+sort 500 items
+	 in : 1 millesec
