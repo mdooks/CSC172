@@ -16,16 +16,17 @@ public class point {
   }
 
   public void setX(double a){
-    if (a >= 0 && a <= 1){
+    if (a >= 0 && a <= 1 && y !=-10){
       x = a;
     }
     else{
       x = -10;
+      y = -10;
       //System.out.println("Invalid input point");
     }
   }
   public void setY(double a){
-    if (a >= 0 && a <= 1){
+    if (a >= 0 && a <= 1 && x != -10){
       y = a;
     }
     else{

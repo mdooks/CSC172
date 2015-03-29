@@ -52,6 +52,12 @@ public class MyTreeNode{
       n.leftChild = insertLine(n.leftChild, in);
       n.leftChild.parent = n;
     }
+    else if(Geometry.ccw(n.data.start, in.start, n.data.end) == Geometry.direction.COLINEAR){
+      n = new MyTreeNode();
+      n.data = in;
+      //System.out.println(n.data);
+      return n;
+    }
     else{
       return null;
     }
@@ -103,19 +109,55 @@ public class MyTreeNode{
     if (rightChild !=null)
       rightChild.printPreOrder();
   }
-  /* -------------------------------------------------------
-  public boolean lookup(line x){
-    if (x.equals(data)){
-      return true;
+
+  public MyTreeNode lookup(line x){
+    if (this == null){
+      return null;
     }
-    else if (x.compareTo(data) > 0 && rightChild != null)
+    else if (x.equals(data)){
+      return this;
+    }
+    else if (Geometry.ccw(this.data.start, x.start, this.data.end) == Geometry.direction.COUNTERCLOCKWISE)
       return rightChild.lookup(x);
-    else if ((x.compareTo(data) < 0 && leftChild != null))
+    else if (Geometry.ccw(this.data.start, x.start, this.data.end) == Geometry.direction.CLOCKWISE)
       return leftChild.lookup(x);
 
-    return false;
+    return null;
   }
 
+  public void pointCheck(MyTreeNode n, line x){
+
+    if (n == null){
+      System.out.println("They are in the same region");
+    }
+    else if (!(Geometry.intersect(x, n.data).equals(new point(-10,-10)))){
+      System.out.println("These points are seperated by line: " + n.data);
+    }
+    else if (Geometry.ccw(x.start, n.data.start, n.data.end) == Geometry.ccw(x.end, n.data.start, n.data.end)){
+      //System.out.println("Point Check: " + n.data);
+      //System.out.println("They match!");
+      if (Geometry.ccw(x.start, n.data.start, n.data.end) == Geometry.direction.COUNTERCLOCKWISE){
+        pointCheck(n.rightChild, x);
+      }
+      else if(Geometry.ccw(x.start, n.data.start, n.data.end) == Geometry.direction.CLOCKWISE){
+        pointCheck(n.leftChild, x);
+      }
+      else{
+        System.out.println("These points both are on line: " + n.data);
+      }
+    }
+    else {
+      System.out.println("These points are seperated by line: " + n.data);
+    }
+  }
+
+  public void pathDiff(MyTreeNode that){
+    if (this.rightChild != null || this.leftChild != null){ //Should work for how I am using it, but not really an a great test...
+      System.out.println("They are in the same area");
+    }
+
+  }
+  /* -------------------------------------------------------
   public void delete(line x){
     if (x.equals(data)){
 

@@ -37,6 +37,11 @@ public class Geometry {
   public static point intersect (line a, line b){
     double m1 = slope(a); // find the slopes of the line
     double m2 = slope(b);
+    //System.out.println(m1 + " " + m2);
+    if (m1 == m2){
+      //System.out.println("same slope!");
+      return new point (-10, -10);
+    }
 
     double x01 = a.start.getX(); //get the starting x points
     double x02 = b.start.getX();
@@ -46,15 +51,15 @@ public class Geometry {
 
     double ansX = ((m1 * x01 - y01 - m2*x02 + y02)/(m1-m2));
     double ansY = m1 * (ansX - x01) + y01;
-    System.out.println(ansX + ", " + ansY);
+    //System.out.println(ansX + ", " + ansY);
     point ans = new point(ansX, ansY);
     if (a.start.getX() > ans.getX() || a.end.getX() < ans.getX()){
-      System.out.println("Out of bounds: " + ans);
+      //System.out.println("Out of bounds: " + ans);
 
       return new point (-10, -10);
     }
     if (a.start.equals(ans) || a.end.equals(ans)){
-      System.out.println("end point");
+      //System.out.println("end point");
       return new point (-10,-10);
     }
     return ans;

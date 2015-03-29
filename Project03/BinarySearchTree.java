@@ -50,6 +50,22 @@ public class BinarySearchTree{
     if(root.data != null)
       root.printPostOrder();
   }
+
+  public boolean sameRegion(point a, point b){
+      if (a.equals(new point(-10, -10)) || b.equals(new point(-10, -10))){
+        System.out.println("One of the points was invalid, cannot calculate");
+        return false;
+      }
+      else if (root.data == null){
+        System.out.println("They are in the same region.");
+        return true;
+      }
+      else {
+        line ab = new line(a, b);
+        root.pointCheck(root, ab);
+      }
+      return true;
+  }
   /*----------------------------------------
   public void delete(line x){
     if (!(lookup(x)) || root == null){
@@ -59,12 +75,12 @@ public class BinarySearchTree{
       root.delete(x);
     }
   }
-  public boolean lookup(line x){
-    if (root.data !=null)
-      if(root.lookup(x))
-        return true;
-
-    return false;
-  }
   -----------------------------------------*/
+  public MyTreeNode lookup(line x){
+    if (root.data !=null)
+      return root.lookup(x);
+
+    return null;
+  }
+
 }

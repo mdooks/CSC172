@@ -60,7 +60,7 @@ public class test {
       System.out.println("Colinear");
     }
     */
-    
+
     bst.insert(one);
     bst.printPreOrder();
     System.out.println();
@@ -73,6 +73,9 @@ public class test {
     bst.printPreOrder();
     System.out.println();
 
+    bst.sameRegion(new point(0.2, 0.1), new point(0.4, 0.1));
+    bst.sameRegion(new point(0.2, 0.1), new point(0.4, 0.5));
+    bst.sameRegion(new point(0.4, 0.4), new point(0.1, 0.4));
     //System.out.println(bst.getRoot().rightChild.leftChild.data);
   }
 }
