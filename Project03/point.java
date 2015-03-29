@@ -1,6 +1,8 @@
 public class point {
   double x;
   double y;
+
+  line parent;
   public point (double xval, double yval){
     setX(xval);
     setY(yval);
@@ -18,7 +20,8 @@ public class point {
       x = a;
     }
     else{
-      System.out.println("Invalid input point");
+      x = -10;
+      //System.out.println("Invalid input point");
     }
   }
   public void setY(double a){
@@ -26,10 +29,18 @@ public class point {
       y = a;
     }
     else{
-      System.out.println("Invalid input point");
+      y = -10;
+      //System.out.println("Invalid input point");
     }
   }
 
+  public boolean equals(Object o){
+    point b = (point) o;
+    if (this.x == b.x && this.y == b.y){
+      return true;
+    }
+    return false;
+  }
   public String toString() {
     return ("(" + this.getX() + "," + this.getY() +")");
   }

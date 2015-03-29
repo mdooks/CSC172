@@ -20,12 +20,45 @@
 * Last Revised: Febuary 26, 2015.
 */
 //from lab writeup
-public class MyTreeNode<T extends Comparable<T>>{
-  public T data;
-  public MyTreeNode<T> leftChild;
-  public MyTreeNode<T> rightChild;
-  public MyTreeNode<T> parent;
+public class MyTreeNode{
+  public line data;
+  public MyTreeNode leftChild;
+  public MyTreeNode rightChild;
+  public MyTreeNode parent;
 
+  public MyTreeNode insertLine(MyTreeNode n, line in){
+    if (n == null){
+      n = new MyTreeNode();
+      n.data = in;
+      //System.out.println(n.data);
+      return n;
+    }
+    else if (n.data.equals(in)){
+      return n;
+    }
+    else if (!(Geometry.intersect(n.data, in).equals(new point(-10,-10)))){
+      point inter = Geometry.intersect(n.data, in);
+      System.out.println("intersect!");
+      n.rightChild = insertLine(n.rightChild, new line (inter, in.end));
+      n.rightChild.parent = n;
+      n.leftChild = insertLine(n.leftChild, new line (in.start, inter));
+      n.leftChild.parent = n;
+    }
+    else if(Geometry.ccw(n.data.start, in.start, n.data.end) == Geometry.direction.COUNTERCLOCKWISE){
+      n.rightChild = insertLine(n.rightChild, in);
+      n.rightChild.parent = n;
+    }
+    else if(Geometry.ccw(n.data.start, in.start, n.data.end) == Geometry.direction.CLOCKWISE){
+      n.leftChild = insertLine(n.leftChild, in);
+      n.leftChild.parent = n;
+    }
+    else{
+      return null;
+    }
+
+    return n;
+  }
+/*
   public MyTreeNode insert(MyTreeNode<T> n, T in){
     if (n == null){
       n = new MyTreeNode<T>();
@@ -44,6 +77,8 @@ public class MyTreeNode<T extends Comparable<T>>{
     return n;
   }
 
+  */
+
   public void printInOrder(){
     if(leftChild !=null)
       leftChild.printInOrder();
@@ -51,24 +86,25 @@ public class MyTreeNode<T extends Comparable<T>>{
     if (rightChild !=null)
       rightChild.printInOrder();
   }
+
   public void printPostOrder(){
     if(leftChild !=null)
-      leftChild.printInOrder();
+      leftChild.printPostOrder();
 
     if (rightChild !=null)
-      rightChild.printInOrder();
+      rightChild.printPostOrder();
     System.out.println(data);
   }
   public void printPreOrder(){
     System.out.println(data);
     if(leftChild !=null)
-      leftChild.printInOrder();
+      leftChild.printPreOrder();
 
     if (rightChild !=null)
-      rightChild.printInOrder();
+      rightChild.printPreOrder();
   }
-
-  public boolean lookup(T x){
+  /* -------------------------------------------------------
+  public boolean lookup(line x){
     if (x.equals(data)){
       return true;
     }
@@ -80,7 +116,7 @@ public class MyTreeNode<T extends Comparable<T>>{
     return false;
   }
 
-  public void delete(T x){
+  public void delete(line x){
     if (x.equals(data)){
 
       if (leftChild == null && rightChild == null){
@@ -117,29 +153,10 @@ public class MyTreeNode<T extends Comparable<T>>{
       }
 
       else{
-        MyTreeNode<T> e = LmostRchild();
-        T temp = e.data;
+        MyTreeNode e = LmostRchild();
+        line temp = e.data;
         delete(e.data);
         data = temp;
-        /*if (e.parent.leftChild == this){
-          if (e.rightChild != null){
-            e.parent.leftChild = e.rightChild;
-            e.rightChild.parent = e.parent;
-          }
-          else{
-            e.parent.leftChild = null;
-          }
-        }
-        else{
-          if(e.rightChild != null){
-            e.parent.rightChild = e.rightChild;
-            e.rightChild.parent = e.parent;
-          }
-          else{
-            e.parent.rightChild = null;
-          }
-        }
-        e.data = null;*/
       }
     }
     else if (x.compareTo(data) > 0 && rightChild != null)
@@ -147,7 +164,7 @@ public class MyTreeNode<T extends Comparable<T>>{
     else if ((x.compareTo(data) < 0 && leftChild != null))
       leftChild.delete(x);
   }
-  public MyTreeNode<T> LmostRchild(){
+  public MyTreeNode LmostRchild(){
     MyTreeNode e = rightChild;
 
     while (e.leftChild != null){
@@ -155,4 +172,6 @@ public class MyTreeNode<T extends Comparable<T>>{
     }
     return e;
   }
+
+  ---------------------------------------------------------- */
 }

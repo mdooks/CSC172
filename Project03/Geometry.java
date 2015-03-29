@@ -9,19 +9,26 @@ public class Geometry {
     double dx2 = p2.getX() - p0.getX(); //get slope of line made by points 0 & 2
     double dy2 = p2.getY() - p0.getY();
 
+    //System.out.println(dx1 + ", " + dy1 + ", " + dx2 + ", " + dy2 + ", ");
+
     if (dx1*dy2 > dx2*dy1) {
+      //System.out.println("First");
       return direction.COUNTERCLOCKWISE;
     }
     else if (dx1*dy2 < dx2*dy1){
+      //System.out.println("Second");
       return direction.CLOCKWISE;
     }
     else if ((dx1*dx2 < 0) || (dy1 * dy2 < 0)){
+      //System.out.println("Third");
       return direction.CLOCKWISE;
     }
     else if ((dx1*dx1 + dy1*dy1) < (dx2*dx2 + dy2*dy2)){
+      //System.out.println("Fourth");
       return direction.COUNTERCLOCKWISE;
     }
     else {
+      //System.out.println("Fifth");
       return direction.COLINEAR;
     }
 
@@ -39,8 +46,17 @@ public class Geometry {
 
     double ansX = ((m1 * x01 - y01 - m2*x02 + y02)/(m1-m2));
     double ansY = m1 * (ansX - x01) + y01;
-
+    System.out.println(ansX + ", " + ansY);
     point ans = new point(ansX, ansY);
+    if (a.start.getX() > ans.getX() || a.end.getX() < ans.getX()){
+      System.out.println("Out of bounds: " + ans);
+
+      return new point (-10, -10);
+    }
+    if (a.start.equals(ans) || a.end.equals(ans)){
+      System.out.println("end point");
+      return new point (-10,-10);
+    }
     return ans;
 
   }
