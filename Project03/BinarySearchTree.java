@@ -66,6 +66,12 @@ public class BinarySearchTree{
       }
       return true;
   }
+
+  public void clear (){
+    root.data = null;
+    root.rightChild = null;
+    root.leftChild = null;
+  }
   /*----------------------------------------
   public void delete(line x){
     if (!(lookup(x)) || root == null){

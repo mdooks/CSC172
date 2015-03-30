@@ -30,7 +30,6 @@ public class MyTreeNode{
     if (n == null){
       n = new MyTreeNode();
       n.data = in;
-      //System.out.println(n.data);
       return n;
     }
     else if (n.data.equals(in)){
@@ -38,7 +37,6 @@ public class MyTreeNode{
     }
     else if (!(Geometry.intersect(n.data, in).equals(new point(-10,-10)))){
       point inter = Geometry.intersect(n.data, in);
-      System.out.println("intersect!");
       n.rightChild = insertLine(n.rightChild, new line (inter, in.end));
       n.rightChild.parent = n;
       n.leftChild = insertLine(n.leftChild, new line (in.start, inter));

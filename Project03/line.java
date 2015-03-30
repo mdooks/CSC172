@@ -27,7 +27,11 @@ public class line {
   }
 
   public String toString (){
-    return ("(" + start + " " + end + ")");
+    //y = mx + b
+    double m = Geometry.slope(this);
+    double b = m*(-1*start.x) + start.y;
+    String ans = String.format ("y = %.4fx + %.4f", m, b);
+    return (ans);
   }
 
 }
