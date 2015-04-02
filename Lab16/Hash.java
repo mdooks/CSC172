@@ -119,7 +119,7 @@ public class Hash{
     try{
       File file = new File("LoremIpsum.txt");
       if(!file.createNewFile()){
-        in = new Scanner(file);
+        in = new Scanner(file).useDelimiter("\\.|,|\\s");
       }
       else{
         in = new Scanner(file);

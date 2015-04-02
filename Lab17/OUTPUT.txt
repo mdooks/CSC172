@@ -1,0 +1,31 @@
+Nicholas Graham
+Lab 17
+
+Output: java Zipcode
+
+43586
+Enter a Zipcode to search, or type quit to exit: 14627
+Rochester,NY
+Enter a Zipcode to search, or type quit to exit: 22222
+Arlington,VA
+Enter a Zipcode to search, or type quit to exit: 32221
+Jacksonville,FL
+Enter a Zipcode to search, or type quit to exit: 02542
+Buzzards Bay,MA
+Enter a Zipcode to search, or type quit to exit: 12221
+I'm sorry, that Zip Code was not found.
+Enter a Zipcode to search, or type quit to exit: 123211
+That is not a valid Zip Code
+Enter a Zipcode to search, or type quit to exit: quit
+30636
+Enter a City to search, or type quit to exit: Rochester,NY
+47
+Enter a City to search, or type quit to exit: Arlington,VA
+32
+Enter a City to search, or type quit to exit: Jacksonville,FL
+56
+Enter a City to search, or type quit to exit: Buzzards Bay,MA
+2
+Enter a City to search, or type quit to exit: FunkyTown,FL
+I'm sorry to say that the city you have entered was not found. I do hope you will try again.
+Enter a City to search, or type quit to exit: quit

@@ -1,0 +1,8 @@
+Nicholas Graham
+Lab 16
+
+Output: java Hash
+, Vestibulum, eleifend, lorem, erat, quam, efficitur, interdum, congue, Donec, massa, Class, rutrum, sit, potenti, Quisque, porta, fringilla, suscipit, ultrices, magna, Cras, accumsan, facilisi, non, pulvinar, consequat, arcu, inceptos, eget, vulputate, euismod, nec, Praesent, vestibulum, hendrerit, a, conubia, posuere, Etiam, et, sociosqu, condimentum, eu, eros, ex, odio, convallis, Vivamus, sapien, dapibus, ultricies, torquent, Curabitur, turpis, aliquet, commodo, nibh, urna, litora, Proin, risus, placerat, Sed, lectus, porttitor, egestas, maximus, lobortis, molestie, lacus, Aenean, finibus, Integer, facilisis, blandit, consectetur, tincidunt, tempus, imperdiet, sodales, Duis, ante, luctus, Nunc, dictum, volutpat, Maecenas, faucibus, tellus, himenaeos, Suspendisse, sagittis, lacinia, scelerisque, enim, vel, tristique, Nam, id, dignissim, elementum, Nulla, vitae, nostra, in, metus, dolor, diam, Phasellus, ligula, pellentesque, Pellentesque, augue, fermentum, leo, sed, bibendum, mattis, ut, gravida, malesuada, sem, Morbi, Nullam, iaculis, viverra, feugiat, Aliquam, adipiscing, libero, dui, quis, In, cursus, sollicitudin, orci, purus, laoreet, semper, justo, pretium, per, nulla, venenatis, tortor, nisi, nisl, felis, mauris, varius, ac, ad, nunc, vehicula, amet, est, neque, at, taciti, ipsum, tempor, pharetra, Mauris, rhoncus, mi, aliquam, velit, mollis, elit, 
+170 Unique words.
+416 totals spots in the heap
+976 words read in

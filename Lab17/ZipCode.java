@@ -85,7 +85,7 @@ public class ZipCode {
     while(in2.hasNext()){
       Integer zip = new Integer (in2.nextInt());
       String address = in2.next() + "," + in2.next();
-      System.out.println(address);
+      //System.out.println(address);
       if(!slingingSlasher.containsKey(address))
         slingingSlasher.put(address, 1);
       else{
