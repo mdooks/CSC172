@@ -25,8 +25,8 @@ import java.util.Scanner;
 public class test {
   public static void main(String[] args){
     System.out.println(Geometry.infinity);
-    line qw = new line (0.1, 0.1, 0.7, 0.1);
-    line rt = new line (0.5, 0, 0.5, 1);
+    line qw = new line (0.7, 0, 0.7, 0.3);
+    line rt = new line (0, 0.7, 0.3, 0.7);
     System.out.println(Geometry.intersect(qw, rt));
     Scanner input = new Scanner(System.in); //set up scanner
 
