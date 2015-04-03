@@ -24,6 +24,10 @@ import java.util.Scanner;
 
 public class test {
   public static void main(String[] args){
+    System.out.println(Geometry.infinity);
+    line qw = new line (0.1, 0.1, 0.7, 0.1);
+    line rt = new line (0.5, 0, 0.5, 1);
+    System.out.println(Geometry.intersect(qw, rt));
     Scanner input = new Scanner(System.in); //set up scanner
 
     System.out.println("Enter the number of lines, then enter the lines in the following format:\n# of lines \nx1 y1 x2 y2");
@@ -49,8 +53,10 @@ public class test {
 
     for (line l : L){ //insert the lines
       bst.insert(l);
+      bst.printInOrder(); //for testing, print the lines
+      System.out.println();
     }
-    //bst.printInOrder(); //for testing, print the lines
+
 
     System.out.println("Enter the points you want to test: x1 y1 x2 y2"); //ask for the points
 

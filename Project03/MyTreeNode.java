@@ -113,9 +113,11 @@ public class MyTreeNode{
     }
     else if (Geometry.ccw(x.start, n.data.start, n.data.end) == Geometry.ccw(x.end, n.data.start, n.data.end)){
       if (Geometry.ccw(x.start, n.data.start, n.data.end) == Geometry.direction.COUNTERCLOCKWISE){
+        System.out.println("Right");
         pointCheck(n.rightChild, x);
       }
       else if(Geometry.ccw(x.start, n.data.start, n.data.end) == Geometry.direction.CLOCKWISE){
+        System.out.println("Left");
         pointCheck(n.leftChild, x);
       }
       else{

@@ -24,6 +24,8 @@ public class Geometry { //class for the math
   public enum direction{ //used to back up the method given to us
     CLOCKWISE, COUNTERCLOCKWISE, COLINEAR
   }
+
+  public static Double infinity = 1.0/0.0;
   public static direction ccw (point p0, point p1, point p2){ //method taken from the lab assignment
     double dx1 = p1.getX() - p0.getX(); //get the slope of the line made by points 0 & 1
     double dy1 = p1.getY() - p0.getY();
@@ -56,16 +58,28 @@ public class Geometry { //class for the math
     if (m1 == m2){
       return new point (-10, -10);
     }
+    double ansY;
+    double ansX;
+    if (a.start.getX() == a.end.getX()){ //Handle vertical line
+      ansY = m2 * (a.start.getX() - b.start.getX()) + b.start.getY();
+      ansX = a.start.getX();
+    }
+    else if (b.start.getX() == b.end.getX()){ //handle vertical line
+      ansY = m1 * (b.start.getX() - a.start.getX()) + a.start.getY();
+      ansX = b.start.getX();
+    }
+    else{
+      double x01 = a.start.getX(); //get the starting x points
+      double x02 = b.start.getX();
 
-    double x01 = a.start.getX(); //get the starting x points
-    double x02 = b.start.getX();
+      double y01 = a.start.getY(); //and the starting y points
+      double y02 = b.start.getY();
 
-    double y01 = a.start.getY(); //and the starting y points
-    double y02 = b.start.getY();
-
-    double ansX = ((m1 * x01 - y01 - m2*x02 + y02)/(m1-m2));
-    double ansY = m1 * (ansX - x01) + y01;
+      ansX = ((m1 * x01 - y01 - m2*x02 + y02)/(m1-m2));
+      ansY = m1 * (ansX - x01) + y01;
+    }
     point ans = new point(ansX, ansY);
+    System.out.println("Intersect: " + ans);
     if (a.start.getX() > ans.getX() || a.end.getX() < ans.getX()){ //if the point is out of the scope of the line, make the error point
       return new point (-10, -10);
     }
