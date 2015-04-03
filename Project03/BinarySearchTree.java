@@ -1,13 +1,13 @@
 /*
-* Lab10
+* Project03
 *
-* Lab 10
+* Project 3
 *
 * Copyright 2015
 *
 * Course: CSC 172 Spring 2015
 *
-* Assignment: Lab 10
+* Assignment: Project 3
 *
 * Author: Nicholas Graham
 *
@@ -17,18 +17,18 @@
 *
 * Lab TA: Kate Zeng Zhiming
 *
-* Last Revised: Febuary 26, 2015.
+* Last Revised: April 2, 2015.
 */
 public class BinarySearchTree{
-  private MyTreeNode root;
+  private MyTreeNode root; //define the root node
 
-  public BinarySearchTree(){
+  public BinarySearchTree(){ // make the tree on setup
     root = new MyTreeNode();
   }
-  public MyTreeNode getRoot(){
+  public MyTreeNode getRoot(){ // get the root
     return root;
   }
-  public void insert(line in){
+  public void insert(line in){ //insert a line
     if (root.data == null){
       root.data = in;
     }
@@ -37,7 +37,7 @@ public class BinarySearchTree{
     }
   }
 
-  public void printPreOrder(){
+  public void printPreOrder(){ //print methods for testing
     if (root.data != null)
       root.printPreOrder();
   }
@@ -51,7 +51,7 @@ public class BinarySearchTree{
       root.printPostOrder();
   }
 
-  public boolean sameRegion(point a, point b){
+  public boolean sameRegion(point a, point b){ //check if two points are in the same region
       if (a.equals(new point(-10, -10)) || b.equals(new point(-10, -10))){
         System.out.println("One of the points was invalid, cannot calculate");
         return false;
@@ -67,22 +67,13 @@ public class BinarySearchTree{
       return true;
   }
 
-  public void clear (){
+  public void clear (){ // clear the tree
     root.data = null;
     root.rightChild = null;
     root.leftChild = null;
   }
-  /*----------------------------------------
-  public void delete(line x){
-    if (!(lookup(x)) || root == null){
-      return;
-    }
-    else{
-      root.delete(x);
-    }
-  }
-  -----------------------------------------*/
-  public MyTreeNode lookup(line x){
+
+  public MyTreeNode lookup(line x){ //lookup
     if (root.data !=null)
       return root.lookup(x);
 

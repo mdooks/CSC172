@@ -1,13 +1,13 @@
 /*
-* Lab10
+* Project03
 *
-* Lab 10
+* Project 3
 *
 * Copyright 2015
 *
 * Course: CSC 172 Spring 2015
 *
-* Assignment: Lab 10
+* Assignment: Project 3
 *
 * Author: Nicholas Graham
 *
@@ -17,9 +17,9 @@
 *
 * Lab TA: Kate Zeng Zhiming
 *
-* Last Revised: Febuary 26, 2015.
+* Last Revised: April 2, 2015.
 */
-//interface from lab write up
+//interface from lab 10 write up
 public interface BST<T extends Comparable<T>> {
   public void insert(T x);
   public void delete(T x);
