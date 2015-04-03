@@ -24,8 +24,10 @@ Enter a City to search, or type quit to exit: Arlington,VA
 32
 Enter a City to search, or type quit to exit: Jacksonville,FL
 56
+Enter a City to search, or type quit to exit: BUzzards Bay,MA
+I'm sorry to say that the city you have entered was not found. I do hope you will try again.
+Enter a City to search, or type quit to exit: Funky Town,PL
+I'm sorry to say that the city you have entered was not found. I do hope you will try again.
 Enter a City to search, or type quit to exit: Buzzards Bay,MA
 2
-Enter a City to search, or type quit to exit: FunkyTown,FL
-I'm sorry to say that the city you have entered was not found. I do hope you will try again.
 Enter a City to search, or type quit to exit: quit

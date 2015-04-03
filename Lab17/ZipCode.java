@@ -1,3 +1,24 @@
+/*
+* Lab17
+*
+* Lab 17
+*
+* Copyright 2015
+*
+* Course: CSC 172 Spring 2015
+*
+* Assignment: Lab 17
+*
+* Author: Nicholas Graham
+*
+* Email: ngraham@u.rochester.edu
+*
+* Lab Session: Wednesday 6:15 - 7:30
+*
+* Lab TA: Kate Zeng Zhiming
+*
+* Last Revised: Febuary 26, 2015.
+*/
 import java.util.HashMap;
 import java.util.Scanner;
 import java.io.File;
@@ -62,30 +83,11 @@ public class ZipCode {
 
     }
 
-
-    try{
-      File file2 = new File("zipcodes.csv");
-      if(!file2.createNewFile()){
-        in2 = new Scanner(file2);
-      }
-      else{
-        in2 = new Scanner(file2);
-      }
-    }catch (Exception e){
-      ;
-    }
-
-    try{
-      in2 = new Scanner(new File("zipcodes.csv")).useDelimiter(",|\\v");
-    }catch(Exception e){
-      System.out.println(e);
-    }
-
     HashMap<String, Integer> slingingSlasher = new HashMap<String, Integer>();
-    while(in2.hasNext()){
-      Integer zip = new Integer (in2.nextInt());
-      String address = in2.next() + "," + in2.next();
-      //System.out.println(address);
+
+    for (HashMap.Entry<Integer, String> e : tags.entrySet()){ //run through the map and get the values
+      Integer zip = e.getKey();
+      String address = e.getValue();
       if(!slingingSlasher.containsKey(address))
         slingingSlasher.put(address, 1);
       else{
@@ -93,6 +95,7 @@ public class ZipCode {
         slingingSlasher.put(address, val + 1);
       }
     }
+
     System.out.println(slingingSlasher.size());
     while (true){
       Scanner user = new Scanner(System.in);
