@@ -52,11 +52,8 @@ public class line {
   }
 
   public String toString (){ //toString for printing the lines in standard form
-    //y = mx + b
-    double m = Geometry.slope(this);
-    double b = m*(-1*start.x) + start.y;
-    String ans = String.format ("y = %.4fx + %.4f", m, b); //4 decimal points used to keep it managable, but accurate.
-    return (ans);
+    //scratch that, they want two points.
+    return (start +", " + end);
   }
 
 }

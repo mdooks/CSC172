@@ -34,19 +34,25 @@ public class Geometry { //class for the math
     double dy2 = p2.getY() - p0.getY();
 
     //return the direction of point for sorting reasons
+
     if (dx1*dy2 > dx2*dy1) {
+      System.out.println("one");
       return direction.COUNTERCLOCKWISE;
     }
     else if (dx1*dy2 < dx2*dy1){
+      System.out.println("two");
       return direction.CLOCKWISE;
     }
     else if ((dx1*dx2 < 0) || (dy1 * dy2 < 0)){
+      System.out.println("three");
       return direction.CLOCKWISE;
     }
     else if ((dx1*dx1 + dy1*dy1) < (dx2*dx2 + dy2*dy2)){
+      System.out.println("four");
       return direction.COUNTERCLOCKWISE;
     }
     else {
+      System.out.println("five");
       return direction.COLINEAR;
     }
 
