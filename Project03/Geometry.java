@@ -88,13 +88,25 @@ public class Geometry { //class for the math
 
     //EDIT THIS IS DOES NOT WORK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     System.out.println("Intersect: " + ans);
-    if ((a.start.getX() > ans.getX() || a.end.getX() < ans.getX()) || (b.start.getX() > ans.getX() || b.end.getX() < ans.getX())){ //if the point is out of the scope of the line, make the error point
+    if (Math.max(a.start.getX(), a.end.getX()) < ans.getX()){
+      return new point (-10, -10);
+    }
+    if (Math.max(a.start.getY(), a.end.getY()) < ans.getY()){
+      return new point (-10, -10);
+    }
+    if (Math.min(a.start.getX(), a.end.getX()) > ans.getX()){
+      return new point (-10, -10);
+    }
+    if (Math.min(a.start.getY(), a.end.getY()) > ans.getY()){
+      return new point (-10, -10);
+    }
+    /*if ((a.start.getX() > ans.getX() || a.end.getX() < ans.getX()) || (b.start.getX() > ans.getX() || b.end.getX() < ans.getX())){ //if the point is out of the scope of the line, make the error point
       return new point (-10, -10);
     }
     else if (!(ans.getY() >= Math.min(a.start.getY(), a.end.getY()) && ans.getY() <= Math.max(a.start.getY(), a.end.getY()))){
       System.out.println("Y case");
       return new point (-10, -10);
-    }
+    }*/
     /*else if ((b.start.getY() <= ans.getY() || b.end.getY() >= ans.getY()) || (b.end.getY() <= ans.getY() || b.start.getY() >= ans.getY())){ //if the point is out of the scope of the line, make the error point
       System.out.println("Y bounds");
       return new point (-10, -10);
