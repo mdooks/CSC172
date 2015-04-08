@@ -143,6 +143,93 @@ public class MyTreeNode{
     }
 
   }
+
+  public int externalNode(MyTreeNode n){
+    if (n == null){
+      return 0;
+    }
+    else if(n.leftChild == null & n.rightChild == null){
+      return 1;
+    }
+
+    else{
+      return externalNode(n.leftChild) + externalNode(n.rightChild);
+    }
+  }
+
+  public int externalPath(MyTreeNode n){
+    MyTreeNode backup = n;
+    if (n == null){
+      return 0;
+    }
+    int lpath = 0;
+    while (n != null){
+      lpath++;
+      n = n.leftChild;
+    }
+    int rpath = 0;
+    while (backup != null){
+      rpath++;
+      backup = backup.leftChild;
+    }
+    return Math.max(lpath, rpath);
+  }
+  public line subDivide(MyTreeNode n, line l){
+    line t = n.data;
+    while (true){
+      if(n.leftChild == null && n.rightChild == null){
+        break;
+      }
+      else if(n.leftChild == null && Geometry.endTest(n.data, n.rightChild.data).equals(new point(-10,-10))){
+        break;
+      }
+      else if(n.rightChild == null && Geometry.endTest(n.data, n.leftChild.data).equals(new point(-10,-10))){
+        break;
+      }
+      else if(n.leftChild == null){
+        point temp = Geometry.endTest(n.data, n.rightChild.data);
+        if (!(Geometry.intersect(new line (n.data.start, temp), l).equals(new point(-10,-10)))){
+          t = new line(n.data.start, temp);
+        }
+        else{
+          t = new line(temp, n.data.end);
+        }
+        n = n.rightChild;
+      }
+
+      else if(n.rightChild == null){
+        point temp = Geometry.endTest(n.data, n.leftChild.data);
+        if (!(Geometry.intersect(new line (n.data.start, temp), l).equals(new point(-10,-10)))){
+          t = new line(n.data.start, temp);
+        }
+        else{
+          t = new line(temp, n.data.end);
+        }
+        n = n.leftChild;
+      }
+      else{
+        point temp = Geometry.endTest(n.data, n.leftChild.data);
+        point rtemp = Geometry.endTest(n.data, n.rightChild.data);
+        if (!(Geometry.intersect(new line (n.data.start, temp), l).equals(new point(-10,-10)))){
+          t = new line(n.data.start, temp);
+          n = n.leftChild;
+        }
+        else if (!(Geometry.intersect(new line (n.data.end, temp), l).equals(new point(-10,-10)))){
+          t = new line(n.data.end, temp);
+          n = n.leftChild;
+        }
+        else if (!(Geometry.intersect(new line (n.data.start, rtemp), l).equals(new point(-10,-10)))){
+          t = new line(n.data.start, rtemp);
+          n = n.rightChild;
+        }
+        else{
+          t = new line(n.data.end, rtemp);
+          n = n.rightChild;
+        }
+      }
+    }
+    return n.data;
+  }
   /*public void pointCheck(MyTreeNode n, line x){ //check two points
 
     if (n == null){

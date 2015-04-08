@@ -80,4 +80,19 @@ public class BinarySearchTree{
     return null;
   }
 
+  public int externalNode (){
+    if(root.data == null){
+      return 0;
+    }
+    return root.externalNode(root);
+  }
+
+  public int externalPath(){
+    if(root.data == null){
+      return 0;
+    }
+    else{
+      return root.externalPath(root);
+    }
+  }
 }

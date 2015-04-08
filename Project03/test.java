@@ -58,7 +58,7 @@ public class test {
       System.out.println();
     }
 
-
+    System.out.println(bst.externalNode() + " " + bst.externalPath());
     System.out.println("Enter the points you want to test: x1 y1 x2 y2"); //ask for the points
 
     while (true) { //untill they quit

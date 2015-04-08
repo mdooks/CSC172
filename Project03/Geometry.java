@@ -119,4 +119,20 @@ public class Geometry { //class for the math
     }
     return false;
   }
+
+  public static point endTest(line x, line test){
+    double m = Geometry.slope(x);
+    double xval = x.start.getX();
+    double yval = x.start.getY();
+
+    if (test.start.getY() == (m*test.start.getX() - m*xval + yval)){
+      return (test.start);
+    }
+    else if(test.end.getY() == (m*test.end.getX() - m*xval + yval)){
+      return (test.end);
+    }
+    else{
+      return new point(-10, -10);
+    }
+  }
 }
