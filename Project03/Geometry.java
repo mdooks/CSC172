@@ -85,6 +85,8 @@ public class Geometry { //class for the math
       ansY = m1 * (ansX - x01) + y01;
     }
     point ans = new point(ansX, ansY);
+
+    //EDIT THIS IS DOES NOT WORK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     System.out.println("Intersect: " + ans);
     if ((a.start.getX() > ans.getX() || a.end.getX() < ans.getX()) || (b.start.getX() > ans.getX() || b.end.getX() < ans.getX())){ //if the point is out of the scope of the line, make the error point
       return new point (-10, -10);

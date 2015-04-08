@@ -44,10 +44,10 @@ public class MyTreeNode{
         n.leftChild.parent = n;
       }
       else{
-        n.rightChild = insertLine(n.rightChild, new line (inter, in.end));
-        n.rightChild.parent = n;
-        n.leftChild = insertLine(n.leftChild, new line (in.start, inter));
+        n.leftChild = insertLine(n.leftChild, new line (inter, in.end));
         n.leftChild.parent = n;
+        n.rightChild = insertLine(n.rightChild, new line (in.start, inter));
+        n.rightChild.parent = n;
       }
     }
     else if(Geometry.ccw(in.end, n.data.start, n.data.end) == Geometry.direction.COUNTERCLOCKWISE){ //right
@@ -112,31 +112,36 @@ public class MyTreeNode{
   }
 
   public void pointCheck(MyTreeNode n, line x){
+
+        if(n !=null){
+          System.out.println(n.data);
+        }
+
     if (n == null){ //null node, insert
-      System.out.println("null");
+      //System.out.println("null");
       System.out.println("They are in the same region");
     }
     else if (n.data.equals(x)){ //equivelent node found, break out.
-      System.out.println("same");
+      //System.out.println("same");
       System.out.println("The points are on the line: " + n.data);
     }
     else if (!(Geometry.intersect(n.data, x).equals(new point(-10,-10)))){ //if they intersect, both sides
       point inter = Geometry.intersect(n.data, x);
-      System.out.println("Intersection");
+      //System.out.println("Intersection");
       System.out.println("The points are seperated by the line: " + n.data);
       System.out.println(subDivide(n,x));
 
     }
     else if(Geometry.ccw(x.start, n.data.start, n.data.end) == Geometry.direction.COUNTERCLOCKWISE){ //right
-      System.out.println("right");
-      pointCheck(n.rightChild, x);
-    }
-    else if(Geometry.ccw(x.start, n.data.start, n.data.end) == Geometry.direction.CLOCKWISE){ //left
-      System.out.println("left");
+      //System.out.println("left");
       pointCheck(n.leftChild, x);
     }
+    else if(Geometry.ccw(x.start, n.data.start, n.data.end) == Geometry.direction.CLOCKWISE){ //left
+      //System.out.println("right");
+      pointCheck(n.rightChild, x);
+    }
     else if(Geometry.ccw(x.start, n.data.start, n.data.end) == Geometry.direction.COLINEAR){ //same line
-      System.out.println("Colinear");
+      //System.out.println("Colinear");
       System.out.println("One of these points falls on a line");
     }
     else{
