@@ -86,7 +86,6 @@ public class Geometry { //class for the math
     }
     point ans = new point(ansX, ansY);
 
-    //EDIT THIS IS DOES NOT WORK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     System.out.println("Intersect: " + ans);
     if (Math.max(a.start.getX(), a.end.getX()) < ans.getX()){
       return new point (-10, -10);
@@ -98,6 +97,19 @@ public class Geometry { //class for the math
       return new point (-10, -10);
     }
     if (Math.min(a.start.getY(), a.end.getY()) > ans.getY()){
+      return new point (-10, -10);
+    }
+
+    if (Math.max(b.start.getX(), b.end.getX()) < ans.getX()){
+      return new point (-10, -10);
+    }
+    if (Math.max(b.start.getY(), b.end.getY()) < ans.getY()){
+      return new point (-10, -10);
+    }
+    if (Math.min(b.start.getX(), b.end.getX()) > ans.getX()){
+      return new point (-10, -10);
+    }
+    if (Math.min(b.start.getY(), b.end.getY()) > ans.getY()){
       return new point (-10, -10);
     }
     /*if ((a.start.getX() > ans.getX() || a.end.getX() < ans.getX()) || (b.start.getX() > ans.getX() || b.end.getX() < ans.getX())){ //if the point is out of the scope of the line, make the error point
