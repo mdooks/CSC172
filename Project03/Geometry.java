@@ -147,15 +147,26 @@ public class Geometry { //class for the math
   }
 
   public static point endTest(line x, line test){
-    double m = Geometry.slope(x);
+    Double m = Geometry.slope(x);
     double xval = x.start.getX();
     double yval = x.start.getY();
+    System.out.println("M: " + m);
 
     if (test.start.getY() == (m*test.start.getX() - m*xval + yval)){
       return (test.start);
     }
     else if(test.end.getY() == (m*test.end.getX() - m*xval + yval)){
       return (test.end);
+    }
+    else if (m.equals(infinity)){
+      System.out.println("teapot");
+      double m2 = Geometry.slope(test);
+      double xval2 = test.start.getX();
+      double yval2 = m2*x.start.getX() - m2*xval2 + test.start.getY();
+      System.out.println(yval2);
+      point a = new point(x.start.getX(), yval2);
+      System.out.println("Point a: " + a);
+      return (a);
     }
     else{
       return new point(-10, -10);
