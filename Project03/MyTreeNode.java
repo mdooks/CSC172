@@ -183,6 +183,7 @@ public class MyTreeNode{
   public line subDivide(MyTreeNode n, line l){
     //System.out.println("subDivide");
     line t = n.data;
+    line mathError = t;
     while (true){
       System.out.println("t: " + t);
       if(n.leftChild == null && n.rightChild == null){
@@ -224,26 +225,33 @@ public class MyTreeNode{
         System.out.println("both");
         point temp = Geometry.endTest(n.data, n.leftChild.data);
         point rtemp = Geometry.endTest(n.data, n.rightChild.data);
-        if (!(Geometry.intersect(new line (n.data.start, temp), l).equals(new point(-10,-10)))){
-          t = new line(n.data.start, temp);
-          n = n.leftChild;
+        if (!(temp.equals(new point (-10, -10)))){
+          if (!(Geometry.intersect(new line (n.data.start, temp), l).equals(new point(-10,-10)))){
+            System.out.println("l1");
+            t = new line(n.data.start, temp);
+            n = n.leftChild;
+          }
+          else if (!(Geometry.intersect(new line (n.data.end, temp), l).equals(new point(-10,-10)))){
+            System.out.println("l2");
+            t = new line(n.data.end, temp);
+            n = n.leftChild;
+          }
         }
-        else if (!(Geometry.intersect(new line (n.data.end, temp), l).equals(new point(-10,-10)))){
-          t = new line(n.data.end, temp);
-          n = n.leftChild;
-        }
-        else if (!(Geometry.intersect(new line (n.data.start, rtemp), l).equals(new point(-10,-10)))){
-          t = new line(n.data.start, rtemp);
-          n = n.rightChild;
-        }
-        else if (!(Geometry.intersect(new line (n.data.end, rtemp), l).equals(new point(-10,-10)))){
-          System.out.println("cause I don't check");
-          t = new line(n.data.end, rtemp);
-          n = n.rightChild;
+        if (!(rtemp.equals(new point (-10, -10)))){
+          if (!(Geometry.intersect(new line (n.data.start, rtemp), l).equals(new point(-10,-10)))){
+            System.out.println("r1");
+            t = new line(n.data.start, rtemp);
+            n = n.rightChild;
+          }
+          else if (!(Geometry.intersect(new line (n.data.end, rtemp), l).equals(new point(-10,-10)))){
+            System.out.println("cause I don't check");
+            t = new line(n.data.end, rtemp);
+            n = n.rightChild;
+          }
         }
         else{
           System.out.println("This line cannot be broken down more, due to issues with the mathematcal rounding");
-          break;
+          return mathError;
         }
       }
     }

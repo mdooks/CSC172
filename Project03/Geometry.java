@@ -86,7 +86,7 @@ public class Geometry { //class for the math
     }
     point ans = new point(ansX, ansY);
 
-    System.out.println("Intersect: " + ans);
+    //System.out.println("Intersect: " + ans);
     if (Math.max(a.start.getX(), a.end.getX()) < ans.getX()){
       return new point (-10, -10);
     }
@@ -150,7 +150,7 @@ public class Geometry { //class for the math
     Double m = Geometry.slope(x);
     double xval = x.start.getX();
     double yval = x.start.getY();
-    System.out.println("M: " + m);
+    //System.out.println("M: " + m);
 
     if (test.start.getY() == (m*test.start.getX() - m*xval + yval)){
       return (test.start);
@@ -159,13 +159,13 @@ public class Geometry { //class for the math
       return (test.end);
     }
     else if (m.equals(infinity)){
-      System.out.println("teapot");
+      //System.out.println("teapot");
       double m2 = Geometry.slope(test);
       double xval2 = test.start.getX();
       double yval2 = m2*x.start.getX() - m2*xval2 + test.start.getY();
       System.out.println(yval2);
       point a = new point(x.start.getX(), yval2);
-      System.out.println("Point a: " + a);
+      //System.out.println("Point a: " + a);
       return (a);
     }
     else{
