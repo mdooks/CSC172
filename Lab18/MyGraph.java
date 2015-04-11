@@ -1,3 +1,24 @@
+/*
+* Lab18
+*
+* Lab 18
+*
+* Copyright 2015
+*
+* Course: CSC 172 Spring 2015
+*
+* Assignment: Lab 18
+*
+* Author: Nicholas Graham
+*
+* Email: ngraham@u.rochester.edu
+*
+* Lab Session: Wednesday 6:15 - 7:30
+*
+* Lab TA: Kate Zeng Zhiming
+*
+* Last Revised: April 11, 2015.
+*/
 public class MyGraph {
   public static void main(String[] args){
     Graph test1 = new Graph(7, true);
