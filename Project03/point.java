@@ -64,6 +64,8 @@ public class point {
     return false;
   }
   public String toString() { //to string method for printing them out
-    return ("(" + this.getX() + "," + this.getY() +")");
+    String ans = String.format("(%.4f, %.4f)", this.getX(), this.getY());
+
+    return (ans);
   }
 }

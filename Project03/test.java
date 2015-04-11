@@ -21,32 +21,35 @@
 */
 
 import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.File;
 
 public class test {
+  static Scanner fl;
   public static void main(String[] args){
-    System.out.println(Geometry.infinity);
-    System.out.println(Geometry.ccw(new point(0, 1), new point(1, 0), new point( 0.2, 0.4)));
-    line qw = new line (0.7, 0, 0.7, 0.3);
-    line rt = new line (0, 0.7, 0.3, 0.7);
-    System.out.println(Geometry.intersect(qw, rt));
-    Scanner input = new Scanner(System.in); //set up scanner
-
-    System.out.println("Enter the number of lines, then enter the lines in the following format:\n# of lines \nx1 y1 x2 y2");
-    int num_lines = input.nextInt(); //get the number of lines
+    try{
+      fl = new Scanner(new File(args[0]));
+    }catch(Exception e){
+      System.out.println("File was not found");
+      return;
+    }
+    //System.out.println("Enter the number of lines, then enter the lines in the following format:\n# of lines \nx1 y1 x2 y2");
+    int num_lines = fl.nextInt(); //get the number of lines
 
     line L[] = new line[num_lines]; //set up the array of lines
 
     for(int i = 0; i < num_lines; i++){ //loop through, getting the 4 points of each line
-      float x1 = input.nextFloat();
-      float y1 = input.nextFloat();
-      float x2 = input.nextFloat();
-      float y2 = input.nextFloat();
+      float x1 = fl.nextFloat();
+      float y1 = fl.nextFloat();
+      float x2 = fl.nextFloat();
+      float y2 = fl.nextFloat();
       if (Geometry.isValid(x1) && Geometry.isValid(y1) && Geometry.isValid(x2) && Geometry.isValid(y2)){ //check for valid points
         L[i] = new line(x1, y1, x2, y2);
       }
       else {
         System.out.println("One of the points you have entered is invalid. The points must be in the unit square.");
         i--;
+        return;
       }
     }
 
@@ -54,19 +57,23 @@ public class test {
 
     for (line l : L){ //insert the lines
       bst.insert(l);
-      bst.printInOrder(); //for testing, print the lines
-      System.out.println();
+      //bst.printInOrder(); //for testing, print the lines
+      //System.out.println();
     }
 
     System.out.println(bst.externalNode() + " " + bst.externalPath());
-    System.out.println("Enter the points you want to test: x1 y1 x2 y2"); //ask for the points
-
-    while (true) { //untill they quit
-      String s = input.next(); //get the first thing
+    //System.out.println("Enter the points you want to test: x1 y1 x2 y2"); //ask for the points
+    point a;
+    point b;
+    while (fl.hasNext()) { //untill they quit
+      String s = fl.next(); //get the first thing
       if (s.equals("quit")){ //if its quit, break
         break;
       }
-      bst.sameRegion(new point(new Float(s), input.nextFloat()), new point (input.nextFloat(), input.nextFloat())); //otherwise test the points
+      a = new point (new Float(s), fl.nextFloat());
+      b = new point (fl.nextFloat(), fl.nextFloat());
+      System.out.print(a + " " + b + " : ");
+      bst.sameRegion(a, b); //otherwise test the points
     }
   }
 }

@@ -36,23 +36,23 @@ public class Geometry { //class for the math
     //return the direction of point for sorting reasons
 
     if (dx1*dy2 > dx2*dy1) {
-      System.out.println("one");
+      //System.out.println("one");
       return direction.COUNTERCLOCKWISE;
     }
     else if (dx1*dy2 < dx2*dy1){
-      System.out.println("two");
+      //System.out.println("two");
       return direction.CLOCKWISE;
     }
     else if ((dx1*dx2 < 0) || (dy1 * dy2 < 0)){
-      System.out.println("three");
+      //System.out.println("three");
       return direction.CLOCKWISE;
     }
     else if ((dx1*dx1 + dy1*dy1) < (dx2*dx2 + dy2*dy2)){
-      System.out.println("four");
+      //System.out.println("four");
       return direction.COUNTERCLOCKWISE;
     }
     else {
-      System.out.println("five");
+      //System.out.println("five");
       return direction.COLINEAR;
     }
 
@@ -163,7 +163,7 @@ public class Geometry { //class for the math
       double m2 = Geometry.slope(test);
       double xval2 = test.start.getX();
       double yval2 = m2*x.start.getX() - m2*xval2 + test.start.getY();
-      System.out.println(yval2);
+      //System.out.println(yval2);
       point a = new point(x.start.getX(), yval2);
       //System.out.println("Point a: " + a);
       return (a);
