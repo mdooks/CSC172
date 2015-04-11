@@ -37,23 +37,18 @@ public class Geometry { //class for the math
     //return the direction of point for sorting reasons
 
     if (dx1*dy2 > dx2*dy1) {
-      //System.out.println("one");
       return direction.COUNTERCLOCKWISE;
     }
     else if (dx1*dy2 < dx2*dy1){
-      //System.out.println("two");
       return direction.CLOCKWISE;
     }
     else if ((dx1*dx2 < 0) || (dy1 * dy2 < 0)){
-      //System.out.println("three");
       return direction.CLOCKWISE;
     }
     else if ((dx1*dx1 + dy1*dy1) < (dx2*dx2 + dy2*dy2)){
-      //System.out.println("four");
       return direction.COUNTERCLOCKWISE;
     }
     else {
-      //System.out.println("five");
       return direction.COLINEAR;
     }
 
@@ -87,7 +82,7 @@ public class Geometry { //class for the math
     }
     point ans = new point(ansX, ansY);
 
-    //System.out.println("Intersect: " + ans);
+    //if the intersection point is out of the scope of the lines, return the error point.
     if (Math.max(a.start.getX(), a.end.getX()) < ans.getX()){
       return new point (-10, -10);
     }
@@ -113,21 +108,7 @@ public class Geometry { //class for the math
     if (Math.min(b.start.getY(), b.end.getY()) > ans.getY()){
       return new point (-10, -10);
     }
-    /*if ((a.start.getX() > ans.getX() || a.end.getX() < ans.getX()) || (b.start.getX() > ans.getX() || b.end.getX() < ans.getX())){ //if the point is out of the scope of the line, make the error point
-      return new point (-10, -10);
-    }
-    else if (!(ans.getY() >= Math.min(a.start.getY(), a.end.getY()) && ans.getY() <= Math.max(a.start.getY(), a.end.getY()))){
-      System.out.println("Y case");
-      return new point (-10, -10);
-    }*/
-    /*else if ((b.start.getY() <= ans.getY() || b.end.getY() >= ans.getY()) || (b.end.getY() <= ans.getY() || b.start.getY() >= ans.getY())){ //if the point is out of the scope of the line, make the error point
-      System.out.println("Y bounds");
-      return new point (-10, -10);
-    }
-    /*else if ((a.start.getY() > ans.getY() || a.end.getY() < ans.getY()) || (b.start.getY() > ans.getY() || b.end.getY() < ans.getY())){ //if the point is out of the scope of the line, make the error point
-      System.out.println("Y bounds");
-      return new point (-10, -10);
-    }*/
+
     if ((a.start.equals(ans) || a.end.equals(ans)) ||  (b.start.equals(ans) || b.end.equals(ans))){ //if the point is the start or end then the intersect doesn't matter
       return new point (-10,-10);
     }
@@ -151,7 +132,6 @@ public class Geometry { //class for the math
     Double m = Geometry.slope(x);
     double xval = x.start.getX();
     double yval = x.start.getY();
-    //System.out.println("M: " + m);
 
     if (test.start.getY() == (m*test.start.getX() - m*xval + yval)){
       return (test.start);
@@ -160,13 +140,10 @@ public class Geometry { //class for the math
       return (test.end);
     }
     else if (m.equals(infinity) || m.equals(ninfinity)){
-      //System.out.println("teapot");
       double m2 = Geometry.slope(test);
       double xval2 = test.start.getX();
       double yval2 = m2*x.start.getX() - m2*xval2 + test.start.getY();
-      //System.out.println(yval2);
       point a = new point(x.start.getX(), yval2);
-      //System.out.println("Point a: " + a);
       return (a);
     }
     else{
