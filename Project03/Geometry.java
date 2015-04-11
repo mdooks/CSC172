@@ -26,6 +26,7 @@ public class Geometry { //class for the math
   }
 
   public static Double infinity = 1.0/0.0;
+  public static Double ninfinity = -1.0/0.0;
   public static direction ccw (point p0, point p1, point p2){ //method taken from the lab assignment
     double dx1 = p1.getX() - p0.getX(); //get the slope of the line made by points 0 & 1
     double dy1 = p1.getY() - p0.getY();
@@ -158,7 +159,7 @@ public class Geometry { //class for the math
     else if(test.end.getY() == (m*test.end.getX() - m*xval + yval)){
       return (test.end);
     }
-    else if (m.equals(infinity)){
+    else if (m.equals(infinity) || m.equals(ninfinity)){
       //System.out.println("teapot");
       double m2 = Geometry.slope(test);
       double xval2 = test.start.getX();

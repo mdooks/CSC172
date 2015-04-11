@@ -230,26 +230,30 @@ public class MyTreeNode{
             //System.out.println("l1");
             t = new line(n.data.start, temp);
             n = n.leftChild;
+            continue;
           }
           else if (!(Geometry.intersect(new line (n.data.end, temp), l).equals(new point(-10,-10)))){
             //System.out.println("l2");
             t = new line(n.data.end, temp);
             n = n.leftChild;
+            continue;
           }
-          continue;
         }
         if (!(rtemp.equals(new point (-10, -10)))){
           if (!(Geometry.intersect(new line (n.data.start, rtemp), l).equals(new point(-10,-10)))){
             //System.out.println("r1");
             t = new line(n.data.start, rtemp);
             n = n.rightChild;
+            continue;
           }
           else if (!(Geometry.intersect(new line (n.data.end, rtemp), l).equals(new point(-10,-10)))){
             //System.out.println("cause I don't check");
             t = new line(n.data.end, rtemp);
             n = n.rightChild;
+            continue;
           }
-          continue;
+
+          break;
         }
         else{
           System.out.println("This line cannot be broken down more, due to issues with the mathematcal rounding");
