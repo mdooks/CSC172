@@ -61,7 +61,8 @@ public class test {
       //System.out.println();
     }
 
-    System.out.println(bst.externalNode() + " " + bst.externalPath());
+    //System.out.println(bst.externalNode() + " " + bst.externalPath());
+    System.out.println("Average Path is: " + (double) bst.externalPath()/ (double) bst.externalNode());
     //System.out.println("Enter the points you want to test: x1 y1 x2 y2"); //ask for the points
     point a;
     point b;
