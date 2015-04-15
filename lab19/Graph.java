@@ -105,23 +105,24 @@ public class Graph {
     }
   }
 
-  public void unweighted (int s){
+  public void unweighted (int s){ //O(n^3)
     known = new boolean[vertices()];
     dist = new double[vertices()];
     parent = new int[vertices()];
-    for (int i = 0; i< vertices(); i++){
+    for (int i = 0; i< vertices(); i++){ //O(n)
       known[i] = false;
       dist[i] = Double.POSITIVE_INFINITY;
+      parent[i] = -1; //set a value that can not be a node
     }
 
     dist[s] = 0;
-
-    for(int currDist = 0; currDist< vertices(); currDist++){
-      for (int j = 0; j<vertices(); j++){
+    //O(n^3)
+    for(int currDist = 0; currDist< vertices(); currDist++){//n
+      for (int j = 0; j<vertices(); j++){ //n
         if(!known[j] && dist[j] == currDist){
           known[j] = true;
 
-          for(int k = 0; k <vertices(); k++){
+          for(int k = 0; k <vertices(); k++){//n
             if(adj[j][k]){
               if(dist[k] == Double.POSITIVE_INFINITY){
                 dist[k] = currDist + 1;
@@ -135,22 +136,52 @@ public class Graph {
 
   }
 
-  public void shortestPath(int a, int b){
-    if (a == b){
-      System.out.println("They Are the same Node");
-    }
-    else{
-      unweighted(a);
-      int p = b;
+  public void shortestPath(int a, int b){//O(n^3 + n) or O(n^3)
+    unweighted(a); //O(n^3)
 
-      while(p != a){
-        System.out.println(p);
-        p = parent[p];
-      }
+    if (a == b){
       System.out.println(a);
     }
+    else{
+      shortHelper(a, b);
+      System.out.println(); //(O(n)
+      /*
+      if (parent[b] == -1){
+        System.out.println("There is no path");
+        return;
+      }
+      int p = b;
+      while(p != a){
+        System.out.print(p+", ");
+        if(parent[p] != -1){
+          p = parent[p];
+        }
+        else{
+          System.out.println("The is no further path.");
+          return;
+        }
+      }
+      System.out.println(a);
+      */
+    }
+  }
 
+  public void shortHelper(int a, int b){ //worst case O(n)
+    if(a == b){
+      System.out.print(a + ", ");
+      return;
+    }
+    else if(b == -1){
+      System.out.println("There is no path");
+      return;
+    }
+    else if (parent[b] == -1){
+      System.out.println("There is no path");
+      return;
+    }
 
+    shortHelper(a, parent[b]);
+    System.out.print(b + ", ");
   }
 
   public static Graph createFromFile(String fileName){
