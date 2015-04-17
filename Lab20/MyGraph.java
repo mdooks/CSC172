@@ -21,47 +21,42 @@
 */
 public class MyGraph {
   public static void main(String[] args){
-    Vertex z = new Vertex(0);
-    Vertex o = new Vertex(1);
-    Vertex t = new Vertex(2);
-    Vertex th = new Vertex(3);
-    Vertex f = new Vertex(4);
-    Vertex fi = new Vertex(5);
-    Vertex s = new Vertex(6);
-    Vertex se = new Vertex(7);
 
-    
-    Graph test1 = new Graph(7, true);
-
-    Edge one = new Edge(z, th);
-    Edge two = new Edge(z, o);
-    Edge thr = new Edge(z, th);
-    Edge fou = new Edge(o, f);
-    Edge fiv = new Edge(t, z);
-    Edge six = new Edge(t, fi);
-    Edge sev = new Edge(th, t);
-    Edge eig = new Edge(th, f);
-    Edge nin = new Edge(f, s);
-    Edge ten = new Edge(s, fi);
-    Edge ele = new Edge(t, fi);
-    Edge twe = new Edge(th, s);
-
-    test1.insert(one);
-    test1.insert(two);
-    test1.insert(thr);
-    test1.insert(fou);
-    test1.insert(fiv);
-    test1.insert(six);
-    test1.insert(sev);
-    test1.insert(eig);
-    test1.insert(nin);
-    test1.insert(ten);
-    test1.insert(ele);
-    test1.insert(twe);
-
-    test1.show();
+    Graph test1 = Graph.createFromFile("Figure9-20.txt");
+    test1.shortPath(0, 4);
+    test1.shortPath(0, 5);
+    test1.shortPath(2, 4);
+    test1.shortPath(3, 1);
+    test1.shortPath(1, 5);
 
     System.out.println();
+
+    Graph test2 = Graph.createFromFile("MyExample1.txt");
+    test2.shortPath(0, 4);
+    test2.shortPath(2, 4);
+    test2.shortPath(1, 5);
+    test2.shortPath(1, 8);
+    test2.shortPath(1, 9);
+    test2.shortPath(1, 7);
+
+    Graph test3 = Graph.createFromFile("MyExample2.txt");
+    test3.shortPath(0, 4);
+    test3.shortPath(2, 4);
+    test3.shortPath(1, 5);
+    test3.shortPath(1, 8);
+    test3.shortPath(1, 9);
+    test3.shortPath(1, 11);
+    test3.shortPath(11, 0);
+
+    Graph test4 = Graph.createFromFile("MyExample3.txt");
+    test4.shortPath(0, 4);
+    test4.shortPath(2, 4);
+    test4.shortPath(1, 5);
+    test4.shortPath(1, 8);
+    test4.shortPath(1, 9);
+    test4.shortPath(1, 10);
+    test4.shortPath(10, 0);
+
 
   }
 }
