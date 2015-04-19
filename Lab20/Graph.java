@@ -171,7 +171,7 @@ public class Graph {
     return g;
   }
 
-  public void dijksra (int v){
+  public void dijksra (int v){ //O(n^2)
     known = new boolean[vertices()];
     dist = new double[vertices()];
     parent = new int[vertices()];
@@ -186,7 +186,7 @@ public class Graph {
     //known[v] = true;
 
     //while(isUnknown())
-    for (int m = 0; m < vertices(); m++){
+    for (int m = 0; m < vertices(); m++){ //O(n)
       /*for (boolean b : known){
         System.out.print(b +" ");
       }
@@ -200,13 +200,13 @@ public class Graph {
       }
       System.out.println();
       */
-      int t = smallestDist();
+      int t = smallestDist();//O(n)
       //System.out.println("t: " + t);
       if (t == -1){
         return;
       }
       known[t] = true;
-      for(int j = 0; j < vertices(); j++){
+      for(int j = 0; j < vertices(); j++){ //O(n)
 
         if (connected(t,j)){
           if(!(known[j])){
@@ -233,8 +233,8 @@ public class Graph {
     return false;
   }
 
-  public int smallestDist(){
-    int ans = firstNotKown();
+  public int smallestDist(){ //O(2n)
+    int ans = firstNotKown();//O(n)
     if (ans == -1){
       return ans;
     }
@@ -261,7 +261,7 @@ public class Graph {
     return -1;
   }*/
 
-  public int firstNotKown(){
+  public int firstNotKown(){ //O(n)
     for (int i = 0; i<vertices(); i++){
       if(!(known[i]) && !(dist[i] == Double.POSITIVE_INFINITY )){
         return i;

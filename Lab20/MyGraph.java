@@ -39,6 +39,8 @@ public class MyGraph {
     test2.shortPath(1, 9);
     test2.shortPath(1, 7);
 
+    System.out.println();
+
     Graph test3 = Graph.createFromFile("MyExample2.txt");
     test3.shortPath(0, 4);
     test3.shortPath(2, 4);
@@ -48,6 +50,8 @@ public class MyGraph {
     test3.shortPath(1, 11);
     test3.shortPath(11, 0);
 
+    System.out.println();
+
     Graph test4 = Graph.createFromFile("MyExample3.txt");
     test4.shortPath(0, 4);
     test4.shortPath(2, 4);
@@ -56,6 +60,9 @@ public class MyGraph {
     test4.shortPath(1, 9);
     test4.shortPath(1, 10);
     test4.shortPath(10, 0);
+    test4.shortPath(1, 6);
+    test4.shortPath(3, 6);
+    
 
 
   }
