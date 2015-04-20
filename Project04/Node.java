@@ -1,10 +1,11 @@
 public class Node {
   String name;
   int num;
-  Float lon;
-  Float lat;
+  double lon;
+  double lat;
+  Node connection;
 
-  public Node(String n, int spot, Float lo, Float la){
+  public Node(String n, int spot, double lo, double la){
     num = spot;
     name = n;
     lon = lo;

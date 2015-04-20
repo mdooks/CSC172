@@ -24,10 +24,14 @@
 
 import java.io.File;
 import java.util.Scanner;
+import java.util.HashMap;
 public class Graph {
   static Scanner in;
   private int vertexCount;
   private int edgeCount;
+
+  HashMap<Node, Integer> nodeMap;
+  HashMap<Integer, Node> inodeMap;
 
   boolean directed;
   private boolean adj[][];
@@ -37,12 +41,12 @@ public class Graph {
   public double dist[];
   public int parent[];
 
-  public Graph (int numV, boolean d){
-    vertexCount = numV;
-    directed = d;
+  public Graph (int numV){
     adj = new boolean[numV][numV];
-    weight = new int[numV][numV];
+    //weight = new int[numV][numV];
     edgeCount = 0;
+    nodeMap = new HashMap<Node, Integer>();
+    inodeMap = new HashMap<Integer, Node>();
   }
 
   public boolean isDirected(){
@@ -54,25 +58,16 @@ public class Graph {
   public int edges(){
     return edgeCount;
   }
-  public void insert(Edge e, int lb) {
-    if (isDirected()){
-      if (adj[e.v][e.w] == false){
-        adj[e.v][e.w] = true;
-        weight[e.v][e.w] = lb;
-        edgeCount++;
-      }
-    }
-    else{
-      if(adj[e.v][e.w] == false){
-        adj[e.v][e.w] = true;
-        weight[e.v][e.w] = lb;
-        edgeCount++;
-      }
-      if(adj[e.w][e.v] == false)
-      adj[e.w][e.v] = true;
-      weight[e.w][e.v] = lb;
+  public void insert(Edge e) {
+    if(adj[e.v][e.w] == false){
+      adj[e.v][e.w] = true;
+      //weight[e.v][e.w] = lb;
       edgeCount++;
     }
+    if(adj[e.w][e.v] == false)
+    adj[e.w][e.v] = true;
+    //weight[e.w][e.v] = lb;
+    edgeCount++;
   }
 
   public void delete(Edge e){
@@ -143,6 +138,7 @@ public class Graph {
   }
 
   public static Graph createFromFile(String fileName){
+    Graph g;
     File f = new File(fileName);
     try{
       in = new Scanner(f);
@@ -150,25 +146,38 @@ public class Graph {
       System.out.println("File Not Found");
       return null;
     }
+    in.useDelimiter("\\t|\\n");
+    int i = 0;
+    while(in.hasNext()){
+      if (in.next().equals("r")){
+        break;
+      }
+      else{
+        String n = in.next();
+        double lati = in.nextFloat();
+        double longi = in.nextFloat();
+        Node t = new Node(n, i, longi, lati);
+        g.nodeMap.put(t, i); //should not work, the map has not been instansiated yet....
+      }
+      i++;
+    }
+    g = new Graph(i);
+    //first r was read in so first edge is made outside loop
+    String n = in.next();
+    String d = in.next();
+    String s = in.next();
 
-    int nodes = in.nextInt();
-    String directionality = in.next();
-    Graph g;
-    if (directionality.equals("U")){
-      g = new Graph(nodes, false);
-    }
-    else if(directionality.equals("D")){
-      g = new Graph(nodes, true);
-    }
-    else{
-      System.out.println("The option for the directionality was not valid.");
-      return null;
-    }
+    int first = g.nodeMap.get(d);
+    int second = g.nodeMap.get(s);
+    g.insert(new Edge(n, first, second));
     while (in.hasNext()){
-      int v = in.nextInt();
-      int w = in.nextInt();
-      int we = in.nextInt();
-      g.insert(new Edge(v,w), we);
+      String nam = in.next();
+      String i1 = in.next();
+      String i2 = in.next();
+
+      int p1 = g.nodeMap.get(i1);
+      int p2 = g.nodeMap.get(i2);
+      g.insert(new Edge(nam, p1, p2));
     }
     g.show();
     return g;

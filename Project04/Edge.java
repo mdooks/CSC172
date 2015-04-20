@@ -1,11 +1,11 @@
 public class Edge{
   String name;
-  Node a;
-  Node b;
+  int v;
+  int w;
 
-  public Edge(String n, Node x, Node y){
+  public Edge(String n, int x, int y){
     name = n;
-    a = x;
-    b = y;
+    v = x;
+    w = y;
   }
 }
