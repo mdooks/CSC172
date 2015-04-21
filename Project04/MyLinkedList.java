@@ -67,10 +67,21 @@ public class MyLinkedList implements SimpleLinkedList {
     return false; //return false if not found
   }
 
-  public Node getInfo(String x){ //originaly returned AnyType, not bool.
+  public Node getInfo(String x){
     Node e = start;
     while (e.connection !=null){ //run through the list
       if (e.connection.name.equals(x)){ //it the data is found return the node
+        return e.connection;
+      }
+      e = e.connection;
+    }
+    return null; //return null if not found
+  }
+
+  public Node getInfo(int x){
+    Node e = start;
+    while (e.connection !=null){ //run through the list
+      if (e.connection.num == x){ //it the data is found return the node
         return e.connection;
       }
       e = e.connection;

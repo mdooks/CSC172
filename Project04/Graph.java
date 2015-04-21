@@ -151,7 +151,8 @@ public class Graph {
 
   public void shortHelper(int a, int b){
     if(a == b){
-      System.out.print(a + ", ");
+      Node na = nodeList.getInfo(a);
+      System.out.print(na.name + ", ");
       return;
     }
     else if(b == -1){
@@ -164,7 +165,8 @@ public class Graph {
     }
 
     shortHelper(a, parent[b]);
-    System.out.print(b + ", ");
+    Node nb = nodeList.getInfo(b);
+    System.out.print(nb.name + ", ");
   }
 
   public static Graph createFromFile(String fileName){
@@ -202,6 +204,7 @@ public class Graph {
     Node first = g.nodeList.getInfo(d);
     Node second = g.nodeList.getInfo(s);
     double lb = getWeight(first, second);
+    System.out.println(n + " " + d + " " + s + " " + lb);
     g.insert(new Edge(n, first.num, second.num), lb);
     while (in.hasNext()){
       String r = in.next(); //reads in and ignores the 'r'
@@ -214,7 +217,7 @@ public class Graph {
       double lbs = getWeight(n1, n2);
       g.insert(new Edge(nam, n1.num, n2.num), lbs);
     }
-    g.show();
+    //g.show();
     return g;
   }
 
@@ -320,11 +323,11 @@ public class Graph {
 
   public static double getWeight(Node a, Node b){
     double w = 0;
-    double x = a.lat - b.lat;
-    double y = a.lon = b.lon;
+    double x = b.lat - a.lat;
+    double y = b.lon - a.lon;
     double c2 = x*x + y*y;
     w = Math.sqrt(c2);
-
+    System.out.println(a.name + " " + b.name + " " + w);
     return w;
   }
 
