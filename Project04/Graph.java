@@ -39,7 +39,7 @@ public class Graph {
   boolean directed;
   private boolean adj[][];
 
-  public int weight[][];
+  public double weight[][];
   public boolean known[];
   public double dist[];
   public int parent[];
@@ -52,7 +52,7 @@ public class Graph {
   }
   public Graph (int numV){
     adj = new boolean[numV][numV];
-    //weight = new int[numV][numV];
+    weight = new double[numV][numV];
     edgeCount = 0;
     nodeMap = new HashMap<Node, Integer>();
     inodeMap = new HashMap<Integer, Node>();
@@ -60,6 +60,7 @@ public class Graph {
   }
   public void setAdj(int numV){
     adj = new boolean[numV][numV];
+    weight = new double[numV][numV];
   }
   public void setVertexCount(int v){
     vertexCount = v;
@@ -73,15 +74,15 @@ public class Graph {
   public int edges(){
     return edgeCount;
   }
-  public void insert(Edge e) {
+  public void insert(Edge e, double lb) {
     if(adj[e.v][e.w] == false){
       adj[e.v][e.w] = true;
-      //weight[e.v][e.w] = lb;
+      weight[e.v][e.w] = lb;
       edgeCount++;
     }
     if(adj[e.w][e.v] == false)
     adj[e.w][e.v] = true;
-    //weight[e.w][e.v] = lb;
+    weight[e.w][e.v] = lb;
     edgeCount++;
   }
 
@@ -200,7 +201,8 @@ public class Graph {
     //System.out.println(n + " " + d + " " + s);
     Node first = g.nodeList.getInfo(d);
     Node second = g.nodeList.getInfo(s);
-    g.insert(new Edge(n, first.num, second.num));
+    double lb = getWeight(first, second);
+    g.insert(new Edge(n, first.num, second.num), lb);
     while (in.hasNext()){
       String r = in.next(); //reads in and ignores the 'r'
       String nam = in.next();
@@ -209,7 +211,8 @@ public class Graph {
       //System.out.println(nam + " " + i1 + " " + i2);
       Node n1 = g.nodeList.getInfo(i1);
       Node n2 = g.nodeList.getInfo(i2);
-      g.insert(new Edge(nam, n1.num, n2.num));
+      double lbs = getWeight(n1, n2);
+      g.insert(new Edge(nam, n1.num, n2.num), lbs);
     }
     g.show();
     return g;
@@ -254,7 +257,7 @@ public class Graph {
 
         if (connected(t,j)){
           if(!(known[j])){
-            int cvw = weight[t][j];
+            double cvw = weight[t][j];
             //System.out.println(dist[t] + cvw);
             if(dist[t] + cvw < dist[j]){
               dist[j] = dist[t] + cvw;
@@ -313,6 +316,16 @@ public class Graph {
     }
     //System.out.println("Woah there, first not known broke");
     return -1;
+  }
+
+  public static double getWeight(Node a, Node b){
+    double w = 0;
+    double x = a.lat - b.lat;
+    double y = a.lon = b.lon;
+    double c2 = x*x + y*y;
+    w = Math.sqrt(c2);
+
+    return w;
   }
 
   private class AdjArray implements AdjList {
