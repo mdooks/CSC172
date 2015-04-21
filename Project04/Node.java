@@ -5,6 +5,8 @@ public class Node {
   double lat;
   Node connection;
 
+  Node parent;
+
   public Node(String n, int spot, double lo, double la){
     num = spot;
     name = n;
@@ -12,7 +14,7 @@ public class Node {
     lat = la;
   }
   public Node(){
-    
+
   }
 
   public Node(String n){

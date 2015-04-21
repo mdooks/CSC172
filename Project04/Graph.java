@@ -31,8 +31,7 @@ public class Graph {
   private int vertexCount;
   private int edgeCount;
 
-  HashMap<Node, Integer> nodeMap;
-  HashMap<Integer, Node> inodeMap;
+  HashMap<String, Node> nodeMap;
 
   MyLinkedList nodeList;
 
@@ -45,8 +44,7 @@ public class Graph {
   public int parent[];
 
   public Graph () {
-    nodeMap = new HashMap<Node, Integer>();
-    inodeMap = new HashMap<Integer, Node>();
+    nodeMap = new HashMap<String, Node>();
     nodeList = new MyLinkedList();
     edgeCount = 0;
   }
@@ -54,8 +52,7 @@ public class Graph {
     adj = new boolean[numV][numV];
     weight = new double[numV][numV];
     edgeCount = 0;
-    nodeMap = new HashMap<Node, Integer>();
-    inodeMap = new HashMap<Integer, Node>();
+    nodeMap = new HashMap<String, Node>();
     nodeList = new MyLinkedList();
   }
   public void setAdj(int numV){
@@ -123,7 +120,7 @@ public class Graph {
     }
   }
 
-  public void shortPath(int a, int b){
+  public void shortPath(Node a, Node b){
     if(a == b){
       System.out.println ("Those are the same point.");
     }
@@ -141,32 +138,31 @@ public class Graph {
     }
 
     else{
-      Node aa = nodeList.getInfo(a);
-      Node bb = nodeList.getInfo(b);
+      Node aa = nodeMap.get(a);
+      Node bb = nodeMap.get(b);
       dijksra(aa.num);
-      shortHelper(aa.num, bb.num);
+      shortHelper(aa, bb);
       System.out.println();
     }
   }
 
-  public void shortHelper(int a, int b){
-    if(a == b){
-      Node na = nodeList.getInfo(a);
-      System.out.print(na.name + ", ");
+  public void shortHelper(Node a, Node b){
+    if(a.name.equals(b.name)){
+      System.out.print(a.name + ", ");
       return;
     }
-    else if(b == -1){
+    else if(b == null){
       System.out.println("There is no path");
       return;
     }
-    else if (parent[b] == -1){
+    else if (b.parent == null){
       System.out.println("There is no path");
       return;
     }
 
-    shortHelper(a, parent[b]);
-    Node nb = nodeList.getInfo(b);
-    System.out.print(nb.name + ", ");
+    shortHelper(a, b.parent);
+    //Node nb = nodeList.getInfo(b);
+    System.out.print(b.name + ", ");
   }
 
   public static Graph createFromFile(String fileName){
@@ -189,7 +185,8 @@ public class Graph {
         double lati = in.nextFloat();
         double longi = in.nextFloat();
         Node t = new Node(n, i, longi, lati);
-        g.nodeList.insert(t);
+        g.nodeMap.put(n, t);
+        //g.nodeList.insert(t);
       }
       i++;
     }
@@ -201,8 +198,8 @@ public class Graph {
     String d = in.next();
     String s = in.next();
     //System.out.println(n + " " + d + " " + s);
-    Node first = g.nodeList.getInfo(d);
-    Node second = g.nodeList.getInfo(s);
+    Node first = g.nodeMap.get(d);
+    Node second = g.nodeMap.get(s);
     double lb = getWeight(first, second);
     System.out.println(n + " " + d + " " + s + " " + lb);
     g.insert(new Edge(n, first.num, second.num), lb);
@@ -212,8 +209,8 @@ public class Graph {
       String i1 = in.next();
       String i2 = in.next();
       //System.out.println(nam + " " + i1 + " " + i2);
-      Node n1 = g.nodeList.getInfo(i1);
-      Node n2 = g.nodeList.getInfo(i2);
+      Node n1 = g.nodeMap.get(i1);
+      Node n2 = g.nodeMap.get(i2);
       double lbs = getWeight(n1, n2);
       g.insert(new Edge(nam, n1.num, n2.num), lbs);
     }
@@ -237,19 +234,45 @@ public class Graph {
 
     //while(isUnknown())
     for (int m = 0; m < vertices(); m++){ //O(n)
-      /*for (boolean b : known){
-        System.out.print(b +" ");
+      int t = smallestDist();//O(n)
+      //System.out.println("t: " + t);
+      if (t == -1){
+        return;
       }
-      System.out.println();
-      for (double d : dist){
-        System.out.print(d+ " ");
+      known[t] = true;
+      for(int j = 0; j < vertices(); j++){ //O(n)
+
+        if (connected(t,j)){
+          if(!(known[j])){
+            double cvw = weight[t][j];
+            //System.out.println(dist[t] + cvw);
+            if(dist[t] + cvw < dist[j]){
+              dist[j] = dist[t] + cvw;
+              parent[j] = t;
+              //known[j] = true;
+            }
+          }
+
+        }
       }
-      System.out.println();
-      for (int p : parent){
-        System.out.print(p + " ");
-      }
-      System.out.println();
-      */
+    }
+  }
+  public void dijksra (Node v){ //O(n^2)
+    known = new boolean[vertices()];
+    dist = new double[vertices()];
+    parent = new int[vertices()];
+    for (int i = 0; i< vertices(); i++){ //O(n)
+      known[i] = false;
+      dist[i] = Double.POSITIVE_INFINITY;
+      parent[i] = -1; //set a value that can not be a node
+    }
+
+    dist[v] = 0;
+    parent[v] = v;
+    //known[v] = true;
+
+    //while(isUnknown())
+    for (int m = 0; m < vertices(); m++){ //O(n)
       int t = smallestDist();//O(n)
       //System.out.println("t: " + t);
       if (t == -1){
