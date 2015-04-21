@@ -327,7 +327,7 @@ public class Graph {
     double y = b.lon - a.lon;
     double c2 = x*x + y*y;
     w = Math.sqrt(c2);
-    System.out.println(a.name + " " + b.name + " " + w);
+    //System.out.println(a.name + " " + b.name + " " + w);
     return w;
   }
 
