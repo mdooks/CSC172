@@ -25,6 +25,7 @@
 import java.io.File;
 import java.util.Scanner;
 import java.util.HashMap;
+import java.util.LinkedList;
 public class Graph {
   static Scanner in;
   private int vertexCount;
@@ -32,6 +33,8 @@ public class Graph {
 
   HashMap<Node, Integer> nodeMap;
   HashMap<Integer, Node> inodeMap;
+
+  MyLinkedList nodeList;
 
   boolean directed;
   private boolean adj[][];
@@ -41,14 +44,26 @@ public class Graph {
   public double dist[];
   public int parent[];
 
+  public Graph () {
+    nodeMap = new HashMap<Node, Integer>();
+    inodeMap = new HashMap<Integer, Node>();
+    nodeList = new MyLinkedList();
+    edgeCount = 0;
+  }
   public Graph (int numV){
     adj = new boolean[numV][numV];
     //weight = new int[numV][numV];
     edgeCount = 0;
     nodeMap = new HashMap<Node, Integer>();
     inodeMap = new HashMap<Integer, Node>();
+    nodeList = new MyLinkedList();
   }
-
+  public void setAdj(int numV){
+    adj = new boolean[numV][numV];
+  }
+  public void setVertexCount(int v){
+    vertexCount = v;
+  }
   public boolean isDirected(){
     return directed;
   }
@@ -119,6 +134,20 @@ public class Graph {
     }
   }
 
+  public void shortPath(String a, String b){
+    if(a.equals(b)){
+      System.out.println ("Those are the same point.");
+    }
+
+    else{
+      Node aa = nodeList.getInfo(a);
+      Node bb = nodeList.getInfo(b);
+      dijksra(aa.num);
+      shortHelper(aa.num, bb.num);
+      System.out.println();
+    }
+  }
+
   public void shortHelper(int a, int b){
     if(a == b){
       System.out.print(a + ", ");
@@ -138,7 +167,7 @@ public class Graph {
   }
 
   public static Graph createFromFile(String fileName){
-    Graph g;
+    Graph g = new Graph();
     File f = new File(fileName);
     try{
       in = new Scanner(f);
@@ -157,27 +186,30 @@ public class Graph {
         double lati = in.nextFloat();
         double longi = in.nextFloat();
         Node t = new Node(n, i, longi, lati);
-        g.nodeMap.put(t, i); //should not work, the map has not been instansiated yet....
+        g.nodeList.insert(t);
       }
       i++;
     }
-    g = new Graph(i);
+    g.setAdj(i);
+    g.setVertexCount(i);
+    //g.nodeList.printList();
     //first r was read in so first edge is made outside loop
     String n = in.next();
     String d = in.next();
     String s = in.next();
-
-    int first = g.nodeMap.get(d);
-    int second = g.nodeMap.get(s);
-    g.insert(new Edge(n, first, second));
+    //System.out.println(n + " " + d + " " + s);
+    Node first = g.nodeList.getInfo(d);
+    Node second = g.nodeList.getInfo(s);
+    g.insert(new Edge(n, first.num, second.num));
     while (in.hasNext()){
+      String r = in.next(); //reads in and ignores the 'r'
       String nam = in.next();
       String i1 = in.next();
       String i2 = in.next();
-
-      int p1 = g.nodeMap.get(i1);
-      int p2 = g.nodeMap.get(i2);
-      g.insert(new Edge(nam, p1, p2));
+      //System.out.println(nam + " " + i1 + " " + i2);
+      Node n1 = g.nodeList.getInfo(i1);
+      Node n2 = g.nodeList.getInfo(i2);
+      g.insert(new Edge(nam, n1.num, n2.num));
     }
     g.show();
     return g;

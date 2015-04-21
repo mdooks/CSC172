@@ -11,4 +11,18 @@ public class Node {
     lon = lo;
     lat = la;
   }
+  public Node(){
+    
+  }
+
+  public Node(String n){
+    name = n;
+  }
+
+  public boolean equals(Node that){
+    if (this.name.equals(that.name)){
+      return true;
+    }
+    return false;
+  }
 }
