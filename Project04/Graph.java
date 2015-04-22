@@ -25,7 +25,7 @@
 import java.io.File;
 import java.util.Scanner;
 import java.util.HashMap;
-import java.util.LinkedList;
+
 public class Graph {
   static Scanner in;
   private int vertexCount;
@@ -33,19 +33,15 @@ public class Graph {
 
   HashMap<String, Node> nodeMap;
 
-  MyLinkedList nodeList;
-
   boolean directed;
   private boolean adj[][];
 
+  GraphNode adjNode[];
+
   public double weight[][];
-  public boolean known[];
-  public double dist[];
-  public String parent[];
 
   public Graph () {
     nodeMap = new HashMap<String, Node>();
-    nodeList = new MyLinkedList();
     edgeCount = 0;
   }
   public Graph (int numV){
@@ -53,8 +49,16 @@ public class Graph {
     weight = new double[numV][numV];
     edgeCount = 0;
     nodeMap = new HashMap<String, Node>();
-    nodeList = new MyLinkedList();
   }
+
+  public void buildAdjNode(int numV){
+    adjNode = new GraphNode[numV];
+    int i = 0;
+    for(String k : nodeMap.keySet()){
+      adjNode[i] = new GraphNode(k);
+    }
+  }
+
   public void setAdj(int numV){
     adj = new boolean[numV][numV];
     weight = new double[numV][numV];
@@ -70,6 +74,14 @@ public class Graph {
   }
   public int edges(){
     return edgeCount;
+  }
+
+  public void insertList(String a, String b, double lb){
+    for (GraphNode g : adjNode){
+      if (a.equals(g)){
+        g.insert(g, b, lb);
+      }
+    }
   }
   public void insert(Edge e, double lb) {
     if(adj[e.v][e.w] == false){
@@ -200,8 +212,9 @@ public class Graph {
       i++;
     }
     g.setVertexCount(i);
+    g.buildAdjNode(i);
     System.out.println("First read works: " + i);
-    g.setAdj(i);
+    //g.setAdj(i);
     g.setVertexCount(i);
     //g.nodeList.printList();
     //first r was read in so first edge is made outside loop
@@ -213,7 +226,8 @@ public class Graph {
     Node second = g.nodeMap.get(s);
     double lb = getWeight(first, second);
     System.out.println(n + " " + d + " " + s + " " + lb);
-    g.insert(new Edge(n, first.num, second.num), lb);
+    g.insertList(d, s, lb);
+    System.out.println(n + " " + d + " " + s + " " + lb);
     while (in.hasNext()){
       String r = in.next(); //reads in and ignores the 'r'
       String nam = in.next();
@@ -223,14 +237,14 @@ public class Graph {
       Node n1 = g.nodeMap.get(i1);
       Node n2 = g.nodeMap.get(i2);
       double lbs = getWeight(n1, n2);
-      g.insert(new Edge(nam, n1.num, n2.num), lbs);
+      g.insertList(i1, i2, lbs);
     }
     //g.show();
 
     return g;
   }
 
-  public void dijksra (int v){ //O(n^2)
+  /*public void dijksra (int v){ //O(n^2)
     known = new boolean[vertices()];
     dist = new double[vertices()];
     parent = new String[vertices()];
@@ -268,7 +282,7 @@ public class Graph {
         }
       }
     }
-  }
+  }*/
 
   public void dijksra (Node v){ //O(n^2)
     //known = new boolean[vertices()];
@@ -313,7 +327,7 @@ public class Graph {
     }
   }
 
-  public boolean isUnknown(){
+  /*public boolean isUnknown(){
     for (double d : dist){
       if (d == Double.POSITIVE_INFINITY){
         return true;
@@ -339,7 +353,7 @@ public class Graph {
       }
     }
     return ans;
-  }
+  }*/
 
   public Node smallestDistNode(){ //O(2n)
     Node ans = firstNotKnownNode();//O(n)
@@ -369,7 +383,7 @@ public class Graph {
     return -1;
   }*/
 
-  public int firstNotKown(){ //O(n)
+  /*public int firstNotKown(){ //O(n)
     for (int i = 0; i<vertices(); i++){
       if(!(known[i]) && !(dist[i] == Double.POSITIVE_INFINITY )){
         return i;
@@ -377,7 +391,7 @@ public class Graph {
     }
     //System.out.println("Woah there, first not known broke");
     return -1;
-  }
+  }*/
 
   public Node firstNotKnownNode(){ //O(n)
     for (Node n : nodeMap.values()){
