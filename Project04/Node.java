@@ -5,6 +5,8 @@ public class Node {
   double lat;
   Node connection;
 
+  boolean known;
+  double distance;
   Node parent;
 
   public Node(String n, int spot, double lo, double la){
@@ -19,6 +21,10 @@ public class Node {
 
   public Node(String n){
     name = n;
+  }
+
+  public void setKnown(){
+    
   }
 
   public boolean equals(Node that){

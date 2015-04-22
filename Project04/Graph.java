@@ -41,7 +41,7 @@ public class Graph {
   public double weight[][];
   public boolean known[];
   public double dist[];
-  public int parent[];
+  public String parent[];
 
   public Graph () {
     nodeMap = new HashMap<String, Node>();
@@ -104,6 +104,9 @@ public class Graph {
   public boolean connected (int node1, int node2){
     return adj[node1][node2];
   }
+  public boolean connected (Node node1, Node node2){
+    return adj[node1.num][node2.num];
+  }
 
   public AdjArray getAdjList(int vertex){
     return new AdjArray(vertex);
@@ -140,9 +143,15 @@ public class Graph {
     else{
       Node aa = nodeMap.get(a);
       Node bb = nodeMap.get(b);
-      dijksra(aa.num);
+      dijksra(aa);
       shortHelper(aa, bb);
       System.out.println();
+    }
+  }
+
+  public void parentPrinter(){
+    for(Node n : nodeMap.values()){
+      System.out.println(n.parent);
     }
   }
 
@@ -221,15 +230,15 @@ public class Graph {
   public void dijksra (int v){ //O(n^2)
     known = new boolean[vertices()];
     dist = new double[vertices()];
-    parent = new int[vertices()];
+    parent = new String[vertices()];
     for (int i = 0; i< vertices(); i++){ //O(n)
       known[i] = false;
       dist[i] = Double.POSITIVE_INFINITY;
-      parent[i] = -1; //set a value that can not be a node
+      parent[i] = null; //set a value that can not be a node
     }
 
     dist[v] = 0;
-    parent[v] = v;
+    //parent[v] = v; //UNDO!
     //known[v] = true;
 
     //while(isUnknown())
@@ -248,7 +257,7 @@ public class Graph {
             //System.out.println(dist[t] + cvw);
             if(dist[t] + cvw < dist[j]){
               dist[j] = dist[t] + cvw;
-              parent[j] = t;
+              //parent[j] = t; //UNDO!!
               //known[j] = true;
             }
           }
@@ -257,37 +266,41 @@ public class Graph {
       }
     }
   }
+
   public void dijksra (Node v){ //O(n^2)
-    known = new boolean[vertices()];
-    dist = new double[vertices()];
-    parent = new int[vertices()];
-    for (int i = 0; i< vertices(); i++){ //O(n)
-      known[i] = false;
-      dist[i] = Double.POSITIVE_INFINITY;
-      parent[i] = -1; //set a value that can not be a node
+    //known = new boolean[vertices()];
+    //dist = new double[vertices()];
+    //parent = new int[vertices()];
+    for (Node n : nodeMap.values()){ //O(n)
+      n.known = false;
+      n.distance = Double.POSITIVE_INFINITY;
+      n.parent = null;
+      System.out.println(n.known);
     }
 
-    dist[v] = 0;
-    parent[v] = v;
+    v.distance = 0;
+    v.parent = v;
     //known[v] = true;
 
     //while(isUnknown())
     for (int m = 0; m < vertices(); m++){ //O(n)
-      int t = smallestDist();//O(n)
+      Node t = smallestDistNode();//O(n)
       //System.out.println("t: " + t);
-      if (t == -1){
+      if (t == null){
         return;
       }
-      known[t] = true;
-      for(int j = 0; j < vertices(); j++){ //O(n)
+      System.out.println(t.known);
+      t.known = true;
+      System.out.println(t.known);
+      for(Node j : nodeMap.values()){ //O(n)
 
         if (connected(t,j)){
-          if(!(known[j])){
-            double cvw = weight[t][j];
+          if(!(j.known)){
+            double cvw = weight[t.num][j.num];
             //System.out.println(dist[t] + cvw);
-            if(dist[t] + cvw < dist[j]){
-              dist[j] = dist[t] + cvw;
-              parent[j] = t;
+            if(t.distance + cvw < j.distance){
+              j.distance = t.distance + cvw;
+              j.parent = t;
               //known[j] = true;
             }
           }
@@ -324,6 +337,25 @@ public class Graph {
     }
     return ans;
   }
+
+  public Node smallestDistNode(){ //O(2n)
+    Node ans = firstNotKnownNode();//O(n)
+    if (ans == null){
+      return ans;
+    }
+    //System.out.println(ans);
+    for (Node n : nodeMap.values()){
+
+      if(n.distance < ans.distance){
+        //System.out.println("i update: " + i);
+        if (!(n.known)){
+
+          ans = n;
+        }
+      }
+    }
+    return ans;
+  }
  /*
   public int smallestDist(){
     for (int i = 0; i<vertices(); i++){
@@ -342,6 +374,16 @@ public class Graph {
     }
     //System.out.println("Woah there, first not known broke");
     return -1;
+  }
+
+  public Node firstNotKnownNode(){ //O(n)
+    for (Node n : nodeMap.values()){
+      if(!(n.known) && !(n.distance == Double.POSITIVE_INFINITY )){
+        return n;
+      }
+    }
+    //System.out.println("Woah there, first not known broke");
+    return null;
   }
 
   public static double getWeight(Node a, Node b){
