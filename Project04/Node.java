@@ -23,10 +23,6 @@ public class Node {
     name = n;
   }
 
-  public void setKnown(){
-    
-  }
-
   public boolean equals(Node that){
     if (this.name.equals(that.name)){
       return true;

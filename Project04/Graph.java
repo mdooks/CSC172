@@ -199,6 +199,8 @@ public class Graph {
       }
       i++;
     }
+    g.setVertexCount(i);
+    System.out.println("First read works: " + i);
     g.setAdj(i);
     g.setVertexCount(i);
     //g.nodeList.printList();
@@ -224,6 +226,7 @@ public class Graph {
       g.insert(new Edge(nam, n1.num, n2.num), lbs);
     }
     //g.show();
+
     return g;
   }
 
