@@ -46,7 +46,7 @@ public class MSA {
   public static double easyAns(double[] arr){
     double maxSum = 0;
     for (int i = 0; i < arr.length; i++){
-      for (int j = arr.length - 1; j >= 0; j--){
+      for (int j = arr.length - 1; j >= i; j--){
         double sum = 0;
         for (int k = i; k <= j; k++){
           sum += arr[k];
