@@ -55,7 +55,11 @@ public class Graph {
     adjNode = new GraphNode[numV];
     int i = 0;
     for(String k : nodeMap.keySet()){
-      adjNode[i] = new GraphNode(k);
+      if(k != null){
+        adjNode[i] = new GraphNode(k);
+        //System.out.println(adjNode[i].id);
+        i++;
+      }
     }
   }
 
@@ -78,8 +82,11 @@ public class Graph {
 
   public void insertList(String a, String b, double lb){
     for (GraphNode g : adjNode){
-      if (a.equals(g)){
+      if (g.equals(a)){
         g.insert(g, b, lb);
+      }
+      if(g.equals(b)){
+        g.insert(g,a,lb);
       }
     }
   }
@@ -117,7 +124,25 @@ public class Graph {
     return adj[node1][node2];
   }
   public boolean connected (Node node1, Node node2){
-    return adj[node1.num][node2.num];
+    for (int i = 0; i<vertices(); i++){
+      //System.out.println(adjNode[i]);
+      if (node1.name.equals(adjNode[i].id)){
+        boolean a = adjNode[i].lookup(adjNode[i], node2.name);
+        return a;
+      }
+    }
+    return false;
+  }
+
+  public double getNodeWeight (Node node1, Node node2){
+    for (int i = 0; i<vertices(); i++){
+      //System.out.println(adjNode[i]);
+      if (node1.name.equals(adjNode[i].id)){
+        double a = adjNode[i].lookupWeight(adjNode[i], node2.name);
+        return a;
+      }
+    }
+    return 100000;//should never happen
   }
 
   public AdjArray getAdjList(int vertex){
@@ -136,7 +161,7 @@ public class Graph {
   }
 
   public void shortPath(Node a, Node b){
-    if(a == b){
+    if(a.equals(b)){
       System.out.println ("Those are the same point.");
     }
 
@@ -213,7 +238,7 @@ public class Graph {
     }
     g.setVertexCount(i);
     g.buildAdjNode(i);
-    System.out.println("First read works: " + i);
+    //System.out.println("First read works: " + i);
     //g.setAdj(i);
     g.setVertexCount(i);
     //g.nodeList.printList();
@@ -225,9 +250,9 @@ public class Graph {
     Node first = g.nodeMap.get(d);
     Node second = g.nodeMap.get(s);
     double lb = getWeight(first, second);
-    System.out.println(n + " " + d + " " + s + " " + lb);
+    //System.out.println(n + " " + d + " " + s + " " + lb);
     g.insertList(d, s, lb);
-    System.out.println(n + " " + d + " " + s + " " + lb);
+    //System.out.println(n + " " + d + " " + s + " " + lb);
     while (in.hasNext()){
       String r = in.next(); //reads in and ignores the 'r'
       String nam = in.next();
@@ -288,40 +313,50 @@ public class Graph {
     //known = new boolean[vertices()];
     //dist = new double[vertices()];
     //parent = new int[vertices()];
+
     for (Node n : nodeMap.values()){ //O(n)
-      n.known = false;
-      n.distance = Double.POSITIVE_INFINITY;
-      n.parent = null;
-      System.out.println(n.known);
+      if(n != null){
+        n.known = false;
+        n.distance = Double.POSITIVE_INFINITY;
+        n.parent = null;
+        //System.out.println(n.known);
+      }
     }
 
     v.distance = 0;
     v.parent = v;
+
+    //Node ttt = nodeMap.get(v.name);
+    //System.out.println(ttt.distance);
     //known[v] = true;
 
     //while(isUnknown())
     for (int m = 0; m < vertices(); m++){ //O(n)
+
       Node t = smallestDistNode();//O(n)
       //System.out.println("t: " + t);
       if (t == null){
         return;
       }
-      System.out.println(t.known);
+      //System.out.println(m + "mhm");
+      //System.out.println(t.known);
       t.known = true;
-      System.out.println(t.known);
+      //System.out.println(t.known);
       for(Node j : nodeMap.values()){ //O(n)
-
-        if (connected(t,j)){
-          if(!(j.known)){
-            double cvw = weight[t.num][j.num];
-            //System.out.println(dist[t] + cvw);
-            if(t.distance + cvw < j.distance){
-              j.distance = t.distance + cvw;
-              j.parent = t;
-              //known[j] = true;
+        if (j != null){
+          //System.out.print(j.name + ", ");
+          if (connected(t,j)){
+            //System.out.println(j.name + ", true");
+            if(!(j.known)){
+              double cvw = getNodeWeight(t,j); //UNDO
+              //System.out.println(dist[t] + cvw);
+              if(t.distance + cvw < j.distance){
+                j.distance = t.distance + cvw;
+                j.parent = t;
+                //known[j] = true;
+              }
             }
           }
-
         }
       }
     }
@@ -357,7 +392,9 @@ public class Graph {
 
   public Node smallestDistNode(){ //O(2n)
     Node ans = firstNotKnownNode();//O(n)
+    //System.out.println(ans + ", smallest dist.." );
     if (ans == null){
+      //System.out.println("ans is null");
       return ans;
     }
     //System.out.println(ans);
@@ -371,6 +408,7 @@ public class Graph {
         }
       }
     }
+    //System.out.println("Smallest was: " + ans.name);
     return ans;
   }
  /*
@@ -395,8 +433,20 @@ public class Graph {
 
   public Node firstNotKnownNode(){ //O(n)
     for (Node n : nodeMap.values()){
-      if(!(n.known) && !(n.distance == Double.POSITIVE_INFINITY )){
-        return n;
+
+      if (n != null){
+        /*System.out.println(n.distance);
+        System.out.println("Node Test!");
+        if (!(n.known)){
+          System.out.println("Known works");
+        }
+        if (!(n.distance == Double.POSITIVE_INFINITY )){
+          System.out.println("distance works");
+        }*/
+        if(!(n.known) && !(n.distance == Double.POSITIVE_INFINITY )){
+          //System.out.println("returning " + n.name + " " + n.distance);
+          return n;
+        }
       }
     }
     //System.out.println("Woah there, first not known broke");
@@ -405,8 +455,8 @@ public class Graph {
 
   public static double getWeight(Node a, Node b){
     double w = 0;
-    double x = b.lat - a.lat;
-    double y = b.lon - a.lon;
+    double x = Math.abs(b.lat) - Math.abs(a.lat);
+    double y = Math.abs(b.lon) - Math.abs(a.lon);
     double c2 = x*x + y*y;
     w = Math.sqrt(c2);
     //System.out.println(a.name + " " + b.name + " " + w);
