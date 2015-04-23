@@ -1,0 +1,6 @@
+Output: java MSA 694
+
+694
+
+The max is: 1339.1221232473629 and it took: 52ms to find with the easy way.
+The max is: 1339.1221232473622 and it took: 1ms to find with divide and conquor
