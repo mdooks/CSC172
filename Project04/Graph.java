@@ -37,11 +37,13 @@ public class Graph {
   private boolean adj[][];
 
   GraphNode adjNode[];
+  HashMap<String, GraphNode> adjNodeMap;
 
   public double weight[][];
 
   public Graph () {
     nodeMap = new HashMap<String, Node>();
+    adjNodeMap = new HashMap<String, GraphNode>();
     edgeCount = 0;
   }
   public Graph (int numV){
@@ -49,6 +51,7 @@ public class Graph {
     weight = new double[numV][numV];
     edgeCount = 0;
     nodeMap = new HashMap<String, Node>();
+    adjNodeMap = new HashMap<String, GraphNode>();
   }
 
   public void buildAdjNode(int numV){
@@ -81,14 +84,19 @@ public class Graph {
   }
 
   public void insertList(String a, String b, double lb){
-    for (GraphNode g : adjNode){
-      if (g.equals(a)){
-        g.insert(g, b, lb);
-      }
-      if(g.equals(b)){
-        g.insert(g,a,lb);
-      }
+    GraphNode g = adjNodeMap.get(a);
+    if(g == null){
+      adjNodeMap.put(a, new GraphNode(a));
+      g = adjNodeMap.get(a);
     }
+    g.insert(g,b,lb);
+
+    g = adjNodeMap.get(b);
+    if(g == null){
+      adjNodeMap.put(b, new GraphNode(b));
+      g = adjNodeMap.get(b);
+    }
+    g.insert(g,a,lb);
   }
   public void insert(Edge e, double lb) {
     if(adj[e.v][e.w] == false){
@@ -124,25 +132,21 @@ public class Graph {
     return adj[node1][node2];
   }
   public boolean connected (Node node1, Node node2){
-    for (int i = 0; i<vertices(); i++){
-      //System.out.println(adjNode[i]);
-      if (node1.name.equals(adjNode[i].id)){
-        boolean a = adjNode[i].lookup(adjNode[i], node2.name);
-        return a;
-      }
+
+    GraphNode t = adjNodeMap.get(node1.name);
+    if (t == null){
+      return false;
     }
-    return false;
+    return t.lookup(t, node2.name);
+
   }
 
   public double getNodeWeight (Node node1, Node node2){
-    for (int i = 0; i<vertices(); i++){
-      //System.out.println(adjNode[i]);
-      if (node1.name.equals(adjNode[i].id)){
-        double a = adjNode[i].lookupWeight(adjNode[i], node2.name);
-        return a;
-      }
+    GraphNode t = adjNodeMap.get(node1.name);
+    if (t == null){
+      return 100000;//should never happen
     }
-    return 100000;//should never happen
+    return t.lookupWeight(t, node2.name);
   }
 
   public AdjArray getAdjList(int vertex){
@@ -237,7 +241,7 @@ public class Graph {
       i++;
     }
     g.setVertexCount(i);
-    g.buildAdjNode(i);
+    //g.buildAdjNode(i);
     //System.out.println("First read works: " + i);
     //g.setAdj(i);
     g.setVertexCount(i);
