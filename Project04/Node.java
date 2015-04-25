@@ -14,13 +14,21 @@ public class Node {
     name = n;
     lon = lo;
     lat = la;
+    known = false;
+    distance = Double.POSITIVE_INFINITY;
+    parent = null;
   }
   public Node(){
-
+    known = false;
+    distance = Double.POSITIVE_INFINITY;
+    parent = null;
   }
 
   public Node(String n){
     name = n;
+    known = false;
+    distance = Double.POSITIVE_INFINITY;
+    parent = null;
   }
 
   public boolean equals(Node that){

@@ -170,7 +170,7 @@ public class Graph {
     }
 
     else{
-      dijksra(a);
+      dijksra(a, b);
       shortHelper(a, b);
       System.out.println();
     }
@@ -184,7 +184,7 @@ public class Graph {
     else{
       Node aa = nodeMap.get(a);
       Node bb = nodeMap.get(b);
-      dijksra(aa);
+      dijksra(aa, bb);
       shortHelper(aa, bb);
       System.out.println();
     }
@@ -313,11 +313,12 @@ public class Graph {
     }
   }*/
 
-  public void dijksra (Node v){ //O(n^2)
+  public void dijksra (Node v, Node w){ //O(n^2)
     //known = new boolean[vertices()];
     //dist = new double[vertices()];
     //parent = new int[vertices()];
 
+    /* //Doing in the node setup, should be fine
     for (Node n : nodeMap.values()){ //O(n)
       if(n != null){
         n.known = false;
@@ -326,7 +327,7 @@ public class Graph {
         //System.out.println(n.known);
       }
     }
-
+    */
     v.distance = 0;
     v.parent = v;
 
@@ -335,24 +336,33 @@ public class Graph {
     //known[v] = true;
 
     //while(isUnknown())
+    int i = 0;
     for (int m = 0; m < vertices(); m++){ //O(n)
+      //System.out.print(i + ": ");
+      i++;
 
       Node t = smallestDistNode();//O(n)
+
       //System.out.println("t: " + t);
       if (t == null){
+        System.out.println("Whoop went null");
+        return;
+      }
+      else if (t.equals(w)){
         return;
       }
       //System.out.println(m + "mhm");
       //System.out.println(t.known);
       t.known = true;
       //System.out.println(t.known);
+      long s = System.currentTimeMillis();
       for(Node j : nodeMap.values()){ //O(n)
         if (j != null){
           //System.out.print(j.name + ", ");
-          if (connected(t,j)){
+          if (!(j.known)){
             //System.out.println(j.name + ", true");
-            if(!(j.known)){
-              double cvw = getNodeWeight(t,j); //UNDO
+            if(connected(t,j)){
+              double cvw = getNodeWeight(t,j);
               //System.out.println(dist[t] + cvw);
               if(t.distance + cvw < j.distance){
                 j.distance = t.distance + cvw;
@@ -363,6 +373,8 @@ public class Graph {
           }
         }
       }
+      long e = System.currentTimeMillis();
+      //System.out.println(e-s);
     }
   }
 
@@ -448,12 +460,12 @@ public class Graph {
           System.out.println("distance works");
         }*/
         if(!(n.known) && !(n.distance == Double.POSITIVE_INFINITY )){
-          //System.out.println("returning " + n.name + " " + n.distance);
+          System.out.println("returning " + n.name + " " + n.distance);
           return n;
         }
       }
     }
-    //System.out.println("Woah there, first not known broke");
+    System.out.println("Woah there, first not known broke");
     return null;
   }
 
