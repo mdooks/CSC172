@@ -1,4 +1,4 @@
-public class Node {
+public class Node implements Comparable<Node>{
   String name;
   int num;
   double lon;
@@ -36,5 +36,17 @@ public class Node {
       return true;
     }
     return false;
+  }
+
+  public int compareTo (Node that){
+    if (this.distance > that.distance){
+      return 1;
+    }
+    else if (this.distance < that.distance){
+      return -1;
+    }
+    else{
+      return 0;
+    }
   }
 }

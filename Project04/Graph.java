@@ -25,11 +25,13 @@
 import java.io.File;
 import java.util.Scanner;
 import java.util.HashMap;
+import java.util.PriorityQueue;
 
 public class Graph {
   static Scanner in;
   private int vertexCount;
   private int edgeCount;
+  PriorityQueue<Node> dijkstasQueue;
 
   HashMap<String, Node> nodeMap;
 
@@ -44,6 +46,7 @@ public class Graph {
   public Graph () {
     nodeMap = new HashMap<String, Node>();
     adjNodeMap = new HashMap<String, GraphNode>();
+    dijkstasQueue = new PriorityQueue<Node>();
     edgeCount = 0;
   }
   public Graph (int numV){
@@ -52,6 +55,7 @@ public class Graph {
     edgeCount = 0;
     nodeMap = new HashMap<String, Node>();
     adjNodeMap = new HashMap<String, GraphNode>();
+    dijkstasQueue = new PriorityQueue<Node>();
   }
 
   public void buildAdjNode(int numV){
@@ -330,6 +334,7 @@ public class Graph {
     */
     v.distance = 0;
     v.parent = v;
+    dijkstasQueue.add(v);
 
     //Node ttt = nodeMap.get(v.name);
     //System.out.println(ttt.distance);
@@ -337,26 +342,35 @@ public class Graph {
 
     //while(isUnknown())
     int i = 0;
-    for (int m = 0; m < vertices(); m++){ //O(n)
+    while (dijkstasQueue.size() != 0){ //O(n)
+      if(w.known){
+        return;
+      }
       //System.out.print(i + ": ");
       i++;
 
-      Node t = smallestDistNode();//O(n)
+      Node t = dijkstasQueue.poll();//O(n)
 
-      //System.out.println("t: " + t);
+      //System.out.println("t: " + t.name);
       if (t == null){
         System.out.println("Whoop went null");
         return;
       }
-      else if (t.equals(w)){
+      /*else if (t.equals(w)){
         return;
-      }
+      }*/
       //System.out.println(m + "mhm");
       //System.out.println(t.known);
       t.known = true;
       //System.out.println(t.known);
       long s = System.currentTimeMillis();
-      for(Node j : nodeMap.values()){ //O(n)
+      GraphNode l = adjNodeMap.get(t.name);
+      GraphNode[] cons = l.getConnections();
+      for (GraphNode G : cons){
+        System.out.print(G.id + ", ");
+      }
+      System.out.println();
+      for(Node j : nodeMap.values()){ //O(n) //I THINK I CAN BRING THIS DOWN!
         if (j != null){
           //System.out.print(j.name + ", ");
           if (!(j.known)){
@@ -367,6 +381,7 @@ public class Graph {
               if(t.distance + cvw < j.distance){
                 j.distance = t.distance + cvw;
                 j.parent = t;
+                dijkstasQueue.add(j);
                 //known[j] = true;
               }
             }
@@ -460,7 +475,7 @@ public class Graph {
           System.out.println("distance works");
         }*/
         if(!(n.known) && !(n.distance == Double.POSITIVE_INFINITY )){
-          System.out.println("returning " + n.name + " " + n.distance);
+          //System.out.println("returning " + n.name + " " + n.distance);
           return n;
         }
       }

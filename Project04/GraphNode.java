@@ -2,15 +2,18 @@ public class GraphNode{
   String id;
   GraphNode next;
   double weight;
+  int cons;
 
   public GraphNode(String i){
     id = i;
+    cons = 0;
   }
 
   public void insert(GraphNode n, String a, Double lb){
     if(n.next == null){
       n.next = new GraphNode(a);
       n.next.weight = lb;
+      cons++;
     }
     else{
       insert(n.next, a, lb);
@@ -31,7 +34,7 @@ public class GraphNode{
 
   public double lookupWeight(GraphNode n, String a){
     if(n == null){
-      return 10000000;//shoudl never Happen...
+      return 10000000;//should never Happen...
     }
     else if (n.id.equals(a)){
       return n.weight;
@@ -48,6 +51,21 @@ public class GraphNode{
     else {
       System.out.print(next.id +", ");
       next.printConnections();
+    }
+  }
+  public GraphNode[] getConnections(){
+    GraphNode[] ans = new GraphNode[cons];
+    conHelper(this,ans, 0);
+    return ans;
+  }
+
+  public GraphNode[] conHelper(GraphNode n, GraphNode[] a, int p){
+    if (n.next == null){
+      return a;
+    }
+    else{
+      a[p] = n.next;
+      return conHelper(n.next, a, p+1);
     }
   }
 
