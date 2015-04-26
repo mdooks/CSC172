@@ -37,6 +37,7 @@ public class Graph {
 
   boolean directed;
   private boolean adj[][];
+  double dist;
 
   GraphNode adjNode[];
   HashMap<String, GraphNode> adjNodeMap;
@@ -169,6 +170,7 @@ public class Graph {
   }
 
   public void shortPath(Node a, Node b){
+    dist = 0;
     if(a.equals(b)){
       System.out.println ("Those are the same point.");
     }
@@ -181,6 +183,7 @@ public class Graph {
   }
 
   public void shortPath(String a, String b){
+    dist = 0;
     if(a.equals(b)){
       System.out.println ("Those are the same point.");
     }
@@ -190,7 +193,7 @@ public class Graph {
       Node bb = nodeMap.get(b);
       dijksra(aa, bb);
       shortHelper(aa, bb);
-      System.out.println();
+      System.out.println(" " + bb.distance*69 + " miles");
     }
   }
 
@@ -203,6 +206,7 @@ public class Graph {
   public void shortHelper(Node a, Node b){
     if(a.name.equals(b.name)){
       System.out.print(a.name + ", ");
+      dist = a.distance;
       return;
     }
     else if(b == null){
@@ -215,6 +219,7 @@ public class Graph {
     }
 
     shortHelper(a, b.parent);
+    //dist = dist + b.distance;
     //Node nb = nodeList.getInfo(b);
     System.out.print(b.name + ", ");
   }
