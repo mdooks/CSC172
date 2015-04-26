@@ -366,16 +366,12 @@ public class Graph {
       long s = System.currentTimeMillis();
       GraphNode l = adjNodeMap.get(t.name);
       GraphNode[] cons = l.getConnections();
-      for (GraphNode G : cons){
-        System.out.print(G.id + ", ");
-      }
-      System.out.println();
-      for(Node j : nodeMap.values()){ //O(n) //I THINK I CAN BRING THIS DOWN!
+      for(GraphNode c : cons){ //O(n) //I THINK I CAN BRING THIS DOWN!
+        Node j = nodeMap.get(c.id);
         if (j != null){
           //System.out.print(j.name + ", ");
           if (!(j.known)){
             //System.out.println(j.name + ", true");
-            if(connected(t,j)){
               double cvw = getNodeWeight(t,j);
               //System.out.println(dist[t] + cvw);
               if(t.distance + cvw < j.distance){
@@ -384,7 +380,6 @@ public class Graph {
                 dijkstasQueue.add(j);
                 //known[j] = true;
               }
-            }
           }
         }
       }
