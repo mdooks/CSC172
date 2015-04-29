@@ -26,6 +26,8 @@ import java.io.File;
 import java.util.Scanner;
 import java.util.HashMap;
 import java.util.PriorityQueue;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Graph {
   static Scanner in;
@@ -34,6 +36,7 @@ public class Graph {
   PriorityQueue<Node> dijkstasQueue;
 
   HashMap<String, Node> nodeMap;
+  HashMap<String, Edge> edgeMap;
 
   boolean directed;
   private boolean adj[][];
@@ -46,6 +49,7 @@ public class Graph {
 
   public Graph () {
     nodeMap = new HashMap<String, Node>();
+    edgeMap = new HashMap<String, Edge>();
     adjNodeMap = new HashMap<String, GraphNode>();
     dijkstasQueue = new PriorityQueue<Node>();
     edgeCount = 0;
@@ -55,6 +59,7 @@ public class Graph {
     weight = new double[numV][numV];
     edgeCount = 0;
     nodeMap = new HashMap<String, Node>();
+    edgeMap = new HashMap<String, Edge>();
     adjNodeMap = new HashMap<String, GraphNode>();
     dijkstasQueue = new PriorityQueue<Node>();
   }
@@ -103,6 +108,7 @@ public class Graph {
     }
     g.insert(g,a,lb);
   }
+  /*
   public void insert(Edge e, double lb) {
     if(adj[e.v][e.w] == false){
       adj[e.v][e.w] = true;
@@ -131,7 +137,7 @@ public class Graph {
       adj[e.w][e.v] = false;
       edgeCount--;
     }
-  }
+  }*/
 
   public boolean connected (int node1, int node2){
     return adj[node1][node2];
@@ -276,6 +282,7 @@ public class Graph {
       Node n2 = g.nodeMap.get(i2);
       double lbs = getWeight(n1, n2);
       g.insertList(i1, i2, lbs);
+      g.edgeMap.put(nam, new Edge(nam, i1, i2, lbs));
     }
     //g.show();
 
@@ -482,6 +489,25 @@ public class Graph {
     }
     System.out.println("Woah there, first not known broke");
     return null;
+  }
+
+  public ArrayList<Edge> Kruskal (List<Edge> edge, int numVert){ //based off of sudo code from the book
+    DisjSets ds = new DisjSets(numVert);
+    PriorityQueue<Edge> pq = new PriorityQueue<Edge>(edge);
+    ArrayList<Edge> mst = new ArrayList<>();
+
+    while(mst.size() != numVert - 1){
+      Edge e = pq.poll();
+      SetNode w = ds.find(e.w);
+      SetNode v = ds.find(e.v);
+
+      if (w.equals(v)){
+        mst.add(e);
+        ds.union(w.id,v.id);
+      }
+    }
+    return mst;
+
   }
 
   public static double getWeight(Node a, Node b){

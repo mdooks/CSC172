@@ -1,11 +1,13 @@
 public class Edge{
   String name;
-  int v;
-  int w;
+  String v;
+  String w;
+  double weight;
 
-  public Edge(String n, int x, int y){
+  public Edge(String n, String x, String y, double we){
     name = n;
     v = x;
     w = y;
+    weight = we;
   }
 }
