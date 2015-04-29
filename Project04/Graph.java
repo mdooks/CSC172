@@ -271,6 +271,7 @@ public class Graph {
     double lb = getWeight(first, second);
     //System.out.println(n + " " + d + " " + s + " " + lb);
     g.insertList(d, s, lb);
+    g.edgeMap.put(n, new Edge(n, d, s, lb));
     //System.out.println(n + " " + d + " " + s + " " + lb);
     while (in.hasNext()){
       String r = in.next(); //reads in and ignores the 'r'
@@ -491,16 +492,28 @@ public class Graph {
     return null;
   }
 
-  public ArrayList<Edge> Kruskal (List<Edge> edge, int numVert){ //based off of sudo code from the book
+  /*public ArrayList<Edge> Kruskal (List<Edge> edge, int numVert){ //based off of sudo code from the book
     DisjSets ds = new DisjSets(numVert);
     PriorityQueue<Edge> pq = new PriorityQueue<Edge>(edge);
     ArrayList<Edge> mst = new ArrayList<>();
 
+    for (Edge f : edge){
+      ds.insert(f.name);
+      System.out.println(f.name);
+    }
+    System.out.println();
+    ds.testing();
+
     while(mst.size() != numVert - 1){
       Edge e = pq.poll();
-      SetNode w = ds.find(e.w);
-      SetNode v = ds.find(e.v);
+      System.out.println(e.name + " " + e.w + " " + e.v);
+      System.out.println(ds.nodeMap.get(e.name));
 
+      SetNode w = ds.find(nodeMap.get(e.w).name);
+      SetNode v = ds.find(nodeMap.get(e.v).name);
+      if(w == null){
+        System.out.println("HI");
+      }
       if (w.equals(v)){
         mst.add(e);
         ds.union(w.id,v.id);
@@ -508,6 +521,13 @@ public class Graph {
     }
     return mst;
 
+  }*/
+
+  public ArrayList<Edge> Prim (Node start){
+    ArrayList<Edge> mst = new ArrayList<>();
+    PriorityQueue<Edge> pq = new PriorityQueue<Edge>(new ArrayList<Edge>(edgeMap.values()));
+
+    return mst;
   }
 
   public static double getWeight(Node a, Node b){

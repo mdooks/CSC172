@@ -10,6 +10,6 @@ public class SetNode {
   }
 
   public boolean equals(SetNode that){
-    return (id.equals(that));
+    return (id.equals(that.id));
   }
 }

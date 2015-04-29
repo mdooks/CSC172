@@ -11,6 +11,14 @@ public class DisjSets { //based off the code in the book
       s[i] = -1;
     }
   }
+  public void insert(String r){
+    nodeMap.put(r, new SetNode(r));
+  }
+  public void testing(){
+    for (SetNode e : nodeMap.values()){
+      System.out.println(e.id);
+    }
+  }
   public void union(String r1, String r2){
     SetNode one = nodeMap.get(r1);
     SetNode two = nodeMap.get(r2);

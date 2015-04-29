@@ -9,6 +9,8 @@ public class Node implements Comparable<Node>{
   double distance;
   Node parent;
 
+  String setParent;
+
   public Node(String n, int spot, double lo, double la){
     num = spot;
     name = n;
