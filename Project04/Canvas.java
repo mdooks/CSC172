@@ -34,8 +34,8 @@ public class Canvas extends JPanel {
   protected void paintComponent(Graphics g){
     super.paintComponent(g);
     Graphics2D g2d = (Graphics2D) g.create();
-    xUnit = getWidth()/(maxLong - minLong);
-    yUnit = getHeight()/(maxLat - minLat);
+    xUnit = getHeight()/(maxLong - minLong);
+    yUnit = getWidth()/(maxLat - minLat);
     System.out.println("xUnit " + xUnit + " yUnit " + yUnit);
     System.out.println("minLat: " + minLat + " maxLat: " + maxLat + " minLong: " + minLong + " maxLong: " + maxLong);
     edgePainter(g2d);
@@ -47,9 +47,11 @@ public class Canvas extends JPanel {
       Node a = nodeMap.get(e.w);
       Node b = nodeMap.get(e.v);
       System.out.println((a.lon * xUnit) + " " + (a.lat * yUnit) + getHeight() );
-      System.out.println((int) ((getHeight() - (a.lat * yUnit)) + minLat * yUnit));
-      System.out.println((int) (((a.lon * xUnit)) - minLong * xUnit));
-      g2d.drawLine((int) ((getWidth() + (a.lon * xUnit))) ,(int) ((getHeight() - (a.lat * yUnit)) + minLat * yUnit), (int) ((getWidth() - (b.lon * xUnit))),(int) ((getHeight() + (b.lat * yUnit)) + minLat * yUnit));
+      int x1 = (int) ((getHeight() - (a.lat * yUnit)) + minLat * yUnit);
+      int y1 = (int) (((a.lon * xUnit)) - minLong * xUnit);
+      int x2 = (int) ((getHeight() - (b.lat * yUnit)) + minLat * yUnit);
+      int y2 = (int) (((b.lon * xUnit)) - minLong * xUnit);
+      g2d.drawLine(y1,x1, y2,x2);
     }
   }
 
