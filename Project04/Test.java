@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 public class Test {
   public static void main (String[] args){
     long s = System.currentTimeMillis();
-    Graph t = Graph.createFromFile("CSC172SP15_project4_data/ur.txt");
+    Graph t = Graph.createFromFile("CSC172SP15_project4_data/monroe.txt");
     /*for (Node n : t.nodeMap.values()){
       //System.out.println(n.name);
     }*/
@@ -35,7 +35,7 @@ public class Test {
     window.add(theMap);
     window.setLayout(new BorderLayout());
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //exit program when the windiow is closed
-		window.setResizable(true); 
+		window.setResizable(true);
     window.pack(); //prepare window to be displayed
     window.setSize(400,400); //set size
     window.add(theMap);
