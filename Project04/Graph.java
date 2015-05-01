@@ -35,6 +35,8 @@ public class Graph {
   private int edgeCount;
   PriorityQueue<Node> dijkstasQueue;
 
+
+  ArrayList<Node> sp;
   HashMap<String, Node> nodeMap;
   HashMap<String, Edge> edgeMap;
 
@@ -52,6 +54,7 @@ public class Graph {
     edgeMap = new HashMap<String, Edge>();
     adjNodeMap = new HashMap<String, GraphNode>();
     dijkstasQueue = new PriorityQueue<Node>();
+    sp = new ArrayList<Node>();
     edgeCount = 0;
   }
   public Graph (int numV){
@@ -62,6 +65,7 @@ public class Graph {
     edgeMap = new HashMap<String, Edge>();
     adjNodeMap = new HashMap<String, GraphNode>();
     dijkstasQueue = new PriorityQueue<Node>();
+    sp = new ArrayList<Node>();
   }
 
   public void buildAdjNode(int numV){
@@ -213,6 +217,7 @@ public class Graph {
     if(a.name.equals(b.name)){
       System.out.print(a.name + ", ");
       dist = a.distance;
+      sp.add(a);
       return;
     }
     else if(b == null){
@@ -228,6 +233,7 @@ public class Graph {
     //dist = dist + b.distance;
     //Node nb = nodeList.getInfo(b);
     System.out.print(b.name + ", ");
+    sp.add(b);
   }
 
   public static Graph createFromFile(String fileName){

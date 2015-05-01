@@ -11,15 +11,15 @@ import javax.swing.JPanel;
 public class Test {
   public static void main (String[] args){
     long s = System.currentTimeMillis();
-    Graph t = Graph.createFromFile("CSC172SP15_project4_data/monroe.txt");
+    Graph t = Graph.createFromFile("CSC172SP15_project4_data/ur.txt");
     /*for (Node n : t.nodeMap.values()){
       //System.out.println(n.name);
     }*/
     System.out.println(t.vertices()+ " Vert");
     long e = System.currentTimeMillis();
     System.out.println(e-s);
-    //t.shortPath("GOERGEN-ATHLETIC", "CSB");
-    t.shortPath("i15", "i32");
+    t.shortPath("GOERGEN-ATHLETIC", "CSB");
+    //t.shortPath("i15", "i32");
     long e2 = System.currentTimeMillis();
     System.out.println(e2-s);
     //t.Kruskal(new ArrayList<Edge>(t.edgeMap.values()), t.vertices());
@@ -29,9 +29,10 @@ public class Test {
       System.out.println(r.name);
     }
     //t.parentPrinter();
-
+    System.out.println(t.sp.size() + " SP Size");
     Atlas window = new Atlas("Test");
-    Canvas theMap = new Canvas(t.nodeMap, t.edgeMap);
+    Canvas theMap = new Canvas(t.nodeMap, t.edgeMap, ans, t.sp);
+    //theMap.minWeight(ans);
     window.add(theMap);
     window.setLayout(new BorderLayout());
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //exit program when the windiow is closed
