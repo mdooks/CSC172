@@ -534,18 +534,39 @@ public class Graph {
     ArrayList<Edge> mst = new ArrayList<>();
     HashMap<String, String> inserted = new HashMap<String, String>();
     PriorityQueue<Edge> pq = new PriorityQueue<Edge>(new ArrayList<Edge>(edgeMap.values()));
-
+    ArrayList<Edge> failed = new ArrayList<Edge>();
+    Edge first = pq.poll();
+    mst.add(first);
+    inserted.put(first.w, first.w);
+    inserted.put(first.v, first.v);
     while (inserted.size() < vertices()){
       //System.out.println(inserted.size());
       Edge e = pq.poll();
       String w = inserted.get(e.w);
       String v = inserted.get(e.v);
+
       //System.out.println("were in " + e.name + " " + w + " " + v);
-      if (w == null || v == null){
+      if ((w == null) ^ (v == null)){
+        System.out.println("We're In!");
+        for(Edge f : failed){
+          pq.add(f);
+        }
+        failed.clear();
         //System.out.println("we're in " + e.name + " " + w + " " + v);
         mst.add(e);
         inserted.put(e.w, e.w);
         inserted.put(e.v, e.v);
+      }
+      else if ((w == null) && (v == null) ){
+        System.out.println("We're Failing!");
+        failed.add(e);
+      }
+      else if (!(w == null) && !(v == null) ){
+        failed.remove(e);
+        pq.remove(e);
+      }
+      else if (e == null){
+        System.out.println("HOW?");
       }
     }
     return mst;

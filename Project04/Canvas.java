@@ -49,8 +49,8 @@ public class Canvas extends JPanel {
     System.out.println("minLat: " + minLat + " maxLat: " + maxLat + " minLong: " + minLong + " maxLong: " + maxLong);
     //shortPath(g2d);
     edgePainter(g2d);
-    //minWeight(g2d);
-    shortPath(g2d);
+    minWeight(g2d);
+    //shortPath(g2d);
     //g2d.drawLine((int) (maxLong * xUnit - minLong * xUnit), (int) ((Math.abs(-1*maxLat + Math.abs(minLat)) * yUnit)) , (int) (minLong * xUnit - minLong * xUnit),(int) (( Math.abs(minLat - Math.abs(minLat)) * yUnit)));
 
   }
