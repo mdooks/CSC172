@@ -57,16 +57,6 @@ public class Graph {
     sp = new ArrayList<Node>();
     edgeCount = 0;
   }
-  public Graph (int numV){
-    adj = new boolean[numV][numV];
-    weight = new double[numV][numV];
-    edgeCount = 0;
-    nodeMap = new HashMap<String, Node>();
-    edgeMap = new HashMap<String, Edge>();
-    adjNodeMap = new HashMap<String, GraphNode>();
-    dijkstasQueue = new PriorityQueue<Node>();
-    sp = new ArrayList<Node>();
-  }
 
   public void buildAdjNode(int numV){
     adjNode = new GraphNode[numV];
@@ -74,16 +64,11 @@ public class Graph {
     for(String k : nodeMap.keySet()){
       if(k != null){
         adjNode[i] = new GraphNode(k);
-        //System.out.println(adjNode[i].id);
         i++;
       }
     }
   }
 
-  public void setAdj(int numV){
-    adj = new boolean[numV][numV];
-    weight = new double[numV][numV];
-  }
   public void setVertexCount(int v){
     vertexCount = v;
   }
@@ -112,40 +97,7 @@ public class Graph {
     }
     g.insert(g,a,lb, g.id, rdName);
   }
-  /*
-  public void insert(Edge e, double lb) {
-    if(adj[e.v][e.w] == false){
-      adj[e.v][e.w] = true;
-      weight[e.v][e.w] = lb;
-      edgeCount++;
-    }
-    if(adj[e.w][e.v] == false)
-    adj[e.w][e.v] = true;
-    weight[e.w][e.v] = lb;
-    edgeCount++;
-  }
 
-  public void delete(Edge e){
-    if (isDirected()){
-      if (adj[e.v][e.w] == true){
-        adj[e.v][e.w] = false;
-        edgeCount--;
-      }
-    }
-    else{
-      if(adj[e.v][e.w] == true){
-        adj[e.v][e.w] = false;
-        edgeCount--;
-      }
-      if(adj[e.w][e.v] == true)
-      adj[e.w][e.v] = false;
-      edgeCount--;
-    }
-  }*/
-
-  public boolean connected (int node1, int node2){
-    return adj[node1][node2];
-  }
   public boolean connected (Node node1, Node node2){
 
     GraphNode t = adjNodeMap.get(node1.name);
@@ -159,38 +111,11 @@ public class Graph {
   public double getNodeWeight (Node node1, Node node2){
     GraphNode t = adjNodeMap.get(node1.name);
     if (t == null){
-      return 100000;//should never happen
+      return Double.POSITIVE_INFINITY;//should never happen
     }
     return t.lookupWeight(t, node2.name);
   }
 
-  public AdjArray getAdjList(int vertex){
-    return new AdjArray(vertex);
-  }
-
-  public void show(){
-    for (int s = 0; s<vertices(); s++){
-      System.out.print(s + ": ");
-      AdjList A = getAdjList(s);
-      for(int t = A.begin(); !A.end(); t=A.next()){
-        System.out.print(t+ " ");
-      }
-      System.out.println();
-    }
-  }
-
-  public void shortPath(Node a, Node b){
-    dist = 0;
-    if(a.equals(b)){
-      System.out.println ("Those are the same point.");
-    }
-
-    else{
-      dijksra(a, b);
-      shortHelper(a, b);
-      System.out.println();
-    }
-  }
 
   public void shortPath(String a, String b){
     dist = 0;
@@ -230,8 +155,6 @@ public class Graph {
     }
 
     shortHelper(a, b.parent);
-    //dist = dist + b.distance;
-    //Node nb = nodeList.getInfo(b);
     System.out.print(b.name + ", ");
     sp.add(b);
   }
@@ -257,239 +180,95 @@ public class Graph {
         double longi = in.nextFloat();
         Node t = new Node(n, i, longi, lati);
         g.nodeMap.put(n, t);
-        //g.nodeList.insert(t);
       }
       i++;
     }
     g.setVertexCount(i);
-    //g.buildAdjNode(i);
-    //System.out.println("First read works: " + i);
-    //g.setAdj(i);
     g.setVertexCount(i);
-    //g.nodeList.printList();
-    //first r was read in so first edge is made outside loop
     String n = in.next();
     String d = in.next();
     String s = in.next();
-    //System.out.println(n + " " + d + " " + s);
     Node first = g.nodeMap.get(d);
     Node second = g.nodeMap.get(s);
     double lb = getWeight(first, second);
-    //System.out.println(n + " " + d + " " + s + " " + lb);
     g.insertList(d, s, lb, n);
     g.edgeMap.put(n, new Edge(n, d, s, lb));
-    //System.out.println(n + " " + d + " " + s + " " + lb);
     while (in.hasNext()){
       String r = in.next(); //reads in and ignores the 'r'
       String nam = in.next();
       String i1 = in.next();
       String i2 = in.next();
-      //System.out.println(nam + " " + i1 + " " + i2);
       Node n1 = g.nodeMap.get(i1);
       Node n2 = g.nodeMap.get(i2);
       double lbs = getWeight(n1, n2);
       g.insertList(i1, i2, lbs, nam);
       g.edgeMap.put(nam, new Edge(nam, i1, i2, lbs));
     }
-    //g.show();
-
     return g;
   }
 
-  /*public void dijksra (int v){ //O(n^2)
-    known = new boolean[vertices()];
-    dist = new double[vertices()];
-    parent = new String[vertices()];
-    for (int i = 0; i< vertices(); i++){ //O(n)
-      known[i] = false;
-      dist[i] = Double.POSITIVE_INFINITY;
-      parent[i] = null; //set a value that can not be a node
-    }
-
-    dist[v] = 0;
-    //parent[v] = v; //UNDO!
-    //known[v] = true;
-
-    //while(isUnknown())
-    for (int m = 0; m < vertices(); m++){ //O(n)
-      int t = smallestDist();//O(n)
-      //System.out.println("t: " + t);
-      if (t == -1){
-        return;
-      }
-      known[t] = true;
-      for(int j = 0; j < vertices(); j++){ //O(n)
-
-        if (connected(t,j)){
-          if(!(known[j])){
-            double cvw = weight[t][j];
-            //System.out.println(dist[t] + cvw);
-            if(dist[t] + cvw < dist[j]){
-              dist[j] = dist[t] + cvw;
-              //parent[j] = t; //UNDO!!
-              //known[j] = true;
-            }
-          }
-
-        }
-      }
-    }
-  }*/
 
   public void dijksra (Node v, Node w){ //O(n^2)
-    //known = new boolean[vertices()];
-    //dist = new double[vertices()];
-    //parent = new int[vertices()];
-
-    /* //Doing in the node setup, should be fine
-    for (Node n : nodeMap.values()){ //O(n)
-      if(n != null){
-        n.known = false;
-        n.distance = Double.POSITIVE_INFINITY;
-        n.parent = null;
-        //System.out.println(n.known);
-      }
-    }
-    */
     v.distance = 0;
     v.parent = v;
     dijkstasQueue.add(v);
 
-    //Node ttt = nodeMap.get(v.name);
-    //System.out.println(ttt.distance);
-    //known[v] = true;
-
-    //while(isUnknown())
     int i = 0;
     while (dijkstasQueue.size() != 0){ //O(n)
       if(w.known){
         return;
       }
-      //System.out.print(i + ": ");
       i++;
 
       Node t = dijkstasQueue.poll();//O(n)
-
-      //System.out.println("t: " + t.name);
       if (t == null){
         System.out.println("Whoop went null");
         return;
       }
-      /*else if (t.equals(w)){
-        return;
-      }*/
-      //System.out.println(m + "mhm");
-      //System.out.println(t.known);
+
       t.known = true;
-      //System.out.println(t.known);
       long s = System.currentTimeMillis();
       GraphNode l = adjNodeMap.get(t.name);
       GraphNode[] cons = l.getConnections();
       for(GraphNode c : cons){ //O(n) //I THINK I CAN BRING THIS DOWN!
         Node j = nodeMap.get(c.id);
         if (j != null){
-          //System.out.print(j.name + ", ");
           if (!(j.known)){
-            //System.out.println(j.name + ", true");
               double cvw = getNodeWeight(t,j);
-              //System.out.println(dist[t] + cvw);
               if(t.distance + cvw < j.distance){
                 j.distance = t.distance + cvw;
                 j.parent = t;
                 dijkstasQueue.add(j);
-                //known[j] = true;
               }
           }
         }
       }
       long e = System.currentTimeMillis();
-      //System.out.println(e-s);
     }
   }
-
-  /*public boolean isUnknown(){
-    for (double d : dist){
-      if (d == Double.POSITIVE_INFINITY){
-        return true;
-      }
-    }
-    return false;
-  }
-
-  public int smallestDist(){ //O(2n)
-    int ans = firstNotKown();//O(n)
-    if (ans == -1){
-      return ans;
-    }
-    //System.out.println(ans);
-    for (int i = 0; i<vertices(); i++){
-
-      if(dist[i] < dist[ans]){
-        //System.out.println("i update: " + i);
-        if (!(known[i])){
-
-          ans = i;
-        }
-      }
-    }
-    return ans;
-  }*/
 
   public Node smallestDistNode(){ //O(2n)
     Node ans = firstNotKnownNode();//O(n)
-    //System.out.println(ans + ", smallest dist.." );
     if (ans == null){
-      //System.out.println("ans is null");
       return ans;
     }
-    //System.out.println(ans);
     for (Node n : nodeMap.values()){
 
       if(n.distance < ans.distance){
-        //System.out.println("i update: " + i);
         if (!(n.known)){
 
           ans = n;
         }
       }
     }
-    //System.out.println("Smallest was: " + ans.name);
     return ans;
   }
- /*
-  public int smallestDist(){
-    for (int i = 0; i<vertices(); i++){
-      if(!(known[i])){
-        return i;
-      }
-    }
-    return -1;
-  }*/
-
-  /*public int firstNotKown(){ //O(n)
-    for (int i = 0; i<vertices(); i++){
-      if(!(known[i]) && !(dist[i] == Double.POSITIVE_INFINITY )){
-        return i;
-      }
-    }
-    //System.out.println("Woah there, first not known broke");
-    return -1;
-  }*/
 
   public Node firstNotKnownNode(){ //O(n)
     for (Node n : nodeMap.values()){
 
       if (n != null){
-        /*System.out.println(n.distance);
-        System.out.println("Node Test!");
-        if (!(n.known)){
-          System.out.println("Known works");
-        }
-        if (!(n.distance == Double.POSITIVE_INFINITY )){
-          System.out.println("distance works");
-        }*/
         if(!(n.known) && !(n.distance == Double.POSITIVE_INFINITY )){
-          //System.out.println("returning " + n.name + " " + n.distance);
           return n;
         }
       }
@@ -498,47 +277,14 @@ public class Graph {
     return null;
   }
 
-  /*public ArrayList<Edge> Kruskal (List<Edge> edge, int numVert){ //based off of sudo code from the book
-    DisjSets ds = new DisjSets(numVert);
-    PriorityQueue<Edge> pq = new PriorityQueue<Edge>(edge);
-    ArrayList<Edge> mst = new ArrayList<>();
-
-    for (Edge f : edge){
-      ds.insert(f.name);
-      System.out.println(f.name);
-    }
-    System.out.println();
-    ds.testing();
-
-    while(mst.size() != numVert - 1){
-      Edge e = pq.poll();
-      System.out.println(e.name + " " + e.w + " " + e.v);
-      System.out.println(ds.nodeMap.get(e.name));
-
-      SetNode w = ds.find(nodeMap.get(e.w).name);
-      SetNode v = ds.find(nodeMap.get(e.v).name);
-      if(w == null){
-        System.out.println("HI");
-      }
-      if (w.equals(v)){
-        mst.add(e);
-        ds.union(w.id,v.id);
-      }
-    }
-    return mst;
-
-  }*/
-
   public ArrayList<Edge> Prim (String s){
     Node Start = nodeMap.get(s);
     ArrayList<Edge> mst = new ArrayList<>();
     HashMap<String, String> inserted = new HashMap<String, String>();
-    //PriorityQueue<Edge> pq = new PriorityQueue<Edge>(new ArrayList<Edge>(edgeMap.values()));
     ArrayList<Edge> failed = new ArrayList<Edge>();
     PriorityQueue<Edge> pq = new PriorityQueue<Edge>();
     ArrayList<Edge> ed = new ArrayList<Edge>(edgeMap.values());
     Edge first = ed.get(0);
-    //Edge first = pq.poll();
     mst.add(first);
     inserted.put(first.w, first.w);
     inserted.put(first.v, first.v);
@@ -548,12 +294,10 @@ public class Graph {
 
     System.out.println("terminated");
     while (inserted.size() < vertices() && pq.size() != 0){
-      //System.out.println(inserted.size());
       Edge e = pq.poll();
       String w = inserted.get(e.w);
       String v = inserted.get(e.v);
 
-      //System.out.println("were in " + e.name + " " + w + " " + v);
       if ((w == null) ^ (v == null)){
         priorityEdgeInsert(pq, e);
         System.out.println("We're In! " + pq.size());
@@ -566,13 +310,11 @@ public class Graph {
           }
         }
         failed.clear();
-        //System.out.println("we're in " + e.name + " " + w + " " + v);
         mst.add(e);
         inserted.put(e.w, e.w);
         inserted.put(e.v, e.v);
       }
       else if ((w == null) && (v == null) ){
-        //System.out.println("We're Failing!");
         failed.add(e);
       }
       else if (!(w == null) && !(v == null) ){
@@ -617,40 +359,7 @@ public class Graph {
     double y = Math.abs(b.lon) - Math.abs(a.lon);
     double c2 = x*x + y*y;
     w = Math.sqrt(c2);
-    //System.out.println(a.name + " " + b.name + " " + w);
     return w;
   }
 
-  private class AdjArray implements AdjList {
-    private int v;
-    private int i;
-
-    public AdjArray(int v){
-      this.v = v;
-      i = -1;
-    }
-
-    public int next(){
-      for(++i; i < vertices(); i++){
-        if (connected(v, i) == true){
-          return i;
-        }
-      }
-      return -1;
-
-    }
-
-    public int begin(){
-      i = -1;
-      return next();
-    }
-
-    public boolean end(){
-      if (i < vertices()) {
-        return false;
-      }
-      return true;
-    }
-
-  }
 }
