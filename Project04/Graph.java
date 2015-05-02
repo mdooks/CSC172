@@ -120,10 +120,11 @@ public class Graph {
   }
 
 
-  public void shortPath(String a, String b, boolean print){
+  public void shortPath(String a, String b, boolean print) throws Exception{
     dist = 0;
     if(a.equals(b)){
       System.out.println ("Those are the same point.");
+      throw new Exception();
     }
 
     else{
@@ -301,7 +302,6 @@ public class Graph {
     priorityEdgeInsert(pq, first);
 
 
-    System.out.println("terminated");
     while (inserted.size() < vertices() && pq.size() != 0){
       Edge e = pq.poll();
       String w = inserted.get(e.w);
@@ -309,7 +309,6 @@ public class Graph {
 
       if ((w == null) ^ (v == null)){
         priorityEdgeInsert(pq, e);
-        System.out.println("We're In! " + pq.size());
         for(Edge f : failed){
           if(f.v == e.v || f.v == e.w || f.w == e.v || f.w == e.w){
 

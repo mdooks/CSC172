@@ -19,7 +19,12 @@ public class Test {
     long e = System.currentTimeMillis();
     System.out.println(e-s);
     //t.shortPath("GOERGEN-ATHLETIC", "CSB");
-    t.shortPath("i15", "i32", true);
+    try{
+      t.shortPath("i15", "i32", true);
+    }
+    catch(Exception dd){
+
+    }
     long e2 = System.currentTimeMillis();
     System.out.println(e2-s);
     //t.Kruskal(new ArrayList<Edge>(t.edgeMap.values()), t.vertices());
