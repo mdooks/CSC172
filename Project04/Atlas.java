@@ -12,8 +12,4 @@ public class Atlas extends JFrame {
   public Atlas (String name){
     super(name);
   }
-
-  public void edgeDraw(HashMap<String,Edge> edgeMap){
-    
-  }
 }
