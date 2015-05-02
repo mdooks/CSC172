@@ -21,9 +21,9 @@ public class Canvas extends JPanel {
 
   private double yUnit;
   private double xUnit;
+  private int selection;
 
-
-  public Canvas(HashMap<String, Node> nM, HashMap<String, Edge> eM, ArrayList<Edge> m, ArrayList<Node> s){
+  public Canvas(HashMap<String, Node> nM, HashMap<String, Edge> eM, ArrayList<Edge> m, ArrayList<Node> s, int selection){
     setFocusable(true);
     nodeMap = nM;
     edgeMap = eM;
@@ -34,7 +34,9 @@ public class Canvas extends JPanel {
     maxLong = extreme[3];
     mst = m;
     sp = s;
+    this.selection = selection;
   }
+
 
   protected void paintComponent(Graphics g){
     super.paintComponent(g);
@@ -43,11 +45,15 @@ public class Canvas extends JPanel {
     xUnit = getWidth()/(maxLong - minLong);
     yUnit = getHeight()/(maxLat - minLat);
 
-    System.out.println("xUnit " + xUnit + " yUnit " + yUnit);
-    System.out.println("minLat: " + minLat + " maxLat: " + maxLat + " minLong: " + minLong + " maxLong: " + maxLong);
-    shortPath(g2d);
+    //System.out.println("xUnit " + xUnit + " yUnit " + yUnit);
+    //System.out.println("minLat: " + minLat + " maxLat: " + maxLat + " minLong: " + minLong + " maxLong: " + maxLong);
     edgePainter(g2d);
-    minWeight(g2d);
+    if(selection < 0){
+      shortPath(g2d);
+    }
+    else{
+      minWeight(g2d);
+    }
 
   }
 
@@ -59,7 +65,7 @@ public class Canvas extends JPanel {
       int y1 = (int) (((a.lon * xUnit)) - minLong * xUnit);
       int x2 = (int) ((getHeight() - Math.abs(b.lat - Math.abs(minLat)) * yUnit));
       int y2 = (int) (((b.lon * xUnit)) - minLong * xUnit);
-      System.out.println(y1 + " " + x1 + " " +  y2 + " " + x2 );
+      //System.out.println(y1 + " " + x1 + " " +  y2 + " " + x2 );
       g2d.drawLine(y1,x1, y2,x2);
     }
   }
@@ -73,7 +79,7 @@ public class Canvas extends JPanel {
       int y1 = (int) (((a.lon * xUnit)) - minLong * xUnit);
       int x2 = (int) ((getHeight() - Math.abs(b.lat - Math.abs(minLat)) * yUnit));
       int y2 = (int) (((b.lon * xUnit)) - minLong * xUnit);
-      System.out.println(y1 + " " + x1 + " " +  y2 + " " + x2 );
+      //System.out.println(y1 + " " + x1 + " " +  y2 + " " + x2 );
       g2d.drawLine(y1,x1, y2,x2);
     }
   }
@@ -87,7 +93,7 @@ public class Canvas extends JPanel {
       int y1 = (int) (((a.lon * xUnit)) - minLong * xUnit);
       int x2 = (int) ((getHeight() - Math.abs(b.lat - Math.abs(minLat)) * yUnit));
       int y2 = (int) (((b.lon * xUnit)) - minLong * xUnit);
-      System.out.println(y1 + " " + x1 + " " +  y2 + " " + x2 );
+      //System.out.println(y1 + " " + x1 + " " +  y2 + " " + x2 );
       g2d.drawLine(y1,x1, y2,x2);
       a = b;
     }

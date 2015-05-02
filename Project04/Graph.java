@@ -28,6 +28,8 @@ import java.util.HashMap;
 import java.util.PriorityQueue;
 import java.util.ArrayList;
 import java.util.List;
+import java.awt.BorderLayout;
+import javax.swing.JFrame;
 
 public class Graph {
   static Scanner in;
@@ -37,6 +39,7 @@ public class Graph {
 
 
   ArrayList<Node> sp;
+  ArrayList<Edge> mst;
   HashMap<String, Node> nodeMap;
   HashMap<String, Edge> edgeMap;
 
@@ -117,7 +120,7 @@ public class Graph {
   }
 
 
-  public void shortPath(String a, String b){
+  public void shortPath(String a, String b, boolean print){
     dist = 0;
     if(a.equals(b)){
       System.out.println ("Those are the same point.");
@@ -127,8 +130,10 @@ public class Graph {
       Node aa = nodeMap.get(a);
       Node bb = nodeMap.get(b);
       dijksra(aa, bb);
-      shortHelper(aa, bb);
-      System.out.println(" " + bb.distance*69 + " miles");
+      shortHelper(aa, bb, print);
+      if(print){
+        System.out.println(" " + bb.distance*69 + " miles");
+      }
     }
   }
 
@@ -138,9 +143,11 @@ public class Graph {
     }
   }
 
-  public void shortHelper(Node a, Node b){
+  public void shortHelper(Node a, Node b, boolean print){
     if(a.name.equals(b.name)){
-      System.out.print(a.name + ", ");
+      if(print){
+        System.out.print(a.name + ", ");
+      }
       dist = a.distance;
       sp.add(a);
       return;
@@ -154,8 +161,10 @@ public class Graph {
       return;
     }
 
-    shortHelper(a, b.parent);
-    System.out.print(b.name + ", ");
+    shortHelper(a, b.parent, print);
+    if(print){
+      System.out.print(b.name + ", ");
+    }
     sp.add(b);
   }
 
@@ -279,7 +288,7 @@ public class Graph {
 
   public ArrayList<Edge> Prim (String s){
     Node Start = nodeMap.get(s);
-    ArrayList<Edge> mst = new ArrayList<>();
+    mst = new ArrayList<>();
     HashMap<String, String> inserted = new HashMap<String, String>();
     ArrayList<Edge> failed = new ArrayList<Edge>();
     PriorityQueue<Edge> pq = new PriorityQueue<Edge>();
@@ -360,6 +369,31 @@ public class Graph {
     double c2 = x*x + y*y;
     w = Math.sqrt(c2);
     return w;
+  }
+
+  public void mspShow(){
+    Atlas window = new Atlas("Test");
+    Canvas theMap = new Canvas(nodeMap, edgeMap, mst, sp, 1);
+    //window.add(theMap);
+    window.setLayout(new BorderLayout());
+		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //exit program when the windiow is closed
+		window.setResizable(true);
+    window.pack(); //prepare window to be displayed
+    window.setSize(400,400); //set size
+    window.add(theMap);
+    window.setVisible(true);
+  }
+  public void directionShow(){
+    Atlas window = new Atlas("Test");
+    Canvas theMap = new Canvas(nodeMap, edgeMap, mst, sp, -1);
+    //window.add(theMap);
+    window.setLayout(new BorderLayout());
+		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //exit program when the windiow is closed
+		window.setResizable(true);
+    window.pack(); //prepare window to be displayed
+    window.setSize(400,400); //set size
+    window.add(theMap);
+    window.setVisible(true);
   }
 
 }
