@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 public class Test {
   public static void main (String[] args){
     long s = System.currentTimeMillis();
-    Graph t = Graph.createFromFile("CSC172SP15_project4_data/monroe.txt");
+    Graph t = Graph.createFromFile("CSC172SP15_project4_data/ur.txt");
     /*for (Node n : t.nodeMap.values()){
       //System.out.println(n.name);
     }*/

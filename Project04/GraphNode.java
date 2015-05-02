@@ -1,22 +1,26 @@
-public class GraphNode{
+public class GraphNode implements Comparable<GraphNode>{
   String id;
   GraphNode next;
   double weight;
   int cons;
+  String parent;
+  String road;
 
   public GraphNode(String i){
     id = i;
     cons = 0;
   }
 
-  public void insert(GraphNode n, String a, Double lb){
+  public void insert(GraphNode n, String a, Double lb, String par, String r){
     if(n.next == null){
       n.next = new GraphNode(a);
       n.next.weight = lb;
+      n.next.parent = par;
+      n.next.road = r;
       cons++;
     }
     else{
-      insert(n.next, a, lb);
+      insert(n.next, a, lb, par, r);
     }
   }
 
@@ -71,5 +75,17 @@ public class GraphNode{
 
   public boolean equals (String x){
     return (x.equals(id));
+  }
+
+  public int compareTo(GraphNode that){
+    if (this.weight == that.weight){
+      return 0;
+    }
+    else if (this.weight > that.weight){
+      return 1;
+    }
+    else{
+      return -1;
+    }
   }
 }

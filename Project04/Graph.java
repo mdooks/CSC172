@@ -97,20 +97,20 @@ public class Graph {
     return edgeCount;
   }
 
-  public void insertList(String a, String b, double lb){
+  public void insertList(String a, String b, double lb, String rdName){
     GraphNode g = adjNodeMap.get(a);
     if(g == null){
       adjNodeMap.put(a, new GraphNode(a));
       g = adjNodeMap.get(a);
     }
-    g.insert(g,b,lb);
+    g.insert(g,b,lb, g.id, rdName);
 
     g = adjNodeMap.get(b);
     if(g == null){
       adjNodeMap.put(b, new GraphNode(b));
       g = adjNodeMap.get(b);
     }
-    g.insert(g,a,lb);
+    g.insert(g,a,lb, g.id, rdName);
   }
   /*
   public void insert(Edge e, double lb) {
@@ -276,7 +276,7 @@ public class Graph {
     Node second = g.nodeMap.get(s);
     double lb = getWeight(first, second);
     //System.out.println(n + " " + d + " " + s + " " + lb);
-    g.insertList(d, s, lb);
+    g.insertList(d, s, lb, n);
     g.edgeMap.put(n, new Edge(n, d, s, lb));
     //System.out.println(n + " " + d + " " + s + " " + lb);
     while (in.hasNext()){
@@ -288,7 +288,7 @@ public class Graph {
       Node n1 = g.nodeMap.get(i1);
       Node n2 = g.nodeMap.get(i2);
       double lbs = getWeight(n1, n2);
-      g.insertList(i1, i2, lbs);
+      g.insertList(i1, i2, lbs, nam);
       g.edgeMap.put(nam, new Edge(nam, i1, i2, lbs));
     }
     //g.show();
@@ -533,13 +533,21 @@ public class Graph {
     Node Start = nodeMap.get(s);
     ArrayList<Edge> mst = new ArrayList<>();
     HashMap<String, String> inserted = new HashMap<String, String>();
-    PriorityQueue<Edge> pq = new PriorityQueue<Edge>(new ArrayList<Edge>(edgeMap.values()));
+    //PriorityQueue<Edge> pq = new PriorityQueue<Edge>(new ArrayList<Edge>(edgeMap.values()));
     ArrayList<Edge> failed = new ArrayList<Edge>();
-    Edge first = pq.poll();
+    PriorityQueue<Edge> pq = new PriorityQueue<Edge>();
+    ArrayList<Edge> ed = new ArrayList<Edge>(edgeMap.values());
+    Edge first = ed.get(0);
+    //Edge first = pq.poll();
     mst.add(first);
     inserted.put(first.w, first.w);
     inserted.put(first.v, first.v);
-    while (inserted.size() < vertices()){
+
+    priorityEdgeInsert(pq, first);
+
+
+    System.out.println("terminated");
+    while (inserted.size() < vertices() && pq.size() != 0){
       //System.out.println(inserted.size());
       Edge e = pq.poll();
       String w = inserted.get(e.w);
@@ -547,9 +555,15 @@ public class Graph {
 
       //System.out.println("were in " + e.name + " " + w + " " + v);
       if ((w == null) ^ (v == null)){
-        System.out.println("We're In!");
+        priorityEdgeInsert(pq, e);
+        System.out.println("We're In! " + pq.size());
         for(Edge f : failed){
-          pq.add(f);
+          if(f.v == e.v || f.v == e.w || f.w == e.v || f.w == e.w){
+
+          }
+          else{
+            pq.add(f);
+          }
         }
         failed.clear();
         //System.out.println("we're in " + e.name + " " + w + " " + v);
@@ -558,7 +572,7 @@ public class Graph {
         inserted.put(e.v, e.v);
       }
       else if ((w == null) && (v == null) ){
-        System.out.println("We're Failing!");
+        //System.out.println("We're Failing!");
         failed.add(e);
       }
       else if (!(w == null) && !(v == null) ){
@@ -572,6 +586,31 @@ public class Graph {
     return mst;
   }
 
+  public void priorityEdgeInsert(PriorityQueue<Edge> pq, Edge e){
+    GraphNode r = adjNodeMap.get(e.w);
+    String rootName = r.id;
+    while (true){
+      if(r.next == null){
+        break;
+      }
+      else{
+        pq.add(new Edge(r.next.road, rootName, r.next.id, r.next.weight));
+        r = r.next;
+      }
+    }
+
+    r = adjNodeMap.get(e.v);
+    rootName = r.id;
+    while (true){
+      if(r.next == null){
+        break;
+      }
+      else{
+        pq.add(new Edge(r.next.road, rootName, r.next.id, r.next.weight));
+        r = r.next;
+      }
+    }
+  }
   public static double getWeight(Node a, Node b){
     double w = 0;
     double x = Math.abs(b.lat) - Math.abs(a.lat);
