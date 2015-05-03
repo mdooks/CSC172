@@ -203,6 +203,7 @@ public class Graph {
     double lb = getWeight(first, second);
     g.insertList(d, s, lb, n);
     g.edgeMap.put(n, new Edge(n, d, s, lb));
+    g.edgeCount++;
     while (in.hasNext()){
       String r = in.next(); //reads in and ignores the 'r'
       String nam = in.next();
@@ -213,26 +214,27 @@ public class Graph {
       double lbs = getWeight(n1, n2);
       g.insertList(i1, i2, lbs, nam);
       g.edgeMap.put(nam, new Edge(nam, i1, i2, lbs));
+      g.edgeCount++;
     }
     return g;
   }
 
 
-  public void dijksra (Node v, Node w){ //O(n^2)
+  public void dijksra (Node v, Node w){ //improved with info from the wikipedia page on Dijkstra's.
     v.distance = 0;
     v.parent = v;
     dijkstasQueue.add(v);
 
     int i = 0;
-    while (dijkstasQueue.size() != 0){ //O(n)
+    while (dijkstasQueue.size() != 0){ //O(V), but because it runs by weight, the average runtime can be dropped down to O(log(V))
       if(w.known){
         return;
       }
       i++;
 
-      Node t = dijkstasQueue.poll();//O(n)
+      Node t = dijkstasQueue.poll();
       if (t == null){
-        System.out.println("Whoop went null");
+        System.out.println("Whoop went null"); //should never happen
         return;
       }
 
@@ -240,7 +242,7 @@ public class Graph {
       long s = System.currentTimeMillis();
       GraphNode l = adjNodeMap.get(t.name);
       GraphNode[] cons = l.getConnections();
-      for(GraphNode c : cons){ //O(n) //I THINK I CAN BRING THIS DOWN!
+      for(GraphNode c : cons){ //O(E), runs for every connection.
         Node j = nodeMap.get(c.id);
         if (j != null){
           if (!(j.known)){
@@ -287,7 +289,7 @@ public class Graph {
     return null;
   }
 
-  public ArrayList<Edge> Prim (String s){
+  public ArrayList<Edge> Prim (String s){ //based off of information attained from the wikipedia article on Prim's algorithem.
     Node Start = nodeMap.get(s);
     mst = new ArrayList<>();
     HashMap<String, String> inserted = new HashMap<String, String>();
@@ -301,8 +303,8 @@ public class Graph {
 
     priorityEdgeInsert(pq, first);
 
-
-    while (inserted.size() < vertices() && pq.size() != 0){
+    while (inserted.size() <= edges() && pq.size() != 0){ //O(E log(V))
+      //runs for E checking the possible V, where the number of V is devided each time, or log(V), giving ELog(V)
       Edge e = pq.poll();
       String w = inserted.get(e.w);
       String v = inserted.get(e.v);
@@ -319,7 +321,7 @@ public class Graph {
         }
         failed.clear();
         mst.add(e);
-        inserted.put(e.w, e.w);
+        inserted.put(e.w, e.w); //only puts one, the null one is hashed to a meaningless spot
         inserted.put(e.v, e.v);
       }
       else if ((w == null) && (v == null) ){
@@ -330,7 +332,7 @@ public class Graph {
         pq.remove(e);
       }
       else if (e == null){
-        System.out.println("HOW?");
+        System.out.println("HOW?"); //should never happen.
       }
     }
     return mst;

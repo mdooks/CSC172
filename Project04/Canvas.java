@@ -6,6 +6,7 @@ import java.awt.event.KeyListener; //import KeyListener
 import javax.swing.JPanel; //import JPanel
 import java.util.HashMap;
 import java.util.ArrayList;
+import java.awt.*;
 
 public class Canvas extends JPanel {
 
@@ -38,27 +39,26 @@ public class Canvas extends JPanel {
   }
 
 
-  protected void paintComponent(Graphics g){
+  protected void paintComponent(Graphics g){ //O(E^2) for the min wieght, O(EV) for the short path
     super.paintComponent(g);
     Graphics2D g2d = (Graphics2D) g.create();
-
+    g2d.setStroke(new BasicStroke(1));
     xUnit = getWidth()/(maxLong - minLong);
     yUnit = getHeight()/(maxLat - minLat);
 
-    //System.out.println("xUnit " + xUnit + " yUnit " + yUnit);
-    //System.out.println("minLat: " + minLat + " maxLat: " + maxLat + " minLong: " + minLong + " maxLong: " + maxLong);
-    edgePainter(g2d);
+    edgePainter(g2d); //O(E)
+
     if(selection < 0){
-      shortPath(g2d);
+      shortPath(g2d);//O(V)
     }
     else{
-      minWeight(g2d);
+      minWeight(g2d); //O(E)
     }
 
   }
 
-  public void edgePainter(Graphics g2d){
-    for (Edge e : edgeMap.values()){
+  public void edgePainter(Graphics2D g2d){
+    for (Edge e : edgeMap.values()){ //O(E)
       Node a = nodeMap.get(e.w);
       Node b = nodeMap.get(e.v);
       int x1 = (int) ((getHeight() - Math.abs(a.lat - Math.abs(minLat)) * yUnit));
@@ -70,9 +70,10 @@ public class Canvas extends JPanel {
     }
   }
 
-  public void minWeight(Graphics g2d){
+  public void minWeight(Graphics2D g2d){
+    g2d.setStroke(new BasicStroke(2));
     g2d.setColor(Color.RED);
-    for (Edge e : mst){
+    for (Edge e : mst){ //worst case O(E)
       Node a = nodeMap.get(e.w);
       Node b = nodeMap.get(e.v);
       int x1 = (int) ((getHeight() - Math.abs(a.lat - Math.abs(minLat)) * yUnit));
@@ -84,10 +85,11 @@ public class Canvas extends JPanel {
     }
   }
 
-  public void shortPath(Graphics g2d){
+  public void shortPath(Graphics2D g2d){
+    g2d.setStroke(new BasicStroke(2));
     g2d.setColor(Color.BLUE);
     Node a = sp.get(0);
-    for (int i = 1; i < sp.size(); i++){
+    for (int i = 1; i < sp.size(); i++){ //(worst Case O(V))
       Node b = sp.get(i);
       int x1 = (int) ((getHeight() - Math.abs(a.lat - Math.abs(minLat)) * yUnit));
       int y1 = (int) (((a.lon * xUnit)) - minLong * xUnit);
