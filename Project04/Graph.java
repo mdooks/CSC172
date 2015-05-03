@@ -11,13 +11,11 @@
 *
 * Author: Nicholas Graham
 *
-* Email: ngraham@u.rochester.edu
-*
 * Lab Session: Wednesday 6:15 - 7:30
 *
 * Lab TA: Kate Zeng Zhiming
 *
-* Last Revised: April 18, 2015.
+* Last Revised: May 2, 2015
 */
 
 //Taken from lab 20, with code based off of code given in the textbook.

@@ -1,3 +1,23 @@
+/*
+* Project 4
+*
+* Project 4
+*
+* Copyright 2015
+*
+* Course: CSC 172 Spring 2015
+*
+* Assignment: Project 4
+*
+* Author: Nicholas Graham
+*
+* Lab Session: Wednesday 6:15 - 7:30
+*
+* Lab TA: Kate Zeng Zhiming
+*
+* Last Revised: May 2, 2015
+*/
+
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;

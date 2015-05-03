@@ -1,13 +1,13 @@
 /*
-* Lab2
+* Project 4
 *
-* Lab 2
+* Project 4
 *
 * Copyright 2015
 *
 * Course: CSC 172 Spring 2015
 *
-* Assignment: Lab 2
+* Assignment: Project 4
 *
 * Author: Nicholas Graham
 *
@@ -15,7 +15,7 @@
 *
 * Lab TA: Kate Zeng Zhiming
 *
-* Last Revised: January 25, 2014.
+* Last Revised: May 2, 2015
 */
 public class MyNode<AnyType> {
   public AnyType data; //stores the item for the list
